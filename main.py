@@ -39,7 +39,7 @@ app = Ursina()
 
 
 #player
-player = br_player.player("GDcheerios", y=5)
+player = br_player.player("GDcheerios", y=200)
 
 #map
 floor = Entity(model="cube",
