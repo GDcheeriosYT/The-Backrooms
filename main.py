@@ -136,6 +136,19 @@ class BackroomSegment():
         duplicate(light,
                   position=(self.x, 5.8, self.z),
                   parent=parent_light_entity)
+  
+def map_generation():
+  list_of_cords=[]
+  min = -50
+  max = 50
+  multiplier = 5
+  while len(list_of_cords) < 500:
+    cords = (random.randint(random.randint(min, 3), random.randint(3, max))*multiplier, random.randint(random.randint(min, 0), random.randint(0, max)*multiplier))
+    print(cords)
+    if cords not in list_of_cords:
+      list_of_cords.append(cords)
+      BackroomSegment(cords[0], 0, cords[1]).create_segment()
+  
         
 def update():
   if held_keys["shift"]:
