@@ -7,14 +7,6 @@ class player(FirstPersonController):
     self.x = x
     self.y = y
     self.z = z
-    super().__init__(
-      model="resources/player/person.obj",
-      gravity=1,
-      height=0,
-      position=(x,y,z),
-      scale=0.15,
-      collider="box"
-    )
   
   def change_color(self, new_color):
     self.color = new_color
@@ -26,4 +18,14 @@ class player(FirstPersonController):
                            y=1.5,
                            billboard=True,
                            world_scale=10,
-                           x=.5)
+                           x=-5)
+  
+  def spawn(self):
+    super().__init__(
+      model="resources/player/person.obj",
+      gravity=1,
+      height=0,
+      position=(self.x,self.y,self.z),
+      scale=0.15,
+      collider="box"
+    )
