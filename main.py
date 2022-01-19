@@ -42,11 +42,14 @@ app = Ursina()
 player = br_player.player("GDcheerios", y=200)
 
 #map
+parent_wall_entity = Entity()
+parent_light_entity = Entity()
+
 floor = Entity(model="cube",
                texture="resources/levels/level 0/carpet.png",
-               scale=(6000, 0, 6000),
+               scale=(1000, 0, 1000),
                collider="mesh",
-               texture_scale=(5500,5500),
+               texture_scale=(300,300),
                position=(0,0,0),
                shaders=lit_with_shadows_shader)
 wall = Entity(model="cube",
@@ -58,47 +61,102 @@ wall = Entity(model="cube",
               shaders=lit_with_shadows_shader)
 ceiling = Entity(model="cube",
                  texture="resources/levels/level 0/ceiling.png",
-                 scale=(6000, 1, 6000),
-                 texture_scale=(3000,3000),
+                 scale=(1000, 1, 1000),
+                 texture_scale=(500,500),
                  collider="mesh",
-                 color=color.black,
                  position=(0,6,0),
                  shaders=lit_with_shadows_shader)
-
-
-
-
-#entities
-test_player = Entity(model="resources/player/person.obj", position=(-5,0,-5), scale=(0.15))
-test_player.add_script(SmoothFollow(target=player, offset=[0, 0, 0], speed=0.5, rotation_speed=1, rotation_offset=[1,0,1]))
-
-name = Text(text="test player",
-            parent=test_player,
-            y=25,
-            x=-6,
-            color=color.white,
-            billboard=True,
-            world_scale=17)
 
 #lights
 light = Entity(model="cube", texture="resources/levels/level 0/light.png", position=(0,5.8,0), scale=(2.2,1.2,4))
 
 #map construction
 class BackroomSegment():
-  def __init__(self, x=0, y=0, z=0, type="+"):
+  def __init__(self, x=0, y=0, z=0, type=["+", "T"], distance=5, scale=(5, 20, 5)):
     self.x = x
     self.y = y
     self.z = z
     self.type = type
+    self.distance = distance
+    self.scale = scale
+    self.type = type[random.randint(0,1)]
   
   def create_segment(self):
     if self.type == "+":
-      duplicate(wall, scale=(10, 20, 5),
-                position=(self.x + 10, self.y, self.x + 10))      
-
+      duplicate(wall,
+                scale=self.scale,
+                position=(self.x + self.distance, self.y, self.z + self.distance),
+                parent=parent_wall_entity)
+      duplicate(wall,
+                scale=self.scale,
+                position=(self.x - self.distance, self.y, self.z - self.distance),
+                parent=parent_wall_entity)
+      duplicate(wall,
+                scale=self.scale,
+                position=(self.x + self.distance, self.y, self.z - self.distance),
+                parent=parent_wall_entity)
+      duplicate(wall,
+                scale=self.scale,
+                position=(self.x - self.distance, self.y, self.z + self.distance),
+                parent=parent_wall_entity)
+      duplicate(light,
+                position=(self.x, 5.8, self.z),
+                parent=parent_light_entity)
+    elif self.type == "T":
+      rot = random.randint(1, 2)
+      if rot == 1:
+        duplicate(wall,
+                  scale=self.scale,
+                  position=(self.x - self.distance, self.y, self.z - self.distance),
+                  parent=parent_wall_entity)
+        duplicate(wall,
+                  scale=self.scale,
+                  position=(self.x + self.distance, self.y, self.z - self.distance),
+                  parent=parent_wall_entity)
+        duplicate(wall,
+                  scale=(self.scale[0] * 3, self.scale[1], self.scale[2]),
+                  position=(self.x, self.y, self.z + self.distance),
+                  parent=parent_wall_entity)
+        duplicate(light,
+                  position=(self.x, 5.8, self.z),
+                  parent=parent_light_entity)
+      elif rot == 2:
+        duplicate(wall,
+                  scale=self.scale,
+                  position=(self.x + self.distance, self.y, self.z + self.distance),
+                  parent=parent_wall_entity)
+        duplicate(wall,
+                  scale=self.scale,
+                  position=(self.x + self.distance, self.y, self.z - self.distance),
+                  parent=parent_wall_entity)
+        duplicate(wall,
+                  scale=(self.scale[0], self.scale[1], self.scale[2] * 3),
+                  position=(self.x - self.distance, self.y, self.z),
+                  parent=parent_wall_entity)
+        duplicate(light,
+                  position=(self.x, 5.8, self.z),
+                  parent=parent_light_entity)
+        
 def update():
-  if held_keys['f']:
-    for i in range(100):
-      BackroomSegment(random.randint(1, 500), random.randint(1, 500), random.randint(1, 500)).create_segment()
-    
+  if held_keys["f"]:
+    for i in range(1):
+      BackroomSegment(random.randint(random.randint(-100, -1) * 5, random.randint(1, 100)* 5), 0, random.randint(random.randint(-100, -1) * 5, random.randint(1, 100)* 5)).create_segment()
+  if held_keys["g"]:
+    destroy(wall)
+    destroy(light)
+  if held_keys["shift"]:
+    player.speed = 10
+  else:
+    player.speed = 5
+  
+#window setup
+window.title = 'The Backrooms'          # The window title
+window.borderless = False               # Show a border
+window.fullscreen = False                # Do not go Fullscreen
+window.exit_button.visible = False      # Do not show the in-game red X that loses the window
+window.fps_counter.enabled = True       # Show the FPS (Frames per second) counter
+window.vsync = False
+
+player.spawn()
+
 app.run()
