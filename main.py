@@ -138,12 +138,6 @@ class BackroomSegment():
                   parent=parent_light_entity)
         
 def update():
-  if held_keys["f"]:
-    for i in range(1):
-      BackroomSegment(random.randint(random.randint(-100, -1) * 5, random.randint(1, 100)* 5), 0, random.randint(random.randint(-100, -1) * 5, random.randint(1, 100)* 5)).create_segment()
-  if held_keys["g"]:
-    destroy(wall)
-    destroy(light)
   if held_keys["shift"]:
     player.speed = 10
   else:
