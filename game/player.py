@@ -25,7 +25,7 @@ class player(FirstPersonController):
       model="resources/player/person.obj",
       gravity=1,
       height=0,
-      position=(0,3,0),
+      position=(0,5,0),
       scale=0.15,
       speed=5,
       collider="box"
