@@ -47,28 +47,31 @@ parent_light_entity = Entity()
 
 floor = Entity(model="cube",
                texture="resources/levels/level 0/carpet.png",
-               scale=(1000, 0, 1000),
+               scale=(1000, 1, 1000),
                collider="mesh",
                texture_scale=(300,300),
                position=(0,0,0),
-               shaders=lit_with_shadows_shader)
+               shaders=basic_lighting_shader)
 wall = Entity(model="cube",
               texture="resources/levels/level 0/wall.png",
               scale=(0,0,0),
               texture_scale=(1, 2),
               collider="box",
               position=(5,0,5),
-              shaders=lit_with_shadows_shader)
+              shaders=basic_lighting_shader)
 ceiling = Entity(model="cube",
                  texture="resources/levels/level 0/ceiling.png",
                  scale=(1000, 1, 1000),
                  texture_scale=(500,500),
                  collider="mesh",
                  position=(0,6,0),
-                 shaders=lit_with_shadows_shader)
+                 shaders=basic_lighting_shader)
 
 #lights
-light = Entity(model="cube", texture="resources/levels/level 0/light.png", position=(0,5.8,0), scale=(2.2,1.2,4))
+light = PointLight(model="cube", texture="resources/levels/level 0/light.png", color=color.white, position=(0,5.8,0), scale=(2.2,1.2,4), )
+
+player_light = PointLight()
+player_light.add_script(SmoothFollow(target=player, offset=[0, 1, 0], speed=100))
 
 #map construction
 class BackroomSegment():
