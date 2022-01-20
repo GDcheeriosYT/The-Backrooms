@@ -2,11 +2,8 @@ from ursina import *
 from ursina.prefabs.first_person_controller import FirstPersonController
 
 class player(FirstPersonController):
-  def __init__(self, name="player", color="white", x=0, y=0, z=0):
+  def __init__(self, name="player", color="white",):
     self.name = name
-    self.x = x
-    self.y = y
-    self.z = z
   
   def change_color(self, new_color):
     self.color = new_color
@@ -20,12 +17,12 @@ class player(FirstPersonController):
                            world_scale=10,
                            x=-5)
   
-  def spawn(self):
+  def spawn(self, x=0, y=0, z=0):
     super().__init__(
       model="resources/player/person.obj",
       gravity=1,
       height=0,
-      position=(0,5,0),
+      position=(x,y,z),
       scale=0.15,
       speed=5,
       collider="box"
