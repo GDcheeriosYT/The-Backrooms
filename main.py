@@ -329,7 +329,7 @@ def map_generation():
 
 map_generation()
         
-player.spawn(0, 5, 0)
+player.spawn(0, 2, 0)
 
 def update():
   if held_keys["shift"]:
