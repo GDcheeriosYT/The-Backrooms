@@ -41,7 +41,7 @@ app = Ursina()
 
 
 #player
-player = br_player.player("GDcheerios", y=200)
+player = br_player.player("GDcheerios")
 
 #map
 parent_wall_entity = Entity()
