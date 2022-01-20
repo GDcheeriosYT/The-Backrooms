@@ -49,7 +49,7 @@ parent_light_entity = Entity()
 
 floor = Entity(model="cube",
                texture="resources/levels/level 0/carpet.png",
-               scale=(1000, 1, 1000),
+               scale=(1000, 2, 1000),
                collider="mesh",
                texture_scale=(300,300),
                position=(0,0,0),
