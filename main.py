@@ -265,8 +265,8 @@ class BackroomSegment():
 list_of_cords=[]
 
 def map_generation():
-  min = -5
-  max = 5
+  min = 5
+  max = 20
   print(f"the map is {min} by {max}")
   diff = max - min
   multiplier = 15
