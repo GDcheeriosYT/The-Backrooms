@@ -202,13 +202,6 @@ def map_generation():
   max = random.randint(5, 20)
   print(f"the map is {min} by {max}")
   diff = max - min
-  if diff > 15:
-    print("warning this map is bigger than 15 units")
-    regen = input("Y or N regenerate with new seed?\n")
-    if regen == "Y" or regen == "y":
-      random.seed(input("seed: "))
-    else:
-      print("alright")
   multiplier = 15
   z = min
   x = min
