@@ -35,6 +35,8 @@ from game import entity as br_entity
 from game import player as br_player
 from game import buttons
 
+random.seed(input("seed: "))
+
 app = Ursina()
 
 
