@@ -53,6 +53,7 @@ Texture.default_filtering = "mipmap"
 
 #player
 player = br_player.player("GDcheerios")
+br_player.player.camera.y = 5
 
 #map
 parent_wall_entity = Entity()
