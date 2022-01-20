@@ -57,7 +57,7 @@ floor = Entity(model="cube",
 wall = Entity(model="cube",
               texture="resources/levels/level 0/wall.png",
               scale=(0,0,0),
-              texture_scale=(1, 2),
+              texture_scale=(0.5, 2),
               collider="box",
               position=(5,0,5),
               shaders=basic_lighting_shader)
