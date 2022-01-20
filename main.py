@@ -70,10 +70,8 @@ ceiling = Entity(model="cube",
                  shaders=basic_lighting_shader)
 
 #lights
-light = PointLight(model="cube", texture="resources/levels/level 0/light.png", color=color.white, position=(0,5.8,0), scale=(2.2,1.2,4), )
-
-player_light = PointLight()
-player_light.add_script(SmoothFollow(target=player, offset=[0, 1, 0], speed=100))
+light = Entity(model="cube", texture="resources/levels/level 0/light.png", color=color.white, position=(0,5.8,0), scale=(2.2,1.2,4))
+#light_emit = LitPointLight(position=Vec3(0,5.5,0), intensity=1, range=30)
 
 #map construction
 class BackroomSegment():
