@@ -21,11 +21,11 @@ class player(FirstPersonController):
     super().__init__(
       model="resources/player/person.obj",
       gravity=1,
-      height=,
       position=(x,y,z),
       scale=0.15,
       speed=5,
       jump_height=0,
       collider="box",
     )
-    
+
+    camera.position = (0,10,0)
