@@ -269,6 +269,8 @@ def map_generation():
 
 map_generation()
         
+player.spawn(0, 5, 0)
+
 def update():
   if held_keys["shift"]:
     player.speed = 10
@@ -283,6 +285,5 @@ window.exit_button.visible = False      # Do not show the in-game red X that los
 window.fps_counter.enabled = True       # Show the FPS (Frames per second) counter
 window.vsync = False
 
-player.spawn()
 
 app.run()
