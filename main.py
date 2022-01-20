@@ -75,14 +75,17 @@ light = Entity(model="cube", texture="resources/levels/level 0/light.png", color
 
 #map construction
 class BackroomSegment():
-  def __init__(self, x=0, y=0, z=0, type=["+", "T"], distance=5, scale=(5, 20, 5)):
+  def __init__(self, x=0, y=0, z=0, type=["+", "T", "|"], distance=5, scale=(5, 20, 5)):
     self.x = x
     self.y = y
     self.z = z
     self.type = type
     self.distance = distance
     self.scale = scale
-    self.type = type[random.randint(0,1)]
+    try:
+      self.type = type[random.randint(0,len(type))]
+    except:
+      self.type = type
   
   def create_segment(self):
     if self.type == "+":
@@ -106,7 +109,7 @@ class BackroomSegment():
                 position=(self.x, 5.8, self.z),
                 parent=parent_light_entity)
     elif self.type == "T":
-      rot = random.randint(1, 2)
+      rot = random.randint(1, 4)
       if rot == 1:
         duplicate(wall,
                   scale=self.scale,
@@ -139,7 +142,59 @@ class BackroomSegment():
         duplicate(light,
                   position=(self.x, 5.8, self.z),
                   parent=parent_light_entity)
-  
+      elif rot == 3:
+        duplicate(wall,
+                  scale=self.scale,
+                  position=(self.x + self.distance, self.y, self.z + self.distance),
+                  parent=parent_wall_entity)
+        duplicate(wall,
+                  scale=self.scale,
+                  position=(self.x - self.distance, self.y, self.z + self.distance),
+                  parent=parent_wall_entity)
+        duplicate(wall,
+                  scale=(self.scale[0] * 3, self.scale[1], self.scale[2]),
+                  position=(self.x, self.y, self.z - self.distance),
+                  parent=parent_wall_entity)
+        duplicate(light,
+                  position=(self.x, 5.8, self.z),
+                  parent=parent_light_entity)
+      elif rot == 4:
+        duplicate(wall,
+                  scale=self.scale,
+                  position=(self.x - self.distance, self.y, self.z + self.distance),
+                  parent=parent_wall_entity)
+        duplicate(wall,
+                  scale=self.scale,
+                  position=(self.x - self.distance, self.y, self.z - self.distance),
+                  parent=parent_wall_entity)
+        duplicate(wall,
+                  scale=(self.scale[0], self.scale[1], self.scale[2] * 3),
+                  position=(self.x + self.distance, self.y, self.z),
+                  parent=parent_wall_entity)
+        duplicate(light,
+                  position=(self.x, 5.8, self.z),
+                  parent=parent_light_entity)
+      elif self.type == "|":
+        rot = random.randint(1,2)
+        if rot == 1:
+          duplicate(wall,
+                    scale=(self.scale[0] * 3, self.scale[1], self.scale[2]),
+                    position=(self.x, self.y, self.z - self.distance),
+                    parent=parent_wall_entity)
+          duplicate(wall,
+                    scale=(self.scale[0] * 3, self.scale[1], self.scale[2]),
+                    position=(self.x, self.y, self.z + self.distance),
+                    parent=parent_wall_entity)
+        elif rot == 2:
+          duplicate(wall,
+                    scale=(self.scale[0], self.scale[1], self.scale[2] * 3),
+                    position=(self.x - self.distance, self.y, self.z),
+                    parent=parent_wall_entity)
+          duplicate(wall,
+                    scale=(self.scale[0], self.scale[1], self.scale[2] * 3),
+                    position=(self.x + self.distance, self.y, self.z),
+                    parent=parent_wall_entity)
+
 def map_generation():
   list_of_cords=[]
   min = -50
