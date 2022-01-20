@@ -195,18 +195,79 @@ class BackroomSegment():
                     position=(self.x + self.distance, self.y, self.z),
                     parent=parent_wall_entity)
 
+list_of_cords=[]
+
 def map_generation():
-  list_of_cords=[]
-  min = -50
-  max = 50
-  multiplier = 5
-  while len(list_of_cords) < 500:
-    cords = (random.randint(random.randint(min, 3), random.randint(3, max))*multiplier, random.randint(random.randint(min, 0), random.randint(0, max)*multiplier))
-    print(cords)
-    if cords not in list_of_cords:
+  min = random.randint(-20, -5)
+  max = random.randint(5, 20)
+  print(f"the map is {min} by {max}")
+  diff = max - min
+  if diff > 15:
+    print("warning this map is bigger than 15 units")
+    regen = input("Y or N regenerate with new seed?\n")
+    if regen == "Y" or regen == "y":
+      random.seed(input("seed: "))
+    else:
+      print("alright")
+  multiplier = 15
+  z = min
+  x = min
+  while z <= diff:
+    while x <= diff:
+      cords = [x, z]
+      percent = int((z /  diff) * 100)
+      if percent < 0:
+        percent = 0
+      print(f"initializing cords: {cords} {percent}%")
+      global list_of_cords
       list_of_cords.append(cords)
-      BackroomSegment(cords[0], 0, cords[1]).create_segment()
+      x += 1
+    x = min
+    z += 1
   
+  count = 0
+  print("done!")
+  time.sleep(0.5)
+  for cord in list_of_cords:
+    if cord[0] <= -abs(diff) or cord[0] >= diff:
+      cord[0] = cord[0]
+      if cord[1] <= -abs(diff) or cord[1] >= diff:
+        cord[1] = cord[1]
+      elif cord[1] == 0:
+        cord[1] = None
+      else:
+        cord[1] = cord[1] * multiplier
+    elif cord[0] == 0:
+      cord[0] = None
+      if cord[1] <= -abs(diff) or cord[1] >= diff:
+        cord[1] = cord[1]
+      elif cord[1] == 0:
+        cord[1] = None
+      else:
+        cord[1] = cord[1] * multiplier
+    else:
+      cord[0] = cord[0] * multiplier
+      if cord[1] <= -abs(diff) or cord[1] >= diff:
+        cord[1] = cord[1]
+      elif cord[1] == 0:
+        cord[1] = None
+      else:
+        cord[1] = cord[1] * multiplier
+    
+    if cord[0] == None or cord[1] == None:
+      print(f"map generation: -{cords} {int((list_of_cords.index(cord) / len(list_of_cords)) * 100)}% --- SKIPPED ENTITTY CREATION")
+    else:
+      cords = (cord[0], cord[1]) #converting into tuple
+      print(f"map generation: {cords} {int((list_of_cords.index(cord) / len(list_of_cords)) * 100)}%")
+      BackroomSegment(cords[0], 0, cords[1]).create_segment()
+      
+      
+    count+=1
+  
+  print("done!")
+  time.sleep(0.5)
+
+map_generation()
         
 def update():
   if held_keys["shift"]:
