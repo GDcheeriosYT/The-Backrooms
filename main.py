@@ -63,6 +63,8 @@ Lighter_light = LitPointLight(range=5, intensity=10, position=Vec3(4, 3, 0))
 parent_wall_entity = Entity()
 parent_light_entity = Entity()
 
+hum = Audio("resources\levels\level 0\Backrooms sound.mp3", loop=True)
+
 floor = LitObject(model="cube",
                texture=Texture("resources/levels/level 0/carpet.png"),
                scale=(1000, 2, 1000),
