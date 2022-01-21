@@ -48,6 +48,9 @@ window.vsync = False
 #texture setup
 Texture.default_filtering = "mipmap"
 
+#console setup
+application.print_warnings = False
+
 
 #player
 player = br_player.player("GDcheerios")
