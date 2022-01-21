@@ -55,6 +55,10 @@ application.print_warnings = False
 #player
 player = br_player.player("GDcheerios")
 
+#entities
+Lighter = LitObject(model="sphere", color=color.white, position=(4, 3, 0)).add_script(SmoothFollow(target=player, offset=[0, 1, 0], speed=1))
+Lighter_light = LitPointLight(range=5, intensity=10, position=Vec3(4, 3, 0))
+
 #map
 parent_wall_entity = Entity()
 parent_light_entity = Entity()
