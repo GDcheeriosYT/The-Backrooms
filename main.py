@@ -56,14 +56,15 @@ application.print_warnings = False
 player = br_player.player("GDcheerios")
 
 #entities
-Lighter = LitObject(model="sphere", color=color.white, position=(4, 3, 0)).add_script(SmoothFollow(target=player, offset=[0, 1, 0], speed=1))
-Lighter_light = LitPointLight(range=5, intensity=10, position=Vec3(4, 3, 0))
+#Lighter = LitObject(model="sphere", color=color.white, position=(4, 3, 0)).add_script(SmoothFollow(target=player, offset=[0, 1, 0], speed=1))
+#Lighter_light = LitPointLight(range=5, intensity=10, position=Vec3(4, 3, 0))
 
 #map
 parent_wall_entity = Entity()
 parent_light_entity = Entity()
 
-hum = Audio("resources\levels\level 0\Backrooms sound.mp3", loop=True)
+#hum = Audio("resources\levels\level 0\Backrooms sound.mp3", loop=True)
+#hum.volume = 0.3
 
 floor = LitObject(model="cube",
                texture=Texture("resources/levels/level 0/carpet.png"),
@@ -244,8 +245,8 @@ class BackroomSegment():
 list_of_cords=[]
 
 def map_generation():
-  min = 1
-  max = 1
+  min = -20
+  max = 20
   print(f"the map is {min} by {max}")
   diff = max - min
   multiplier = 15
@@ -274,8 +275,8 @@ def map_generation():
     duplicate(light,
               position=(cords[0], 5.8, cords[1]),
               parent=parent_light_entity)
-    lightmode = [0, 1, 1, 1]
-    LitPointLight(position=Vec3(cords[0],4,cords[1]), intensity=lightmode[random.randint(0, 3)], color=rgb(248, 252, 150))
+    lightmode = [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+    LitPointLight(position=Vec3(cords[0],4,cords[1]), intensity=lightmode[random.randint(0, len(lightmode)-1)], color=rgb(248, 252, 150))
       
     count+=1
   
@@ -288,10 +289,13 @@ map_generation()
 parent_wall_entity.combine()
 parent_light_entity.combine()
 
+parent_wall_entity.texture = "resources/levels/level 0/wall.png"
+parent_wall_entity.collision="box"
+
 print("object count:", len(scene.entities))
         
 player.spawn(0, 2, 0)
-hum.play()
+#hum.play()
 
 def update():
   if held_keys["shift"]:
