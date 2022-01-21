@@ -91,11 +91,11 @@ ceiling = LitObject(model="cube",
 
 #lights
 light = LitObject(model="cube", texture=Texture("resources/levels/level 0/light.png"), color=color.white, position=(0,5.8,0), scale=(2.2,1.2,4), specularMap=load_texture("resources/levels/level 0/noreflect.png"))
-LitPointLight(position=Vec3(0,4,0), intensity=2)
+LitPointLight(position=Vec3(0,4,0), intensity=1, color=rgb(248, 252, 150))
 
 #map construction
 class BackroomSegment():
-  def __init__(self, x=0, y=0, z=0, type=["+", "T", "|"], distance=5, scale=(5, 20, 5), light_intensity=2, light_height=4):
+  def __init__(self, x=0, y=0, z=0, type=["+", "T", "|"], distance=5, scale=(5, 12, 5)):
     self.x = x
     self.y = y
     self.z = z
@@ -106,8 +106,6 @@ class BackroomSegment():
       self.type = type[random.randint(0,len(type))]
     except:
       self.type = type
-    self.light_intensity = light_intensity
-    self.light_height = light_height
     
   def create_segment(self):
     if self.type == "+":
@@ -135,10 +133,6 @@ class BackroomSegment():
                 parent=parent_wall_entity,
                 specularMap=load_texture("resources/levels/level 0/noreflect.png"),
                 cubemapIntensity=0)
-      duplicate(light,
-                position=(self.x, 5.8, self.z),
-                parent=parent_light_entity)
-      LitPointLight(position=Vec3(self.x,self.light_height,self.z), intensity=self.light_intensity)
     elif self.type == "T":
       rot = random.randint(1, 4)
       if rot == 1:
@@ -146,135 +140,112 @@ class BackroomSegment():
                   scale=self.scale,
                   position=(self.x - self.distance, self.y, self.z - self.distance),
                   parent=parent_wall_entity,
-                specularMap=load_texture("resources/levels/level 0/noreflect.png"),
-                cubemapIntensity=0)
+                  specularMap=load_texture("resources/levels/level 0/noreflect.png"),
+                  cubemapIntensity=0)
         duplicate(wall,
                   scale=self.scale,
                   position=(self.x + self.distance, self.y, self.z - self.distance),
                   parent=parent_wall_entity,
-                specularMap=load_texture("resources/levels/level 0/noreflect.png"),
-                cubemapIntensity=0)
+                  specularMap=load_texture("resources/levels/level 0/noreflect.png"),
+                  cubemapIntensity=0)
         duplicate(wall,
                   scale=(self.scale[0] * 3, self.scale[1], self.scale[2]),
                   position=(self.x, self.y, self.z + self.distance),
                   parent=parent_wall_entity,
-                specularMap=load_texture("resources/levels/level 0/noreflect.png"),
-                cubemapIntensity=0)
-        duplicate(light,
-                  position=(self.x, 5.8, self.z),
-                  parent=parent_light_entity)
-        LitPointLight(position=Vec3(self.x,self.light_height,self.z), intensity=self.light_intensity)
+                  specularMap=load_texture("resources/levels/level 0/noreflect.png"),
+                  cubemapIntensity=0)
       elif rot == 2:
         duplicate(wall,
                   scale=self.scale,
                   position=(self.x + self.distance, self.y, self.z + self.distance),
                   parent=parent_wall_entity,
-                specularMap=load_texture("resources/levels/level 0/noreflect.png"),
-                cubemapIntensity=0)
+                  specularMap=load_texture("resources/levels/level 0/noreflect.png"),
+                  cubemapIntensity=0)
         duplicate(wall,
                   scale=self.scale,
                   position=(self.x + self.distance, self.y, self.z - self.distance),
                   parent=parent_wall_entity,
-                specularMap=load_texture("resources/levels/level 0/noreflect.png"),
-                cubemapIntensity=0)
+                  specularMap=load_texture("resources/levels/level 0/noreflect.png"),
+                  cubemapIntensity=0)
         duplicate(wall,
                   scale=(self.scale[0], self.scale[1], self.scale[2] * 3),
                   position=(self.x - self.distance, self.y, self.z),
                   parent=parent_wall_entity,
-                specularMap=load_texture("resources/levels/level 0/noreflect.png"),
-                cubemapIntensity=0)
-        duplicate(light,
-                  position=(self.x, 5.8, self.z),
-                  parent=parent_light_entity)
-        LitPointLight(position=Vec3(self.x,self.light_height,self.z), intensity=self.light_intensity)
+                  specularMap=load_texture("resources/levels/level 0/noreflect.png"),
+                  cubemapIntensity=0)
       elif rot == 3:
         duplicate(wall,
                   scale=self.scale,
                   position=(self.x + self.distance, self.y, self.z + self.distance),
                   parent=parent_wall_entity,
-                specularMap=load_texture("resources/levels/level 0/noreflect.png"),
-                cubemapIntensity=0)
+                  specularMap=load_texture("resources/levels/level 0/noreflect.png"),
+                  cubemapIntensity=0)
         duplicate(wall,
                   scale=self.scale,
                   position=(self.x - self.distance, self.y, self.z + self.distance),
                   parent=parent_wall_entity,
-                specularMap=load_texture("resources/levels/level 0/noreflect.png"),
-                cubemapIntensity=0)
+                  specularMap=load_texture("resources/levels/level 0/noreflect.png"),
+                  cubemapIntensity=0)
         duplicate(wall,
                   scale=(self.scale[0] * 3, self.scale[1], self.scale[2]),
                   position=(self.x, self.y, self.z - self.distance),
                   parent=parent_wall_entity,
-                specularMap=load_texture("resources/levels/level 0/noreflect.png"),
-                cubemapIntensity=0)
-        duplicate(light,
-                  position=(self.x, 5.8, self.z),
-                  parent=parent_light_entity)
-        LitPointLight(position=Vec3(self.x,self.light_height,self.z), intensity=self.light_intensity)
+                  specularMap=load_texture("resources/levels/level 0/noreflect.png"),
+                  cubemapIntensity=0)
       elif rot == 4:
         duplicate(wall,
                   scale=self.scale,
                   position=(self.x - self.distance, self.y, self.z + self.distance),
                   parent=parent_wall_entity,
-                specularMap=load_texture("resources/levels/level 0/noreflect.png"),
-                cubemapIntensity=0)
+                  specularMap=load_texture("resources/levels/level 0/noreflect.png"),
+                  cubemapIntensity=0)
         duplicate(wall,
                   scale=self.scale,
                   position=(self.x - self.distance, self.y, self.z - self.distance),
                   parent=parent_wall_entity,
-                specularMap=load_texture("resources/levels/level 0/noreflect.png"),
-                cubemapIntensity=0)
+                  specularMap=load_texture("resources/levels/level 0/noreflect.png"),
+                  cubemapIntensity=0)
         duplicate(wall,
                   scale=(self.scale[0], self.scale[1], self.scale[2] * 3),
                   position=(self.x + self.distance, self.y, self.z),
                   parent=parent_wall_entity,
-                specularMap=load_texture("resources/levels/level 0/noreflect.png"),
-                cubemapIntensity=0)
-        duplicate(light,
-                  position=(self.x, 5.8, self.z),
-                  parent=parent_light_entity)
-        LitPointLight(position=Vec3(self.x,self.light_height,self.z), intensity=self.light_intensity)
-      elif self.type == "|":
-        rot = random.randint(1,2)
-        if rot == 1:
-          duplicate(wall,
-                    scale=(self.scale[0] * 3, self.scale[1], self.scale[2]),
-                    position=(self.x, self.y, self.z - self.distance),
-                    parent=parent_wall_entity,
-                specularMap=load_texture("resources/levels/level 0/noreflect.png"),
-                cubemapIntensity=0)
-          duplicate(wall,
-                    scale=(self.scale[0] * 3, self.scale[1], self.scale[2]),
-                    position=(self.x, self.y, self.z + self.distance),
-                    parent=parent_wall_entity,
-                specularMap=load_texture("resources/levels/level 0/noreflect.png"),
-                cubemapIntensity=0)
-          duplicate(light,
-                  position=(self.x, 5.8, self.z),
-                  parent=parent_light_entity)
-          LitPointLight(position=Vec3(self.x,self.light_height,self.z), intensity=self.light_intensity)
-        elif rot == 2:
-          duplicate(wall,
-                    scale=(self.scale[0], self.scale[1], self.scale[2] * 3),
-                    position=(self.x - self.distance, self.y, self.z),
-                    parent=parent_wall_entity,
-                specularMap=load_texture("resources/levels/level 0/noreflect.png"),
-                cubemapIntensity=0)
-          duplicate(wall,
-                    scale=(self.scale[0], self.scale[1], self.scale[2] * 3),
-                    position=(self.x + self.distance, self.y, self.z),
-                    parent=parent_wall_entity,
-                specularMap=load_texture("resources/levels/level 0/noreflect.png"),
-                cubemapIntensity=0)
-          duplicate(light,
-                  position=(self.x, 5.8, self.z),
-                  parent=parent_light_entity)
-          LitPointLight(position=Vec3(self.x,self.light_height,self.z), intensity=self.light_intensity)
-
+                  specularMap=load_texture("resources/levels/level 0/noreflect.png"),
+                  cubemapIntensity=0)
+        
+    elif self.type == "|":
+      rot = random.randint(1,2)
+      if rot == 1:
+        duplicate(wall,
+                  scale=(self.scale[0] * 3, self.scale[1], self.scale[2]),
+                  position=(self.x, self.y, self.z - self.distance),
+                  parent=parent_wall_entity,
+                  specularMap=load_texture("resources/levels/level 0/noreflect.png"),
+                  cubemapIntensity=0)
+        duplicate(wall,
+                  scale=(self.scale[0] * 3, self.scale[1], self.scale[2]),
+                  position=(self.x, self.y, self.z + self.distance),
+                  parent=parent_wall_entity,
+                  specularMap=load_texture("resources/levels/level 0/noreflect.png"),
+                  cubemapIntensity=0)
+      elif rot == 2:
+        duplicate(wall,
+                  scale=(self.scale[0], self.scale[1], self.scale[2] * 3),
+                  position=(self.x - self.distance, self.y, self.z),
+                  parent=parent_wall_entity,
+                  specularMap=load_texture("resources/levels/level 0/noreflect.png"),
+                  cubemapIntensity=0)
+        duplicate(wall,
+                  scale=(self.scale[0], self.scale[1], self.scale[2] * 3),
+                  position=(self.x + self.distance, self.y, self.z),
+                  parent=parent_wall_entity,
+                  specularMap=load_texture("resources/levels/level 0/noreflect.png"),
+                  cubemapIntensity=0)
+        
 list_of_cords=[]
 
 def map_generation():
-  min = 5
-  max = 20
+  min = 1
+  max = 1
   print(f"the map is {min} by {max}")
   diff = max - min
   multiplier = 15
@@ -297,38 +268,14 @@ def map_generation():
   print("done!")
   time.sleep(0.5)
   for cord in list_of_cords:
-    if cord[0] <= -abs(diff) or cord[0] >= diff:
-      cord[0] = cord[0]
-      if cord[1] <= -abs(diff) or cord[1] >= diff:
-        cord[1] = cord[1]
-      elif cord[1] == 0:
-        cord[1] = None
-      else:
-        cord[1] = cord[1] * multiplier
-    elif cord[0] == 0:
-      cord[0] = None
-      if cord[1] <= -abs(diff) or cord[1] >= diff:
-        cord[1] = cord[1]
-      elif cord[1] == 0:
-        cord[1] = None
-      else:
-        cord[1] = cord[1] * multiplier
-    else:
-      cord[0] = cord[0] * multiplier
-      if cord[1] <= -abs(diff) or cord[1] >= diff:
-        cord[1] = cord[1]
-      elif cord[1] == 0:
-        cord[1] = None
-      else:
-        cord[1] = cord[1] * multiplier
-    
-    if cord[0] == None or cord[1] == None:
-      print(f"map generation: -{cords} {int((list_of_cords.index(cord) / len(list_of_cords)) * 100)}% --- SKIPPED ENTITTY CREATION")
-    else:
-      cords = (cord[0], cord[1]) #converting into tuple
-      print(f"map generation: {cords} {int((list_of_cords.index(cord) / len(list_of_cords)) * 100)}%")
-      BackroomSegment(cords[0], 0, cords[1]).create_segment()
-      
+    cords = (cord[0] * multiplier, cord[1] * multiplier) #converting into tuple
+    print(f"map generation: {cords} {int((list_of_cords.index(cord) / len(list_of_cords)) * 100)}%")
+    BackroomSegment(cords[0], 0, cords[1]).create_segment()
+    duplicate(light,
+              position=(cords[0], 5.8, cords[1]),
+              parent=parent_light_entity)
+    lightmode = [0, 1, 1, 1]
+    LitPointLight(position=Vec3(cords[0],4,cords[1]), intensity=lightmode[random.randint(0, 3)], color=rgb(248, 252, 150))
       
     count+=1
   
