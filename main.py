@@ -336,6 +336,12 @@ def map_generation():
   time.sleep(0.5)
 
 map_generation()
+
+#perfmorance
+parent_wall_entity.combine()
+parent_light_entity.combine()
+
+print("object count:", len(scene.entities))
         
 player.spawn(0, 2, 0)
 hum.play()
