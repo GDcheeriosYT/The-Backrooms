@@ -2,6 +2,10 @@ import subprocess
 import sys
 import time
 from turtle import position
+print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To The Backrooms Game")
+time.sleep(1.5)
+print("Will now begin program setup")
+time.sleep(1.5)
 
 def install(package):
     print(f"installing requirement {package}")
@@ -27,6 +31,12 @@ try:
 except:
   install("numpy")
   
+try:
+  import webbrowser
+except:
+  install("webbrowser")
+  import webbrowser
+
 from UrsinaLighting import *
 from msilib.schema import Billboard
 from game import entity as br_entity
@@ -283,7 +293,42 @@ def map_generation():
   print("done!")
   time.sleep(0.5)
 
-map_generation()
+name = input("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWhat shall your name be?\n")
+time.sleep(0.5)
+print(f"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n{name} Eh?")
+time.sleep(1.5)
+print("Nice name.")
+time.sleep(1.5)
+print(f"Well {name}, welcome to the backrooms.")
+time.sleep(2)
+print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nChoose your color using the following tool:")
+time.sleep(3)
+webbrowser.open_new_tab('https://www.google.com/search?q=rgb+color+picker&rlz=1C1SQJL_enUS967US967&sxsrf=AOaemvLTpu0WEA2PhK4x_ya_FmXlE1mCCg%3A1642818658427&ei=YmzrYaybGYW2qtsP9rK16AQ&ved=0ahUKEwis1MK0qMT1AhUFm2oFHXZZDU0Q4dUDCA4&uact=5&oq=rgb+color+picker&gs_lcp=Cgdnd3Mtd2l6EAMyBwgAELEDEEMyBAgAEEMyBQgAEIAEMgYIABAHEB4yBggAEAcQHjIFCAAQgAQyBQgAEIAEMgYIABAHEB4yBQgAEIAEMgUIABCABDoHCAAQRxCwAzoHCAAQsAMQQ0oECEEYAEoECEYYAFD9CVj9CWCFDWgCcAJ4AIABS4gBS5IBATGYAQCgAQHIAQrAAQE&sclient=gws-wiz')
+print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nUse the R G B on the right to enter the following:")
+time.sleep(1.5)
+R = int(input("R: "))
+G = int(input("G: "))
+B = int(input("B: "))
+
+player = br_player.Player(name, color=(R,G,B))
+
+print("Thank You!")
+ip = input("Now just enter server ip: ")
+
+Client = UrsinaNetworkingClient(ip, 6990)
+
+@Client.event
+def onConnectionEtablished():
+    print(f"{name}, {ip} welcomes you!")
+
+@Client.event
+def HelloFromServer(content):
+    print(f"{content}")
+
+@Client.event
+def map_requested(seed):
+  map_generation(seed)
+
 
 #perfmorance
 parent_wall_entity.combine()
