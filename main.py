@@ -1,7 +1,11 @@
+
 import subprocess
 import sys
 import time
-from turtle import position
+import asyncio
+
+
+
 print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To The Backrooms Game")
 time.sleep(1.5)
 print("Will now begin program setup")
@@ -30,6 +34,7 @@ try:
   import numpy
 except:
   install("numpy")
+  import numpy
   
 try:
   import webbrowser
@@ -38,14 +43,15 @@ except:
   import webbrowser
 
 from UrsinaLighting import *
-from msilib.schema import Billboard
 from game import entity as br_entity
 from game import player as br_player
 from game import buttons
 
-random.seed(input("seed: "))
-
 app = Ursina()
+
+#map
+parent_wall_entity = Entity()
+parent_light_entity = Entity()
 
 #window setup
 window.title = 'The Backrooms'          # The window title
@@ -61,26 +67,14 @@ Texture.default_filtering = "mipmap"
 #console setup
 application.print_warnings = False
 
-
-#player
-player = br_player.player("GDcheerios")
-
-#entities
-#Lighter = LitObject(model="sphere", color=color.white, position=(4, 3, 0)).add_script(SmoothFollow(target=player, offset=[0, 1, 0], speed=1))
-#Lighter_light = LitPointLight(range=5, intensity=10, position=Vec3(4, 3, 0))
-
-#map
-parent_wall_entity = Entity()
-parent_light_entity = Entity()
-
-#hum = Audio("resources\levels\level 0\Backrooms sound.mp3", loop=True)
-#hum.volume = 0.3
+hum = Audio("resources\levels\level 0\Backrooms sound.mp3", loop=True)
+hum.volume = 0.3
 
 floor = LitObject(model="cube",
                texture=Texture("resources/levels/level 0/carpet.png"),
-               scale=(3000, 1, 3000),
+               scale=(1000, 1, 1000),
                collider="mesh",
-               tiling=(1000,1000),
+               tiling=(250,250),
                position=(0,0,0),
                specularMap=load_texture("resources/levels/level 0/noreflect.png"),
                cubemapIntensity=0)
@@ -93,16 +87,17 @@ wall = LitObject(model="cube",
               cubemapIntensity=0)
 ceiling = LitObject(model="cube",
                  texture=Texture("resources/levels/level 0/ceiling.png"),
-                 scale=(3000, 1, 3000),
-                 tiling=(1500,1500),
+                 scale=(1000, 1, 1000),
+                 tiling=(500,500),
                  collider="mesh",
                  position=(0,6,0),
                  specularMap=load_texture("resources/levels/level 0/noreflect.png"),
                  cubemapIntensity=0)
+collider = Entity(collider="box", scale=(0,0,0), position=(349024859,0,0))
 
 #lights
-light = LitObject(model="cube", texture=Texture("resources/levels/level 0/light.png"), color=color.white, position=(0,5.8,0), scale=(2.2,1.2,4), specularMap=load_texture("resources/levels/level 0/noreflect.png"))
-LitPointLight(position=Vec3(0,4,0), intensity=1, color=rgb(248, 252, 150))
+light = Entity(model="cube", texture=Texture("resources/levels/level 0/light.png"), color=color.white, position=(100,5.8,100), scale=(2.2,1.2,4), specularMap=load_texture("resources/levels/level 0/noreflect.png"))
+LitPointLight(position=Vec3(0,0,0), intensity=1, color=rgb(248, 252, 150))
 
 #map construction
 class BackroomSegment():
@@ -126,24 +121,36 @@ class BackroomSegment():
                 parent=parent_wall_entity,
                 specularMap=load_texture("resources/levels/level 0/noreflect.png"),
                 cubemapIntensity=0)
+      duplicate(collider,
+                scale=self.scale,
+                position=(self.x + self.distance, self.y, self.z + self.distance))
       duplicate(wall,
                 scale=self.scale,
                 position=(self.x - self.distance, self.y, self.z - self.distance),
                 parent=parent_wall_entity,
                 specularMap=load_texture("resources/levels/level 0/noreflect.png"),
                 cubemapIntensity=0)
+      duplicate(collider,
+                scale=self.scale,
+                position=(self.x - self.distance, self.y, self.z - self.distance))
       duplicate(wall,
                 scale=self.scale,
                 position=(self.x + self.distance, self.y, self.z - self.distance),
                 parent=parent_wall_entity,
                 specularMap=load_texture("resources/levels/level 0/noreflect.png"),
                 cubemapIntensity=0)
+      duplicate(collider,
+                scale=self.scale,
+                position=(self.x + self.distance, self.y, self.z - self.distance))
       duplicate(wall,
                 scale=self.scale,
                 position=(self.x - self.distance, self.y, self.z + self.distance),
                 parent=parent_wall_entity,
                 specularMap=load_texture("resources/levels/level 0/noreflect.png"),
                 cubemapIntensity=0)
+      duplicate(collider,
+                scale=self.scale,
+                position=(self.x - self.distance, self.y, self.z + self.distance))
     elif self.type == "T":
       rot = random.randint(1, 4)
       if rot == 1:
@@ -153,18 +160,27 @@ class BackroomSegment():
                   parent=parent_wall_entity,
                   specularMap=load_texture("resources/levels/level 0/noreflect.png"),
                   cubemapIntensity=0)
+        duplicate(collider,
+                  scale=self.scale,
+                  position=(self.x - self.distance, self.y, self.z - self.distance))
         duplicate(wall,
                   scale=self.scale,
                   position=(self.x + self.distance, self.y, self.z - self.distance),
                   parent=parent_wall_entity,
                   specularMap=load_texture("resources/levels/level 0/noreflect.png"),
                   cubemapIntensity=0)
+        duplicate(collider,
+                  scale=self.scale,
+                  position=(self.x + self.distance, self.y, self.z - self.distance))
         duplicate(wall,
                   scale=(self.scale[0] * 3, self.scale[1], self.scale[2]),
                   position=(self.x, self.y, self.z + self.distance),
                   parent=parent_wall_entity,
                   specularMap=load_texture("resources/levels/level 0/noreflect.png"),
                   cubemapIntensity=0)
+        duplicate(collider,
+                  scale=(self.scale[0] * 3, self.scale[1], self.scale[2]),
+                  position=(self.x, self.y, self.z + self.distance),)
       elif rot == 2:
         duplicate(wall,
                   scale=self.scale,
@@ -172,18 +188,27 @@ class BackroomSegment():
                   parent=parent_wall_entity,
                   specularMap=load_texture("resources/levels/level 0/noreflect.png"),
                   cubemapIntensity=0)
+        duplicate(collider,
+                  scale=self.scale,
+                  position=(self.x + self.distance, self.y, self.z + self.distance))
         duplicate(wall,
                   scale=self.scale,
                   position=(self.x + self.distance, self.y, self.z - self.distance),
                   parent=parent_wall_entity,
                   specularMap=load_texture("resources/levels/level 0/noreflect.png"),
                   cubemapIntensity=0)
+        duplicate(collider,
+                  scale=self.scale,
+                  position=(self.x + self.distance, self.y, self.z - self.distance))
         duplicate(wall,
                   scale=(self.scale[0], self.scale[1], self.scale[2] * 3),
                   position=(self.x - self.distance, self.y, self.z),
                   parent=parent_wall_entity,
                   specularMap=load_texture("resources/levels/level 0/noreflect.png"),
                   cubemapIntensity=0)
+        duplicate(collider,
+                  scale=(self.scale[0], self.scale[1], self.scale[2] * 3),
+                  position=(self.x - self.distance, self.y, self.z))
       elif rot == 3:
         duplicate(wall,
                   scale=self.scale,
@@ -191,18 +216,27 @@ class BackroomSegment():
                   parent=parent_wall_entity,
                   specularMap=load_texture("resources/levels/level 0/noreflect.png"),
                   cubemapIntensity=0)
+        duplicate(collider,
+                  scale=self.scale,
+                  position=(self.x + self.distance, self.y, self.z + self.distance))
         duplicate(wall,
                   scale=self.scale,
                   position=(self.x - self.distance, self.y, self.z + self.distance),
                   parent=parent_wall_entity,
                   specularMap=load_texture("resources/levels/level 0/noreflect.png"),
                   cubemapIntensity=0)
+        duplicate(collider,
+                  scale=self.scale,
+                  position=(self.x - self.distance, self.y, self.z + self.distance))
         duplicate(wall,
                   scale=(self.scale[0] * 3, self.scale[1], self.scale[2]),
                   position=(self.x, self.y, self.z - self.distance),
                   parent=parent_wall_entity,
                   specularMap=load_texture("resources/levels/level 0/noreflect.png"),
                   cubemapIntensity=0)
+        duplicate(collider,
+                  scale=(self.scale[0] * 3, self.scale[1], self.scale[2]),
+                  position=(self.x, self.y, self.z - self.distance))
       elif rot == 4:
         duplicate(wall,
                   scale=self.scale,
@@ -210,19 +244,27 @@ class BackroomSegment():
                   parent=parent_wall_entity,
                   specularMap=load_texture("resources/levels/level 0/noreflect.png"),
                   cubemapIntensity=0)
+        duplicate(collider,
+                  scale=self.scale,
+                  position=(self.x - self.distance, self.y, self.z + self.distance))
         duplicate(wall,
                   scale=self.scale,
                   position=(self.x - self.distance, self.y, self.z - self.distance),
                   parent=parent_wall_entity,
                   specularMap=load_texture("resources/levels/level 0/noreflect.png"),
                   cubemapIntensity=0)
+        duplicate(collider,
+                  scale=self.scale,
+                  position=(self.x - self.distance, self.y, self.z - self.distance))
         duplicate(wall,
                   scale=(self.scale[0], self.scale[1], self.scale[2] * 3),
                   position=(self.x + self.distance, self.y, self.z),
                   parent=parent_wall_entity,
                   specularMap=load_texture("resources/levels/level 0/noreflect.png"),
                   cubemapIntensity=0)
-        
+        duplicate(collider,
+                  scale=(self.scale[0], self.scale[1], self.scale[2] * 3),
+                  position=(self.x + self.distance, self.y, self.z))
     elif self.type == "|":
       rot = random.randint(1,2)
       if rot == 1:
@@ -232,12 +274,18 @@ class BackroomSegment():
                   parent=parent_wall_entity,
                   specularMap=load_texture("resources/levels/level 0/noreflect.png"),
                   cubemapIntensity=0)
+        duplicate(collider,
+                  scale=(self.scale[0] * 3, self.scale[1], self.scale[2]),
+                  position=(self.x, self.y, self.z - self.distance))
         duplicate(wall,
                   scale=(self.scale[0] * 3, self.scale[1], self.scale[2]),
                   position=(self.x, self.y, self.z + self.distance),
                   parent=parent_wall_entity,
                   specularMap=load_texture("resources/levels/level 0/noreflect.png"),
                   cubemapIntensity=0)
+        duplicate(collider,
+                  scale=(self.scale[0] * 3, self.scale[1], self.scale[2]),
+                  position=(self.x, self.y, self.z + self.distance))
       elif rot == 2:
         duplicate(wall,
                   scale=(self.scale[0], self.scale[1], self.scale[2] * 3),
@@ -245,18 +293,24 @@ class BackroomSegment():
                   parent=parent_wall_entity,
                   specularMap=load_texture("resources/levels/level 0/noreflect.png"),
                   cubemapIntensity=0)
+        duplicate(collider,
+                  scale=(self.scale[0], self.scale[1], self.scale[2] * 3),
+                  position=(self.x - self.distance, self.y, self.z))
         duplicate(wall,
                   scale=(self.scale[0], self.scale[1], self.scale[2] * 3),
                   position=(self.x + self.distance, self.y, self.z),
                   parent=parent_wall_entity,
                   specularMap=load_texture("resources/levels/level 0/noreflect.png"),
                   cubemapIntensity=0)
+        duplicate(collider,
+                  scale=(self.scale[0], self.scale[1], self.scale[2] * 3),
+                  position=(self.x + self.distance, self.y, self.z))
         
 list_of_cords=[]
 
 def map_generation():
-  min = -20
-  max = 20
+  min = -2
+  max = 2
   print(f"the map is {min} by {max}")
   diff = max - min
   multiplier = 15
@@ -285,11 +339,17 @@ def map_generation():
     duplicate(light,
               position=(cords[0], 5.8, cords[1]),
               parent=parent_light_entity)
-    lightmode = [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-    LitPointLight(position=Vec3(cords[0],4,cords[1]), intensity=lightmode[random.randint(0, len(lightmode)-1)], color=rgb(248, 252, 150))
+    LitPointLight(position=Vec3(cords[0],4,cords[1]), intensity=1, color=rgb(248, 252, 150))
       
     count+=1
   
+  #perfmorance
+  parent_wall_entity.combine()
+  parent_light_entity.combine()
+
+  parent_wall_entity.texture = "resources/levels/level 0/wall.png"
+
+  hum.play()
   print("done!")
   time.sleep(0.5)
 
@@ -330,22 +390,21 @@ def map_requested(seed):
   map_generation(seed)
 
 
-#perfmorance
-parent_wall_entity.combine()
-parent_light_entity.combine()
 
-parent_wall_entity.texture = "resources/levels/level 0/wall.png"
-parent_wall_entity.collision="box"
+
+#entities
+#Lighter = LitObject(model="sphere", color=color.white, position=(4, 3, 0)).add_script(SmoothFollow(target=player, offset=[0, 1, 0], speed=1))
+#Lighter_light = LitPointLight(range=5, intensity=10, position=Vec3(4, 3, 0))
+
+
+Client.send_message("request_map")
 
 print("object count:", len(scene.entities))
-        
-player.spawn(0, 2, 0)
-#hum.play()
 
-def update():
+'''def update():
   if held_keys["shift"]:
-    player.speed = 10
+    player.controller.speed = 10
   else:
-    player.speed = 5
+    player.controller.speed = 5'''
 
 app.run()
