@@ -11,8 +11,6 @@ time.sleep(1.5)
 print("Will now begin program setup")
 time.sleep(1.5)
 
-open("data/program_info.json", "w+")
-
 def install(package):
     print(f"installing requirement {package}")
     subprocess.check_call([sys.executable, "-m", "pip", "install", package])
@@ -334,8 +332,8 @@ def map_generation(seed, load = False):
   multiplier = 15
   if load == False:
     random.seed(seed)
-    min = -2
-    max = 2
+    min = -4
+    max = 4
     print(f"the map is {min} by {max}")
     diff = max - min
     z = min
