@@ -101,7 +101,7 @@ LitPointLight(position=Vec3(0,0,0), intensity=1, color=rgb(248, 252, 150))
 
 #map construction
 class BackroomSegment():
-  def __init__(self, x=0, y=0, z=0, type=["+", "T", "|"], distance=5, scale=(5, 12, 5)):
+  def __init__(self, x=0, y=0, z=0, type=["+", "T", "|", "blank", "."], distance=5, scale=(5, 12, 5)):
     self.x = x
     self.y = y
     self.z = z
@@ -306,53 +306,98 @@ class BackroomSegment():
         duplicate(collider,
                   scale=(self.scale[0], self.scale[1], self.scale[2] * 3),
                   position=(self.x + self.distance, self.y, self.z))
+    elif self.type == "blank":
+      pass
+    elif self.type == ".":
+      duplicate(wall,
+                  scale=(self.scale[0], self.scale[1], self.scale[2]),
+                  position=(self.x, self.y, self.z),
+                  parent=parent_wall_entity,
+                  specularMap=load_texture("resources/levels/level 0/noreflect.png"),
+                  cubemapIntensity=0)
+      duplicate(collider,
+                scale=(self.scale[0], self.scale[1], self.scale[2]),
+                position=(self.x, self.y, self.z))
         
 list_of_cords=[]
 
-def map_generation():
-  min = -2
-  max = 2
-  print(f"the map is {min} by {max}")
-  diff = max - min
+def map_generation(seed, load = False):
+  '''
+  generates a maze if load is False
+  
+  load : boolean
+  '''
+  
+  global list_of_cords
   multiplier = 15
-  z = min
-  x = min
-  map_data = {}
-  while z <= diff:
-    map_data[z] = []
-    while x <= diff:
-      cords = [x, z]
-      percent = int((z /  diff) * 100)
-      if percent < 0:
-        percent = 0
-      print(f"initializing cords: {cords} {percent}%")
-      global list_of_cords
-      list_of_cords.append(cords)
-      map_data[z].append(x)
-      x += 1
+  if load == False:
+    random.seed(seed)
+    min = -2
+    max = 2
+    print(f"the map is {min} by {max}")
+    diff = max - min
+    z = min
     x = min
-    z += 1
-  
-  count = 0
-  print("done!")
-  time.sleep(0.5)
-  for cord in list_of_cords:
-    cords = (cord[0] * multiplier, cord[1] * multiplier) #converting into tuple
-    print(f"map generation: {cords} {int((list_of_cords.index(cord) / len(list_of_cords)) * 100)}%")
-    BackroomSegment(cords[0], 0, cords[1]).create_segment()
-    duplicate(light,
-              position=(cords[0], 5.8, cords[1]),
-              parent=parent_light_entity)
-    LitPointLight(position=Vec3(cords[0],4,cords[1]), intensity=1, color=rgb(248, 252, 150))
+    map_data = {}
+    map_data["seed"] = seed
+    map_data["cords"] = {} 
+    while z <= diff:
+      map_data["cords"][z] = []
+      while x <= diff:
+        cords = [x, z]
+        percent = int((z /  diff) * 100)
+        if percent < 0:
+          percent = 0
+        print(f"initializing cords: {cords} {percent}%")
+        list_of_cords.append(cords)
+        map_data["cords"][z].append(x)
+        x += 1
+      x = min
+      z += 1
     
-    count+=1
+    count = 0
+    print("done!")
+    time.sleep(0.5)
+    for cord in list_of_cords:
+      cords = (cord[0] * multiplier, cord[1] * multiplier) #converting into tuple
+      print(f"map generation: {cords} {int((list_of_cords.index(cord) / len(list_of_cords)) * 100)}%")
+      BackroomSegment(cords[0], 0, cords[1]).create_segment()
+      duplicate(light,
+                position=(cords[0], 5.8, cords[1]),
+                parent=parent_light_entity)
+      LitPointLight(position=Vec3(cords[0],4,cords[1]), intensity=1, color=rgb(248, 252, 150))
+      
+      count+=1
+      
+    with open("data/segment_data.json", "w+") as SD:
+      segment_data = json.dump(map_data, SD, sort_keys = False)
+        
+      print(segment_data)
+      
+  else:
+    with open("data/segment_data.json", "r") as SD:
+      segment_data = json.load(SD)
     
-  with open("data/segment_data.json", "w+") as SD:
-    segment_data = json.dump(map_data, SD, sort_keys = False)
-      
-    print(segment_data)
-      
-  
+    random.seed(segment_data["seed"])
+    
+    for z_cord in segment_data["cords"]:
+      z_cord = int(z_cord)
+      for x_cord in segment_data["cords"][str(z_cord)]:
+        cords = [int(z_cord), x_cord]
+        percent = int((int(z_cord) /  len(segment_data)) * 100)
+        if percent < 0:
+          percent = 0
+        print(f"loading cords: {cords} {percent}%")
+        list_of_cords.append(cords)
+    for cord in list_of_cords:
+      cords = (cord[0] * multiplier, cord[1] * multiplier) #converting into tuple
+      print(f"map generation: {cords} {int((list_of_cords.index(cord) / len(list_of_cords)) * 100)}%")
+      BackroomSegment(cords[0], 0, cords[1]).create_segment()
+      duplicate(light,
+                position=(cords[0], 5.8, cords[1]),
+                parent=parent_light_entity)
+      LitPointLight(position=Vec3(cords[0],4,cords[1]), intensity=1, color=rgb(248, 252, 150))
+    
   #perfmorance
   parent_wall_entity.combine()
   parent_light_entity.combine()
@@ -397,10 +442,18 @@ with open("data/program_info.json", "r+") as PI:
     
     
 
-singleplayer_or_multiplayer = input("S|M would you like singleplayer or multiplayer?")
+singleplayer_or_multiplayer = input("S|M would you like singleplayer or multiplayer?\n")
+
 if singleplayer_or_multiplayer == "s" or singleplayer_or_multiplayer == "S":
-  map_generation()
-  player.spawn()
+  load = input("Y|N would you like to generate a new map?\n")
+  if load == "y" or load == "Y":
+    seed = input("seed: ")
+    map_generation(seed)
+    player.spawn()
+  else:
+    map_generation("", True)
+    player.spawn()
+    
 else:
   ip = input("Now just enter server ip: ")
 
