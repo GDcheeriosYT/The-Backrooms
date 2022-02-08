@@ -11,6 +11,8 @@ time.sleep(1.5)
 print("Will now begin program setup")
 time.sleep(1.5)
 
+open("data/program_info.json", "w+")
+
 def install(package):
     print(f"installing requirement {package}")
     subprocess.check_call([sys.executable, "-m", "pip", "install", package])
