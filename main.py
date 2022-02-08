@@ -3,7 +3,7 @@ import subprocess
 import sys
 import time
 import asyncio
-
+import json
 
 
 print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To The Backrooms Game")
@@ -112,6 +112,7 @@ class BackroomSegment():
       self.type = type[random.randint(0,len(type))]
     except:
       self.type = type
+      
     
   def create_segment(self):
     if self.type == "+":
@@ -316,7 +317,9 @@ def map_generation():
   multiplier = 15
   z = min
   x = min
+  map_data = {}
   while z <= diff:
+    map_data[z] = []
     while x <= diff:
       cords = [x, z]
       percent = int((z /  diff) * 100)
@@ -325,6 +328,7 @@ def map_generation():
       print(f"initializing cords: {cords} {percent}%")
       global list_of_cords
       list_of_cords.append(cords)
+      map_data[z].append(x)
       x += 1
     x = min
     z += 1
@@ -340,8 +344,14 @@ def map_generation():
               position=(cords[0], 5.8, cords[1]),
               parent=parent_light_entity)
     LitPointLight(position=Vec3(cords[0],4,cords[1]), intensity=1, color=rgb(248, 252, 150))
-      
+    
     count+=1
+    
+  with open("data/segment_data.json", "w+") as SD:
+    segment_data = json.dump(map_data, SD, sort_keys = False)
+      
+    print(segment_data)
+      
   
   #perfmorance
   parent_wall_entity.combine()
@@ -352,59 +362,75 @@ def map_generation():
   hum.play()
   print("done!")
   time.sleep(0.5)
+  
+with open("data/program_info.json", "r+") as PI:
+  try:
+    player_info = json.load(PI)
+    player = br_player.Player(player_info["name"], color=(player_info["color"][0], player_info["color"][1], player_info["color"][2]))
+  except:
+    with open("data/program_info.json", "a+") as PI:
+      player_info = {}
 
-name = input("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWhat shall your name be?\n")
-time.sleep(0.5)
-print(f"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n{name} Eh?")
-time.sleep(1.5)
-print("Nice name.")
-time.sleep(1.5)
-print(f"Well {name}, welcome to the backrooms.")
-time.sleep(2)
-print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nChoose your color using the following tool:")
-time.sleep(3)
-webbrowser.open_new_tab('https://www.google.com/search?q=rgb+color+picker&rlz=1C1SQJL_enUS967US967&sxsrf=AOaemvLTpu0WEA2PhK4x_ya_FmXlE1mCCg%3A1642818658427&ei=YmzrYaybGYW2qtsP9rK16AQ&ved=0ahUKEwis1MK0qMT1AhUFm2oFHXZZDU0Q4dUDCA4&uact=5&oq=rgb+color+picker&gs_lcp=Cgdnd3Mtd2l6EAMyBwgAELEDEEMyBAgAEEMyBQgAEIAEMgYIABAHEB4yBggAEAcQHjIFCAAQgAQyBQgAEIAEMgYIABAHEB4yBQgAEIAEMgUIABCABDoHCAAQRxCwAzoHCAAQsAMQQ0oECEEYAEoECEYYAFD9CVj9CWCFDWgCcAJ4AIABS4gBS5IBATGYAQCgAQHIAQrAAQE&sclient=gws-wiz')
-print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nUse the R G B on the right to enter the following:")
-time.sleep(1.5)
-R = int(input("R: "))
-G = int(input("G: "))
-B = int(input("B: "))
+      name = input("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWhat shall your name be?\n")
+      player_info["name"] = name
+      time.sleep(0.5)
+      print(f"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n{name} Eh?")
+      time.sleep(1.5)
+      print("Nice name.")
+      time.sleep(1.5)
+      print(f"Well {name}, welcome to the backrooms.")
+      time.sleep(2)
+      print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nChoose your color using the following tool:")
+      time.sleep(3)
+      webbrowser.open_new_tab('https://www.google.com/search?q=rgb+color+picker&rlz=1C1SQJL_enUS967US967&sxsrf=AOaemvLTpu0WEA2PhK4x_ya_FmXlE1mCCg%3A1642818658427&ei=YmzrYaybGYW2qtsP9rK16AQ&ved=0ahUKEwis1MK0qMT1AhUFm2oFHXZZDU0Q4dUDCA4&uact=5&oq=rgb+color+picker&gs_lcp=Cgdnd3Mtd2l6EAMyBwgAELEDEEMyBAgAEEMyBQgAEIAEMgYIABAHEB4yBggAEAcQHjIFCAAQgAQyBQgAEIAEMgYIABAHEB4yBQgAEIAEMgUIABCABDoHCAAQRxCwAzoHCAAQsAMQQ0oECEEYAEoECEYYAFD9CVj9CWCFDWgCcAJ4AIABS4gBS5IBATGYAQCgAQHIAQrAAQE&sclient=gws-wiz')
+      print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nUse the R G B on the right to enter the following:")
+      time.sleep(1.5)
+      R = int(input("R: "))
+      G = int(input("G: "))
+      B = int(input("B: "))
+      player_info["color"] = (R, G, B)
+      print(player_info)
+      json.dump(player_info, PI, indent=4)
 
-player = br_player.Player(name, color=(R,G,B))
+      player = br_player.Player(name, color=(R,G,B))
+      print("Thank You!")
+    
+    
 
-print("Thank You!")
-ip = input("Now just enter server ip: ")
+singleplayer_or_multiplayer = input("S|M would you like singleplayer or multiplayer?")
+if singleplayer_or_multiplayer == "s" or singleplayer_or_multiplayer == "S":
+  map_generation()
+  player.spawn()
+else:
+  ip = input("Now just enter server ip: ")
 
-Client = UrsinaNetworkingClient(ip, 6990)
+  Client = UrsinaNetworkingClient(ip, 6990)
 
-@Client.event
-def onConnectionEtablished():
-    print(f"{name}, {ip} welcomes you!")
+  @Client.event
+  def onConnectionEtablished():
+      print(f"{name}, {ip} welcomes you!")
 
-@Client.event
-def HelloFromServer(content):
-    print(f"{content}")
+  @Client.event
+  def HelloFromServer(content):
+      print(f"{content}")
 
-@Client.event
-def map_requested(seed):
-  map_generation(seed)
+  @Client.event
+  def map_requested(seed):
+    map_generation(seed)
 
-
-
-
-#entities
-#Lighter = LitObject(model="sphere", color=color.white, position=(4, 3, 0)).add_script(SmoothFollow(target=player, offset=[0, 1, 0], speed=1))
-#Lighter_light = LitPointLight(range=5, intensity=10, position=Vec3(4, 3, 0))
+  #entities
+  #Lighter = LitObject(model="sphere", color=color.white, position=(4, 3, 0)).add_script(SmoothFollow(target=player, offset=[0, 1, 0], speed=1))
+  #Lighter_light = LitPointLight(range=5, intensity=10, position=Vec3(4, 3, 0))
 
 
-Client.send_message("request_map")
+  Client.send_message("request_map")
 
-print("object count:", len(scene.entities))
+  print("object count:", len(scene.entities))
 
-'''def update():
-  if held_keys["shift"]:
-    player.controller.speed = 10
-  else:
-    player.controller.speed = 5'''
+  '''def update():
+    if held_keys["shift"]:
+      player.controller.speed = 10
+    else:
+      player.controller.speed = 5'''
 
 app.run()
