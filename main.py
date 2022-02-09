@@ -70,6 +70,14 @@ application.print_warnings = False
 hum = Audio("resources\levels\level 0\Backrooms sound.mp3", loop=True)
 hum.volume = 0.3
 
+chunk = Entity(model="cube",
+               scale=(15, 100, 15),
+               color=rgb(0,0,0,a=0))
+
+chunks = Entity(model="cube",
+               scale=(15, 100, 15),
+               color=rgb(0,0,0,a=0))
+
 floor = LitObject(model="cube",
                texture=Texture("resources/levels/level 0/carpet.png"),
                scale=(1000, 1, 1000),
@@ -101,7 +109,7 @@ LitPointLight(position=Vec3(0,0,0), intensity=1, color=rgb(248, 252, 150))
 
 #map construction
 class BackroomSegment():
-  def __init__(self, x=0, y=0, z=0, type=["+", "T", "|", "blank", "."], distance=5, scale=(5, 12, 5)):
+  def __init__(self, x=0, y=0, z=0, type=["+", "T", "=", ".", "┌small", "┌big", "|"], distance=5, scale=(5, 12, 5)):
     self.x = x
     self.y = y
     self.z = z
@@ -266,7 +274,7 @@ class BackroomSegment():
         duplicate(collider,
                   scale=(self.scale[0], self.scale[1], self.scale[2] * 3),
                   position=(self.x + self.distance, self.y, self.z))
-    elif self.type == "|":
+    elif self.type == "=":
       rot = random.randint(1,2)
       if rot == 1:
         duplicate(wall,
@@ -318,10 +326,368 @@ class BackroomSegment():
       duplicate(collider,
                 scale=(self.scale[0], self.scale[1], self.scale[2]),
                 position=(self.x, self.y, self.z))
-        
+    elif self.type == "┌small":
+      rot = random.randint(1,4)
+      if rot == 1:
+        duplicate(wall,
+                    scale=(self.scale[0], self.scale[1], self.scale[2]),
+                    position=(self.x, self.y, self.z + self.distance),
+                    parent=parent_wall_entity,
+                    specularMap=load_texture("resources/levels/level 0/noreflect.png"),
+                    cubemapIntensity=0)
+        duplicate(collider,
+                  scale=(self.scale[0], self.scale[1], self.scale[2]),
+                  position=(self.x, self.y, self.z + self.distance))
+        duplicate(wall,
+                    scale=(self.scale[0], self.scale[1], self.scale[2]),
+                    position=(self.x + self.distance, self.y, self.z + self.distance),
+                    parent=parent_wall_entity,
+                    specularMap=load_texture("resources/levels/level 0/noreflect.png"),
+                    cubemapIntensity=0)
+        duplicate(collider,
+                  scale=(self.scale[0], self.scale[1], self.scale[2]),
+                  position=(self.x + self.distance, self.y, self.z + self.distance))
+        duplicate(wall,
+                    scale=(self.scale[0], self.scale[1], self.scale[2]),
+                    position=(self.x + self.distance, self.y, self.z),
+                    parent=parent_wall_entity,
+                    specularMap=load_texture("resources/levels/level 0/noreflect.png"),
+                    cubemapIntensity=0)
+        duplicate(collider,
+                  scale=(self.scale[0], self.scale[1], self.scale[2]),
+                  position=(self.x + self.distance, self.y, self.z))
+      elif rot == 2:
+        duplicate(wall,
+                    scale=(self.scale[0], self.scale[1], self.scale[2]),
+                    position=(self.x + self.distance, self.y, self.z),
+                    parent=parent_wall_entity,
+                    specularMap=load_texture("resources/levels/level 0/noreflect.png"),
+                    cubemapIntensity=0)
+        duplicate(collider,
+                  scale=(self.scale[0], self.scale[1], self.scale[2]),
+                  position=(self.x + self.distance, self.y, self.z))
+        duplicate(wall,
+                    scale=(self.scale[0], self.scale[1], self.scale[2]),
+                    position=(self.x + self.distance, self.y, self.z - self.distance),
+                    parent=parent_wall_entity,
+                    specularMap=load_texture("resources/levels/level 0/noreflect.png"),
+                    cubemapIntensity=0)
+        duplicate(collider,
+                  scale=(self.scale[0], self.scale[1], self.scale[2]),
+                  position=(self.x + self.distance, self.y, self.z - self.distance))
+        duplicate(wall,
+                    scale=(self.scale[0], self.scale[1], self.scale[2]),
+                    position=(self.x, self.y, self.z - self.distance),
+                    parent=parent_wall_entity,
+                    specularMap=load_texture("resources/levels/level 0/noreflect.png"),
+                    cubemapIntensity=0)
+        duplicate(collider,
+                  scale=(self.scale[0], self.scale[1], self.scale[2]),
+                  position=(self.x, self.y, self.z - self.distance))
+      elif rot == 3:
+        duplicate(wall,
+                    scale=(self.scale[0], self.scale[1], self.scale[2]),
+                    position=(self.x, self.y, self.z - self.distance),
+                    parent=parent_wall_entity,
+                    specularMap=load_texture("resources/levels/level 0/noreflect.png"),
+                    cubemapIntensity=0)
+        duplicate(collider,
+                  scale=(self.scale[0], self.scale[1], self.scale[2]),
+                  position=(self.x, self.y, self.z + self.distance))
+        duplicate(wall,
+                    scale=(self.scale[0], self.scale[1], self.scale[2]),
+                    position=(self.x - self.distance, self.y, self.z - self.distance),
+                    parent=parent_wall_entity,
+                    specularMap=load_texture("resources/levels/level 0/noreflect.png"),
+                    cubemapIntensity=0)
+        duplicate(collider,
+                  scale=(self.scale[0], self.scale[1], self.scale[2]),
+                  position=(self.x - self.distance, self.y, self.z - self.distance))
+        duplicate(wall,
+                    scale=(self.scale[0], self.scale[1], self.scale[2]),
+                    position=(self.x - self.distance, self.y, self.z),
+                    parent=parent_wall_entity,
+                    specularMap=load_texture("resources/levels/level 0/noreflect.png"),
+                    cubemapIntensity=0)
+        duplicate(collider,
+                  scale=(self.scale[0], self.scale[1], self.scale[2]),
+                  position=(self.x - self.distance, self.y, self.z))
+      elif rot == 4:
+        duplicate(wall,
+                    scale=(self.scale[0], self.scale[1], self.scale[2]),
+                    position=(self.x - self.distance, self.y, self.z),
+                    parent=parent_wall_entity,
+                    specularMap=load_texture("resources/levels/level 0/noreflect.png"),
+                    cubemapIntensity=0)
+        duplicate(collider,
+                  scale=(self.scale[0], self.scale[1], self.scale[2]),
+                  position=(self.x - self.distance, self.y, self.z))
+        duplicate(wall,
+                    scale=(self.scale[0], self.scale[1], self.scale[2]),
+                    position=(self.x - self.distance, self.y, self.z + self.distance),
+                    parent=parent_wall_entity,
+                    specularMap=load_texture("resources/levels/level 0/noreflect.png"),
+                    cubemapIntensity=0)
+        duplicate(collider,
+                  scale=(self.scale[0], self.scale[1], self.scale[2]),
+                  position=(self.x - self.distance, self.y, self.z + self.distance))
+        duplicate(wall,
+                    scale=(self.scale[0], self.scale[1], self.scale[2]),
+                    position=(self.x, self.y, self.z + self.distance),
+                    parent=parent_wall_entity,
+                    specularMap=load_texture("resources/levels/level 0/noreflect.png"),
+                    cubemapIntensity=0)
+        duplicate(collider,
+                  scale=(self.scale[0], self.scale[1], self.scale[2]),
+                  position=(self.x, self.y, self.z + self.distance))
+      elif self.type == "┌big":
+        rot = random.randint(1,4)
+        if rot == 1:
+          duplicate(wall,
+                      scale=(self.scale[0], self.scale[1], self.scale[2]),
+                      position=(self.x, self.y, self.z + self.distance),
+                      parent=parent_wall_entity,
+                      specularMap=load_texture("resources/levels/level 0/noreflect.png"),
+                      cubemapIntensity=0)
+          duplicate(collider,
+                    scale=(self.scale[0], self.scale[1], self.scale[2]),
+                    position=(self.x, self.y, self.z + self.distance))
+          duplicate(wall,
+                      scale=(self.scale[0], self.scale[1], self.scale[2]),
+                      position=(self.x - self.distance, self.y, self.z + self.distance),
+                      parent=parent_wall_entity,
+                      specularMap=load_texture("resources/levels/level 0/noreflect.png"),
+                      cubemapIntensity=0)
+          duplicate(collider,
+                    scale=(self.scale[0], self.scale[1], self.scale[2]),
+                    position=(self.x - self.distance, self.y, self.z + self.distance))
+          duplicate(wall,
+                      scale=(self.scale[0], self.scale[1], self.scale[2]),
+                      position=(self.x + self.distance, self.y, self.z + self.distance),
+                      parent=parent_wall_entity,
+                      specularMap=load_texture("resources/levels/level 0/noreflect.png"),
+                      cubemapIntensity=0)
+          duplicate(collider,
+                    scale=(self.scale[0], self.scale[1], self.scale[2]),
+                    position=(self.x + self.distance, self.y, self.z + self.distance))
+          duplicate(wall,
+                      scale=(self.scale[0], self.scale[1], self.scale[2]),
+                      position=(self.x + self.distance, self.y, self.z),
+                      parent=parent_wall_entity,
+                      specularMap=load_texture("resources/levels/level 0/noreflect.png"),
+                      cubemapIntensity=0)
+          duplicate(collider,
+                    scale=(self.scale[0], self.scale[1], self.scale[2]),
+                    position=(self.x + self.distance, self.y, self.z))
+          duplicate(wall,
+                      scale=(self.scale[0], self.scale[1], self.scale[2]),
+                      position=(self.x + self.distance, self.y, self.z - self.distance),
+                      parent=parent_wall_entity,
+                      specularMap=load_texture("resources/levels/level 0/noreflect.png"),
+                      cubemapIntensity=0)
+          duplicate(collider,
+                    scale=(self.scale[0], self.scale[1], self.scale[2]),
+                    position=(self.x + self.distance, self.y, self.z - self.distance))
+        elif rot == 2:
+          duplicate(wall,
+                      scale=(self.scale[0], self.scale[1], self.scale[2]),
+                      position=(self.x + self.distance, self.y, self.z),
+                      parent=parent_wall_entity,
+                      specularMap=load_texture("resources/levels/level 0/noreflect.png"),
+                      cubemapIntensity=0)
+          duplicate(collider,
+                    scale=(self.scale[0], self.scale[1], self.scale[2]),
+                    position=(self.x + self.distance, self.y, self.z))
+          duplicate(wall,
+                      scale=(self.scale[0], self.scale[1], self.scale[2]),
+                      position=(self.x + self.distance, self.y, self.z + self.distance),
+                      parent=parent_wall_entity,
+                      specularMap=load_texture("resources/levels/level 0/noreflect.png"),
+                      cubemapIntensity=0)
+          duplicate(collider,
+                    scale=(self.scale[0], self.scale[1], self.scale[2]),
+                    position=(self.x + self.distance, self.y, self.z + self.distance))
+          duplicate(wall,
+                      scale=(self.scale[0], self.scale[1], self.scale[2]),
+                      position=(self.x + self.distance, self.y, self.z - self.distance),
+                      parent=parent_wall_entity,
+                      specularMap=load_texture("resources/levels/level 0/noreflect.png"),
+                      cubemapIntensity=0)
+          duplicate(collider,
+                    scale=(self.scale[0], self.scale[1], self.scale[2]),
+                    position=(self.x + self.distance, self.y, self.z - self.distance))
+          duplicate(wall,
+                      scale=(self.scale[0], self.scale[1], self.scale[2]),
+                      position=(self.x, self.y, self.z - self.distance),
+                      parent=parent_wall_entity,
+                      specularMap=load_texture("resources/levels/level 0/noreflect.png"),
+                      cubemapIntensity=0)
+          duplicate(collider,
+                    scale=(self.scale[0], self.scale[1], self.scale[2]),
+                    position=(self.x, self.y, self.z - self.distance))
+          duplicate(wall,
+                      scale=(self.scale[0], self.scale[1], self.scale[2]),
+                      position=(self.x - self.distance, self.y, self.z - self.distance),
+                      parent=parent_wall_entity,
+                      specularMap=load_texture("resources/levels/level 0/noreflect.png"),
+                      cubemapIntensity=0)
+          duplicate(collider,
+                    scale=(self.scale[0], self.scale[1], self.scale[2]),
+                    position=(self.x - self.distance, self.y, self.z - self.distance))
+        elif rot == 3:
+          duplicate(wall,
+                      scale=(self.scale[0], self.scale[1], self.scale[2]),
+                      position=(self.x, self.y, self.z - self.distance),
+                      parent=parent_wall_entity,
+                      specularMap=load_texture("resources/levels/level 0/noreflect.png"),
+                      cubemapIntensity=0)
+          duplicate(collider,
+                    scale=(self.scale[0], self.scale[1], self.scale[2]),
+                    position=(self.x, self.y, self.z + self.distance))
+          duplicate(wall,
+                      scale=(self.scale[0], self.scale[1], self.scale[2]),
+                      position=(self.x + self.distance, self.y, self.z - self.distance),
+                      parent=parent_wall_entity,
+                      specularMap=load_texture("resources/levels/level 0/noreflect.png"),
+                      cubemapIntensity=0)
+          duplicate(collider,
+                    scale=(self.scale[0], self.scale[1], self.scale[2]),
+                    position=(self.x + self.distance, self.y, self.z - self.distance))
+          duplicate(wall,
+                      scale=(self.scale[0], self.scale[1], self.scale[2]),
+                      position=(self.x - self.distance, self.y, self.z - self.distance),
+                      parent=parent_wall_entity,
+                      specularMap=load_texture("resources/levels/level 0/noreflect.png"),
+                      cubemapIntensity=0)
+          duplicate(collider,
+                    scale=(self.scale[0], self.scale[1], self.scale[2]),
+                    position=(self.x - self.distance, self.y, self.z - self.distance))
+          duplicate(wall,
+                      scale=(self.scale[0], self.scale[1], self.scale[2]),
+                      position=(self.x - self.distance, self.y, self.z),
+                      parent=parent_wall_entity,
+                      specularMap=load_texture("resources/levels/level 0/noreflect.png"),
+                      cubemapIntensity=0)
+          duplicate(collider,
+                    scale=(self.scale[0], self.scale[1], self.scale[2]),
+                    position=(self.x - self.distance, self.y, self.z))
+          duplicate(wall,
+                      scale=(self.scale[0], self.scale[1], self.scale[2]),
+                      position=(self.x - self.distance, self.y, self.z + self.distance),
+                      parent=parent_wall_entity,
+                      specularMap=load_texture("resources/levels/level 0/noreflect.png"),
+                      cubemapIntensity=0)
+          duplicate(collider,
+                    scale=(self.scale[0], self.scale[1], self.scale[2]),
+                    position=(self.x - self.distance, self.y, self.z + self.distance))
+        elif rot == 4:
+          duplicate(wall,
+                      scale=(self.scale[0], self.scale[1], self.scale[2]),
+                      position=(self.x - self.distance, self.y, self.z),
+                      parent=parent_wall_entity,
+                      specularMap=load_texture("resources/levels/level 0/noreflect.png"),
+                      cubemapIntensity=0)
+          duplicate(collider,
+                    scale=(self.scale[0], self.scale[1], self.scale[2]),
+                    position=(self.x - self.distance, self.y, self.z))
+          duplicate(wall,
+                      scale=(self.scale[0], self.scale[1], self.scale[2]),
+                      position=(self.x - self.distance, self.y, self.z - self.distance),
+                      parent=parent_wall_entity,
+                      specularMap=load_texture("resources/levels/level 0/noreflect.png"),
+                      cubemapIntensity=0)
+          duplicate(collider,
+                    scale=(self.scale[0], self.scale[1], self.scale[2]),
+                    position=(self.x - self.distance, self.y, self.z - self.distance))
+          duplicate(wall,
+                      scale=(self.scale[0], self.scale[1], self.scale[2]),
+                      position=(self.x - self.distance, self.y, self.z + self.distance),
+                      parent=parent_wall_entity,
+                      specularMap=load_texture("resources/levels/level 0/noreflect.png"),
+                      cubemapIntensity=0)
+          duplicate(collider,
+                    scale=(self.scale[0], self.scale[1], self.scale[2]),
+                    position=(self.x - self.distance, self.y, self.z + self.distance))
+          duplicate(wall,
+                      scale=(self.scale[0], self.scale[1], self.scale[2]),
+                      position=(self.x, self.y, self.z + self.distance),
+                      parent=parent_wall_entity,
+                      specularMap=load_texture("resources/levels/level 0/noreflect.png"),
+                      cubemapIntensity=0)
+          duplicate(collider,
+                    scale=(self.scale[0], self.scale[1], self.scale[2]),
+                    position=(self.x, self.y, self.z + self.distance))
+          duplicate(wall,
+                      scale=(self.scale[0], self.scale[1], self.scale[2]),
+                      position=(self.x + self.distance, self.y, self.z + self.distance),
+                      parent=parent_wall_entity,
+                      specularMap=load_texture("resources/levels/level 0/noreflect.png"),
+                      cubemapIntensity=0)
+          duplicate(collider,
+                    scale=(self.scale[0], self.scale[1], self.scale[2]),
+                    position=(self.x + self.distance, self.y, self.z + self.distance))
+      elif self.type == "|":
+        rot = random.randint(1,2)
+        if rot == 1:
+          duplicate(wall,
+                      scale=(self.scale[0], self.scale[1], self.scale[2]),
+                      position=(self.x + self.distance, self.y, self.z),
+                      parent=parent_wall_entity,
+                      specularMap=load_texture("resources/levels/level 0/noreflect.png"),
+                      cubemapIntensity=0)
+          duplicate(collider,
+                    scale=(self.scale[0], self.scale[1], self.scale[2]),
+                    position=(self.x + self.distance, self.y, self.z))
+          duplicate(wall,
+                      scale=(self.scale[0], self.scale[1], self.scale[2]),
+                      position=(self.x, self.y, self.z),
+                      parent=parent_wall_entity,
+                      specularMap=load_texture("resources/levels/level 0/noreflect.png"),
+                      cubemapIntensity=0)
+          duplicate(collider,
+                    scale=(self.scale[0], self.scale[1], self.scale[2]),
+                    position=(self.x, self.y, self.z))
+          duplicate(wall,
+                      scale=(self.scale[0], self.scale[1], self.scale[2]),
+                      position=(self.x - self.distance, self.y, self.z),
+                      parent=parent_wall_entity,
+                      specularMap=load_texture("resources/levels/level 0/noreflect.png"),
+                      cubemapIntensity=0)
+          duplicate(collider,
+                    scale=(self.scale[0], self.scale[1], self.scale[2]),
+                    position=(self.x - self.distance, self.y, self.z))
+        else:
+          duplicate(wall,
+                      scale=(self.scale[0], self.scale[1], self.scale[2]),
+                      position=(self.x, self.y, self.z - self.distance),
+                      parent=parent_wall_entity,
+                      specularMap=load_texture("resources/levels/level 0/noreflect.png"),
+                      cubemapIntensity=0)
+          duplicate(collider,
+                    scale=(self.scale[0], self.scale[1], self.scale[2]),
+                    position=(self.x, self.y, self.z - self.distance))
+          duplicate(wall,
+                      scale=(self.scale[0], self.scale[1], self.scale[2]),
+                      position=(self.x, self.y, self.z + self.distance),
+                      parent=parent_wall_entity,
+                      specularMap=load_texture("resources/levels/level 0/noreflect.png"),
+                      cubemapIntensity=0)
+          duplicate(collider,
+                    scale=(self.scale[0], self.scale[1], self.scale[2]),
+                    position=(self.x, self.y, self.z + self.distance))
+          duplicate(wall,
+                      scale=(self.scale[0], self.scale[1], self.scale[2]),
+                      position=(self.x, self.y, self.z),
+                      parent=parent_wall_entity,
+                      specularMap=load_texture("resources/levels/level 0/noreflect.png"),
+                      cubemapIntensity=0)
+          duplicate(collider,
+                    scale=(self.scale[0], self.scale[1], self.scale[2]),
+                    position=(self.x, self.y, self.z))
+          
 list_of_cords=[]
 
-def map_generation(seed, load = False):
+def map_generation(seed, min, max, load = False):
   '''
   generates a maze if load is False
   
@@ -332,13 +698,13 @@ def map_generation(seed, load = False):
   multiplier = 15
   if load == False:
     random.seed(seed)
-    min = -4
-    max = 4
     print(f"the map is {min} by {max}")
     diff = max - min
     z = min
     x = min
     map_data = {}
+    map_data["min"] = min
+    map_data["max"] = max
     map_data["seed"] = seed
     map_data["cords"] = {} 
     while z <= diff:
@@ -366,13 +732,13 @@ def map_generation(seed, load = False):
                 position=(cords[0], 5.8, cords[1]),
                 parent=parent_light_entity)
       LitPointLight(position=Vec3(cords[0],4,cords[1]), intensity=1, color=rgb(248, 252, 150))
+      duplicate(chunk, position=(cords[0], 0, cords[1]), parent=chunks)
       
       count+=1
       
     with open("data/segment_data.json", "w+") as SD:
       segment_data = json.dump(map_data, SD, sort_keys = False)
         
-      print(segment_data)
       
   else:
     with open("data/segment_data.json", "r") as SD:
@@ -397,10 +763,12 @@ def map_generation(seed, load = False):
                 position=(cords[0], 5.8, cords[1]),
                 parent=parent_light_entity)
       LitPointLight(position=Vec3(cords[0],4,cords[1]), intensity=1, color=rgb(248, 252, 150))
+      duplicate(chunk, position=(cords[0], 0, cords[1]), parent=chunks)
     
   #perfmorance
   parent_wall_entity.combine()
   parent_light_entity.combine()
+  chunks.combine()
 
   parent_wall_entity.texture = "resources/levels/level 0/wall.png"
 
@@ -442,17 +810,30 @@ with open("data/program_info.json", "r+") as PI:
     
     
 
-singleplayer_or_multiplayer = input("S|M would you like singleplayer or multiplayer?\n")
+singleplayer_or_multiplayer = input("S=M would you like singleplayer or multiplayer?\n")
 
 if singleplayer_or_multiplayer == "s" or singleplayer_or_multiplayer == "S":
-  load = input("Y|N would you like to generate a new map?\n")
+  load = input("Y=N would you like to generate a new map?\n")
   if load == "y" or load == "Y":
     seed = input("seed: ")
-    map_generation(seed)
+    map_generation(seed, int(input("min: ")), int(input("max: ")))
     player.spawn()
   else:
-    map_generation("", True)
+    with open("data/segment_data.json", "r") as SD:
+      segment_data = json.load(SD)
+      
+    map_generation("", segment_data["min"], segment_data["max"], True)
     player.spawn()
+  
+  def update():
+    if held_keys["f"]:
+      chunks.color=rgb(0,0,0,a=50)
+    else:
+      chunks.color=rgb(0,0,0,a=0)
+    if held_keys["shift"]:
+      player.controller.speed = 10
+    else:
+      player.controller.speed = 5
     
 else:
   ip = input("Now just enter server ip: ")
@@ -479,11 +860,5 @@ else:
   Client.send_message("request_map")
 
   print("object count:", len(scene.entities))
-
-  '''def update():
-    if held_keys["shift"]:
-      player.controller.speed = 10
-    else:
-      player.controller.speed = 5'''
 
 app.run()
