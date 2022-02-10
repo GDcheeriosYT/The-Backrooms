@@ -1,6 +1,6 @@
 import json
 
-def manage_segment(segment, output=False):
+def manage_segment(segment, output=False, rotate = random):
   
   '''
   parses a segment and manages positioning of walls
@@ -13,6 +13,9 @@ def manage_segment(segment, output=False):
   ----------------
   if True will show output, good for debugging
   
+  rotate : int
+  ----------------
+  will rotate using 0 as 0/360 degrees and 3 being 270 degrees if defualt it will be random 0-3
   '''
   
   with open(f"segments/{segment}.json") as placement_data:
