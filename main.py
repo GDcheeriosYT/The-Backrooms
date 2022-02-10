@@ -727,7 +727,10 @@ def map_generation(seed, min, max, load = False):
     for cord in list_of_cords:
       cords = (cord[0] * multiplier, cord[1] * multiplier) #converting into tuple
       print(f"map generation: {cords} {int((list_of_cords.index(cord) / len(list_of_cords)) * 100)}%")
-      BackroomSegment(cords[0], 0, cords[1]).create_segment()
+      if cords[0] == 0 and cords[1] == 0:
+        BackroomSegment(cords[0], 0, cords[1], type="blank").create_segment()
+      else:
+        BackroomSegment(cords[0], 0, cords[1]).create_segment()
       duplicate(light,
                 position=(cords[0], 5.8, cords[1]),
                 parent=parent_light_entity)
@@ -758,7 +761,10 @@ def map_generation(seed, min, max, load = False):
     for cord in list_of_cords:
       cords = (cord[0] * multiplier, cord[1] * multiplier) #converting into tuple
       print(f"map generation: {cords} {int((list_of_cords.index(cord) / len(list_of_cords)) * 100)}%")
-      BackroomSegment(cords[0], 0, cords[1]).create_segment()
+      if cords[0] == 0 and cords[1] == 0:
+        BackroomSegment(cords[0], 0, cords[1], type="blank").create_segment()
+      else:
+        BackroomSegment(cords[0], 0, cords[1]).create_segment()
       duplicate(light,
                 position=(cords[0], 5.8, cords[1]),
                 parent=parent_light_entity)
