@@ -54,11 +54,8 @@ def manage_segment(segment = segments[random.randint(0, len(segments) - 1)], out
   
   wall_placements = []
   for row in placement_data:
-    if output == True:
-      print(f"looking at {row}")
     collumn = 0
     for number in placement_data[row]:
-      
       if number == 1:
         #set position name in row1
         if collumn == 0 and row == "row1":
@@ -82,9 +79,6 @@ def manage_segment(segment = segments[random.randint(0, len(segments) - 1)], out
         elif collumn == 2 and row == "row3":
           wall_placements.append("bottom right")
         
-        one_count += 1
-        if output == True:
-          print("found a 1!")
 
       collumn += 1
   
