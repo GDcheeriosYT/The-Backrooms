@@ -73,11 +73,11 @@ hum.volume = 0.3
 
 chunk = Entity(model="cube",
                scale=(15, 100, 15),
-               color=rgb(0,0,0,a=255))
+               color=rgb(0,0,0,a=0))
 
-chunks = Entity(model="cube",
+'''chunks = Entity(model="cube",
                scale=(15, 100, 15),
-               color=rgb(0,0,0,a=255))
+               color=rgb(0,0,0,a=255))'''
 
 floor = LitObject(model="cube",
                texture=Texture("resources/levels/level 0/carpet.png"),
