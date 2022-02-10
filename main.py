@@ -43,9 +43,9 @@ except:
   import webbrowser
 
 from UrsinaLighting import *
-from game import entity as br_entity
-from game import player as br_player
-from game import buttons
+import game.entity as br_entity
+import game.player as br_player
+import game.buttons
 from game.levels.level0 import wall_placement_management as wpm
 
 app = Ursina()
