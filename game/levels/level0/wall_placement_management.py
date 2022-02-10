@@ -33,8 +33,12 @@ def manage_segment(segment = segments[random.randint(0, len(segments) - 1)], out
   will rotate using 0 as 0/360 degrees and 3 being 270 degrees if defualt it will be random 0-3
   '''
   
-  with open(f"segments/{segment}") as placement_data:
-    placement_data = json.load(placement_data)
+  try:
+    with open(f"segments/{segment}") as placement_data:
+      placement_data = json.load(placement_data)
+  except:
+    with open(f"game/levels/level0/segments/{segment}") as placement_data:
+      placement_data = json.load(placement_data)
   
   if output == True:
     print("looking at: ", segment)
