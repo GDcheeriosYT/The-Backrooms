@@ -3,7 +3,7 @@ import random
 import os
 
 segments = []
-for segment in os.listdir("segments/"):
+for segment in os.listdir("game\levels\level0\segments"):
   segments.append(segment)
 
 def manage_segment(segment = segments[random.randint(0, len(segments) - 1)], output=False, rotate = random.randint(0, 3)):
