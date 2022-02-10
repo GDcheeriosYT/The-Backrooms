@@ -2,3 +2,4 @@
 *.pyc
 *.pyc
 data/program_info.json
+data/level0_data.json
