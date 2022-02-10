@@ -1,7 +1,12 @@
 import json
 import random
+import os
 
-def manage_segment(segment, output=False, rotate = random.randint(0, 3)):
+segments = []
+for segment in os.listdir("segments/"):
+  segments.append(segment)
+
+def manage_segment(segment = segments[random.randint(0, len(segments) - 1)], output=False, rotate = random.randint(0, 3)):
   
   '''
   parses a segment and manages positioning of walls
@@ -19,9 +24,10 @@ def manage_segment(segment, output=False, rotate = random.randint(0, 3)):
   will rotate using 0 as 0/360 degrees and 3 being 270 degrees if defualt it will be random 0-3
   '''
   
-  with open(f"segments/{segment}.json") as placement_data:
+  with open(f"segments/{segment}") as placement_data:
     placement_data = json.load(placement_data)
   
+    print("looking at: ", segment)
   wall_placements = []
   for row in placement_data:
     if output == True:
