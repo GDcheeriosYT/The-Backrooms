@@ -82,4 +82,6 @@ def manage_segment(segment = segments[random.randint(0, len(segments) - 1)], out
 
       collumn += 1
   
+  if output == True:
+    print("here are the results: ", wall_placements)
   return(wall_placements)
