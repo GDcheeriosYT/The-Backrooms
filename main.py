@@ -736,12 +736,12 @@ def map_generation(seed, min, max, load = False):
       
       count+=1
       
-    with open("data/segment_data.json", "w+") as SD:
+    with open("data/level0_data.json", "w+") as SD:
       segment_data = json.dump(map_data, SD, sort_keys = False)
         
       
   else:
-    with open("data/segment_data.json", "r") as SD:
+    with open("data/level0_data.json", "r") as SD:
       segment_data = json.load(SD)
     
     random.seed(segment_data["seed"])
@@ -819,7 +819,7 @@ if singleplayer_or_multiplayer == "s" or singleplayer_or_multiplayer == "S":
     map_generation(seed, int(input("min: ")), int(input("max: ")))
     player.spawn()
   else:
-    with open("data/segment_data.json", "r") as SD:
+    with open("data/level0_data.json", "r") as SD:
       segment_data = json.load(SD)
       
     map_generation("", segment_data["min"], segment_data["max"], True)
