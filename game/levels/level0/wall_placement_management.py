@@ -14,6 +14,9 @@ except:
     segments.append(segment)
     
   print(segments)
+  
+def random_segment():
+  return(segments[random.randint(0, len(segments) - 1)])
 
 def manage_segment(segment = segments[random.randint(0, len(segments) - 1)], output=False, rotate = random.randint(0, 3)):
   
