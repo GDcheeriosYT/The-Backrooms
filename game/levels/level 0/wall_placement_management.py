@@ -1,6 +1,7 @@
 import json
+import random
 
-def manage_segment(segment, output=False, rotate = random):
+def manage_segment(segment, output=False, rotate = random.randint(0, 3)):
   
   '''
   parses a segment and manages positioning of walls
