@@ -3,8 +3,17 @@ import random
 import os
 
 segments = []
-for segment in os.listdir("game\levels\level0\segments"):
-  segments.append(segment)
+print("loading segments...")
+try:
+  for segment in os.listdir("game\levels\level0\segments"):
+    segments.append(segment)
+    
+  print(segments)
+except:
+  for segment in os.listdir("segments"):
+    segments.append(segment)
+    
+  print(segments)
 
 def manage_segment(segment = segments[random.randint(0, len(segments) - 1)], output=False, rotate = random.randint(0, 3)):
   
