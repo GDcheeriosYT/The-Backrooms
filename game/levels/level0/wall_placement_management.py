@@ -91,7 +91,9 @@ def manage_segment(segment = segments[random.randint(0, len(segments) - 1)], out
           wall_placements.append("bottom")
         elif collumn == 2 and row == "row3":
           wall_placements.append("bottom right")
-        
+          
+      else:
+        wall_placements.append("none")
 
       collumn += 1
   
