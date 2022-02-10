@@ -27,7 +27,31 @@ def manage_segment(segment = segments[random.randint(0, len(segments) - 1)], out
   with open(f"segments/{segment}") as placement_data:
     placement_data = json.load(placement_data)
   
+  if output == True:
     print("looking at: ", segment)
+    print(placement_data["row1"])
+    print(placement_data["row2"])
+    print(placement_data["row3"])
+    
+  if rotate == 0:
+    pass
+  else:
+    try:
+      for iteration in range(rotate - 1):
+        new_placment_data = {}
+        for row in placement_data:
+          new_placment_data["row1"] = [placement_data["row3"][0], placement_data["row2"][0], placement_data["row1"][0]]
+          new_placment_data["row2"] = [placement_data["row3"][1], placement_data["row2"][1], placement_data["row1"][1]]
+          new_placment_data["row3"] = [placement_data["row3"][2], placement_data["row2"][2], placement_data["row1"][2]]
+        placement_data = new_placment_data
+        if output == True:
+          print(f"rotate {iteration}")
+          print(placement_data["row1"])
+          print(placement_data["row2"])
+          print(placement_data["row3"])
+    except:
+      print(f"woah there partner we can't rotate {segment} {rotate} times...")
+  
   wall_placements = []
   for row in placement_data:
     if output == True:
