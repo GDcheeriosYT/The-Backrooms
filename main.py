@@ -323,6 +323,11 @@ if singleplayer_or_multiplayer == "s" or singleplayer_or_multiplayer == "S":
       player.controller.speed = 10
     else:
       player.controller.speed = 5
+    if held_keys["v"]:
+      player.damage(1)
+    elif held_keys["c"]:
+      player.heal(1)
+      
     
 else:
   ip = input("Now just enter server ip: ")
