@@ -179,6 +179,7 @@ def map_generation(seed, min, max, load = False):
   
   global list_of_cords
   multiplier = 15
+  light_intensity = [0, 1, 1, 1, 1, 1]
   if load == False:
     random.seed(seed)
     print(f"the map is {min} by {max}")
@@ -217,7 +218,7 @@ def map_generation(seed, min, max, load = False):
       duplicate(light,
                 position=(cords[0], 5.8, cords[1]),
                 parent=parent_light_entity)
-      LitPointLight(position=Vec3(cords[0],4,cords[1]), intensity=1, color=rgb(248, 252, 150))
+      LitPointLight(position=Vec3(cords[0],4,cords[1]), intensity=light_intensity[random.randint(0,5)], color=rgb(248, 252, 150))
       duplicate(chunk, position=(cords[0], 0, cords[1]))
       
       count+=1
@@ -251,7 +252,7 @@ def map_generation(seed, min, max, load = False):
       duplicate(light,
                 position=(cords[0], 5.8, cords[1]),
                 parent=parent_light_entity)
-      LitPointLight(position=Vec3(cords[0],4,cords[1]), intensity=1, color=rgb(248, 252, 150))
+      LitPointLight(position=Vec3(cords[0],4,cords[1]), intensity=light_intensity[random.randint(0,5)], color=rgb(248, 252, 150))
       duplicate(chunk, position=(cords[0], 0, cords[1]))
     
   #perfmorance
