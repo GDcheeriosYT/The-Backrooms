@@ -50,9 +50,8 @@ from game.levels.level0 import wall_placement_management as wpm
 
 app = Ursina()
 
-#map
-parent_wall_entity = Entity()
-parent_light_entity = Entity()
+#requires ursina
+from game.levels.level0 import segment
 
 #window setup
 window.title = 'The Backrooms'          # The window title
@@ -70,103 +69,6 @@ application.print_warnings = False
 
 hum = Audio("resources\levels\level 0\Backrooms sound.mp3", loop=True)
 hum.volume = 0.3
-
-chunk = Entity(model="cube",
-               scale=(15, 100, 15),
-               color=rgb(0,0,0,a=0))
-
-'''chunks = Entity(model="cube",
-               scale=(15, 100, 15),
-               color=rgb(0,0,0,a=255))'''
-
-floor = LitObject(model="cube",
-               texture=Texture("resources/levels/level 0/carpet.png"),
-               scale=(1000, 1, 1000),
-               collider="mesh",
-               tiling=(250,250),
-               position=(0,0,0),
-               specularMap=load_texture("resources/levels/level 0/noreflect.png"),
-               cubemapIntensity=0)
-wall = LitObject(model="cube",
-              texture=Texture("resources/levels/level 0/wall.png"),
-              scale=(0,0,0),
-              collider="box",
-              position=(5,0,5),
-              specularMap=load_texture("resources/levels/level 0/noreflect.png"),
-              cubemapIntensity=0)
-ceiling = LitObject(model="cube",
-                 texture=Texture("resources/levels/level 0/ceiling.png"),
-                 scale=(1000, 1, 1000),
-                 tiling=(500,500),
-                 collider="mesh",
-                 position=(0,6,0),
-                 specularMap=load_texture("resources/levels/level 0/noreflect.png"),
-                 cubemapIntensity=0)
-collider = Entity(collider="box", scale=(0,0,0), position=(349024859,0,0))
-
-#lights
-light = Entity(model="cube", texture=Texture("resources/levels/level 0/light.png"), color=color.white, position=(100,5.8,100), scale=(2.2,1.2,4), specularMap=load_texture("resources/levels/level 0/noreflect.png"))
-LitPointLight(position=Vec3(0,0,0), intensity=1, color=rgb(248, 252, 150))
-
-#map construction
-class BackroomSegment():
-  def __init__(self, x=0, y=0, z=0, distance=5, scale=(5, 12, 5), is_blank=False):
-    self.x = x
-    self.y = y
-    self.z = z
-    self.type = type
-    self.distance = distance
-    self.scale = scale
-    self.is_blank = is_blank
-    
-  def create_segment(self):
-    
-    def place(placement):
-      print(placement)
-      duplicate(wall,
-                scale=self.scale,
-                position=placement,
-                parent=parent_wall_entity,
-                specularMap=load_texture("resources/levels/level 0/noreflect.png"),
-                cubemapIntensity=0)
-      duplicate(collider,
-                scale=self.scale,
-                position=placement)
-    
-    if self.is_blank == False:
-      positions = wpm.manage_segment(segment=wpm.random_segment(), output=True, rotate=random.randint(0, 3))
-    elif self.is_blank == True:
-      positions = wpm.manage_segment(segment="blank.json", output=True)
-    for position in positions:
-      if position == "top left":
-        placement = (self.x + self.distance, self.y, self.z - self.distance)
-        place(placement)
-      elif position == "top":
-        placement = (self.x + self.distance, self.y, self.z)
-        place(placement)
-      elif position == "top right":
-        placement = (self.x + self.distance, self.y, self.z + self.distance)
-        place(placement)
-      elif position == "left":
-        placement = (self.x, self.y, self.z - self.distance)
-        place(placement)
-      elif position == "center":
-        placement = (self.x, self.y, self.z)
-        place(placement)
-      elif position == "right":
-        placement = (self.x, self.y, self.z + self.distance)
-        place(placement)
-      elif position == "bottom left":
-        placement = (self.x - self.distance, self.y, self.z - self.distance)
-        place(placement)
-      elif position == "bottom":
-        placement = (self.x - self.distance, self.y, self.z)
-        place(placement)
-      elif position == "bottom right":
-        placement = (self.x - self.distance, self.y, self.z + self.distance)
-        place(placement)
-      else:
-        pass
             
 list_of_cords=[]
 
@@ -179,7 +81,6 @@ def map_generation(seed, min, max, load = False):
   
   global list_of_cords
   multiplier = 15
-  light_intensity = [0, 1, 1, 1, 1, 1]
   if load == False:
     random.seed(seed)
     print(f"the map is {min} by {max}")
@@ -190,7 +91,7 @@ def map_generation(seed, min, max, load = False):
     map_data["min"] = min
     map_data["max"] = max
     map_data["seed"] = seed
-    map_data["cords"] = {} 
+    map_data["cords"] = {}
     while z <= diff:
       map_data["cords"][z] = []
       while x <= diff:
@@ -215,10 +116,7 @@ def map_generation(seed, min, max, load = False):
         BackroomSegment(cords[0], 0, cords[1], is_blank=True).create_segment()
       else:
         BackroomSegment(cords[0], 0, cords[1]).create_segment()
-      duplicate(light,
-                position=(cords[0], 5.8, cords[1]),
-                parent=parent_light_entity)
-      LitPointLight(position=Vec3(cords[0],4,cords[1]), intensity=light_intensity[random.randint(0,5)], color=rgb(248, 252, 150))
+      
       duplicate(chunk, position=(cords[0], 0, cords[1]))
       
       count+=1
@@ -249,10 +147,7 @@ def map_generation(seed, min, max, load = False):
         BackroomSegment(cords[0], 0, cords[1], is_blank=True).create_segment()
       else:
         BackroomSegment(cords[0], 0, cords[1]).create_segment()
-      duplicate(light,
-                position=(cords[0], 5.8, cords[1]),
-                parent=parent_light_entity)
-      LitPointLight(position=Vec3(cords[0],4,cords[1]), intensity=light_intensity[random.randint(0,5)], color=rgb(248, 252, 150))
+        
       duplicate(chunk, position=(cords[0], 0, cords[1]))
     
   #perfmorance
