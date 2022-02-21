@@ -112,7 +112,7 @@ class Chunk():
     duplicate(light,
                 position=(self.x - wall_spacing, 5.8, self.z - wall_spacing),
                 parent=parent_light_entity)
-    LitPointLight(position=Vec3(self.x - wall_spacing, 4, self.z - wall_spacing), intensity=random.randrange(0, 1), color=rgb(248, 252, 150))
+    LitPointLight(position=Vec3(self.x - wall_spacing, 4, self.z - wall_spacing), intensity=random.randint(0, 1), color=rgb(248, 252, 150))
     placement_options = ["left, top, right, bottom"] #in the future add a loop to put these in the locations for more diversity
     if self.walls == 4:
       placement_manager((self.x, self.y, self.z), ["left, top, right, bottom"])
