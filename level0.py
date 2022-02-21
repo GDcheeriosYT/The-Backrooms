@@ -6,6 +6,7 @@ wall_side_scale = 0.5
 
 #initial map stuff
 door = Entity()
+walls = Entity()
 collider = Entity(collider="box")
 wall = LitObject(model="cube",
               texture=Texture("resources/levels/level 0/wall.png"),
