@@ -67,7 +67,14 @@ hum.volume = 0.3
             
 list_of_cords=[]
 
+def mesh_combine():
+  level0.walls.combine()
+  level0.door.combine()
+  level0.walls.texture = "resources/levels/level 0/wall.png"
+  level0.door.texture = "resources/levels/level 0/wall.png"
+
 def map_generation(seed, min, max, load = False):
+  import level0
   '''
   generates a maze if load is False
   
@@ -75,7 +82,7 @@ def map_generation(seed, min, max, load = False):
   '''
   
   global list_of_cords
-  multiplier = 15
+  multiplier = 10
   if load == False:
     random.seed(seed)
     print(f"the map is {min} by {max}")
@@ -108,15 +115,17 @@ def map_generation(seed, min, max, load = False):
       cords = (cord[0] * multiplier, cord[1] * multiplier) #converting into tuple
       print(f"map generation: {cords} {int((list_of_cords.index(cord) / len(list_of_cords)) * 100)}%")
       if cords[0] == 0 and cords[1] == 0:
-        None
+        level0.Chunk(cords[0], 0, cords[1], walls=random.randint(1, 4)).place()
       else:
-        None
+        level0.Chunk(cords[0], 0, cords[1], walls=random.randint(1, 4)).place()
+
       
       count+=1
       
     with open("data/level0_data.json", "w+") as SD:
       segment_data = json.dump(map_data, SD, sort_keys = False)
         
+    #mesh_combine()
       
   else:
     with open("data/level0_data.json", "r") as SD:
@@ -137,9 +146,11 @@ def map_generation(seed, min, max, load = False):
       cords = (cord[0] * multiplier, cord[1] * multiplier) #converting into tuple
       print(f"map generation: {cords} {int((list_of_cords.index(cord) / len(list_of_cords)) * 100)}%")
       if cords[0] == 0 and cords[1] == 0:
-        None
+        level0.Chunk(cords[0], 0, cords[1], walls=random.randint(1, 4)).place()
       else:
-        None
+        level0.Chunk(cords[0], 0, cords[1], walls=random.randint(1, 4)).place()
+    
+    #mesh_combine()
 
   hum.play()
   print("done!")
@@ -176,8 +187,6 @@ with open("data/program_info.json", "r+") as PI:
 
       player = br_player.Player(name, color=(R,G,B))
       print("Thank You!")
-    
-    
 
 singleplayer_or_multiplayer = input("S=M would you like singleplayer or multiplayer?\n")
 
