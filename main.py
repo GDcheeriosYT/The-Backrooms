@@ -43,15 +43,10 @@ except:
   import webbrowser
 
 from UrsinaLighting import *
-import game.entity as br_entity
-import game.player as br_player
-import game.buttons
-from game.levels.level0 import wall_placement_management as wpm
+import player as br_player
+import buttons
 
 app = Ursina()
-
-#requires ursina
-from game.levels.level0 import segment
 
 #window setup
 window.title = 'The Backrooms'          # The window title
@@ -113,11 +108,9 @@ def map_generation(seed, min, max, load = False):
       cords = (cord[0] * multiplier, cord[1] * multiplier) #converting into tuple
       print(f"map generation: {cords} {int((list_of_cords.index(cord) / len(list_of_cords)) * 100)}%")
       if cords[0] == 0 and cords[1] == 0:
-        BackroomSegment(cords[0], 0, cords[1], is_blank=True).create_segment()
+        None
       else:
-        BackroomSegment(cords[0], 0, cords[1]).create_segment()
-      
-      duplicate(chunk, position=(cords[0], 0, cords[1]))
+        None
       
       count+=1
       
@@ -144,17 +137,9 @@ def map_generation(seed, min, max, load = False):
       cords = (cord[0] * multiplier, cord[1] * multiplier) #converting into tuple
       print(f"map generation: {cords} {int((list_of_cords.index(cord) / len(list_of_cords)) * 100)}%")
       if cords[0] == 0 and cords[1] == 0:
-        BackroomSegment(cords[0], 0, cords[1], is_blank=True).create_segment()
+        None
       else:
-        BackroomSegment(cords[0], 0, cords[1]).create_segment()
-        
-      duplicate(chunk, position=(cords[0], 0, cords[1]))
-    
-  #perfmorance
-  parent_wall_entity.combine()
-  parent_light_entity.combine()
-
-  parent_wall_entity.texture = "resources/levels/level 0/wall.png"
+        None
 
   hum.play()
   print("done!")
@@ -201,19 +186,21 @@ if singleplayer_or_multiplayer == "s" or singleplayer_or_multiplayer == "S":
   if load == "y" or load == "Y":
     seed = input("seed: ")
     map_generation(seed, int(input("min: ")), int(input("max: ")))
+    import level0
     player.spawn()
   else:
     with open("data/level0_data.json", "r") as SD:
       segment_data = json.load(SD)
       
     map_generation("", segment_data["min"], segment_data["max"], True)
+    import level0
     player.spawn()
   
   def update():
-    if held_keys["f"]:
+    '''if held_keys["f"]:
       chunk.color=rgb(0,0,0,a=50)
     else:
-      chunk.color=rgb(0,0,0,a=0)
+      chunk.color=rgb(0,0,0,a=0)'''
     if held_keys["shift"]:
       player.controller.speed = 10
     else:
