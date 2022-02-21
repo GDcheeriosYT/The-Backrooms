@@ -51,12 +51,11 @@ def place_door(x=0, y=0, z=0, sideways=False):
 
 #class stuff
 class Chunk():
-  def __init__(self, x=0, y=0, z=0, walls=1, has_door=False):
+  def __init__(self, x=0, y=0, z=0, walls=1):
     self.x = x
     self.y = y
     self.z = z
     self.walls = walls
-    self.has_door = has_door
     
   def place(self):
     for wall in range(walls):
