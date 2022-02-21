@@ -3,6 +3,7 @@ from UrsinaLighting import *
 
 #initial variable stuff
 wall_side_scale = 0.5
+wall_spacing = 5
 
 #initial map stuff
 door = Entity()
