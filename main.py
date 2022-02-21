@@ -73,8 +73,10 @@ list_of_cords=[]
 def mesh_combine():
   level0.walls.combine()
   level0.door.combine()
+  level0.parent_light_entity.combine()
   level0.walls.texture = "resources/levels/level 0/wall.png"
   level0.door.texture = "resources/levels/level 0/wall.png"
+  level0.parent_light_entity.texture = "resources/levels/level 0/light.png"
 
 def map_generation(seed, min, max, load = False):
   '''
