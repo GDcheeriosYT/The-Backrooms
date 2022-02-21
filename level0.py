@@ -49,6 +49,16 @@ def place_door(x=0, y=0, z=0, sideways=False):
 
 
 
+def place_wall(x=0, y=0, z=0, sideways=False):
+  if sideways == False:
+    duplicate(wall, position=(x, y, z), scale=(wall_spacing, 20, wall_side_scale), parent=walls)
+    duplicate(collider, position=(x, y, z), scale=(wall_spacing,20,wall_side_scale))
+  else:
+    duplicate(wall, position=(x, y, z), scale=(wall_side_scale, 20, wall_spacing), parent=walls)
+    duplicate(collider, position=(x, y, z), scale=(wall_side_scale,20,wall_spacing))
+
+
+
 #class stuff
 class Chunk():
   def __init__(self, x=0, y=0, z=0, walls=1):
