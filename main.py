@@ -125,7 +125,7 @@ def map_generation(seed, min, max, load = False):
     with open("data/level0_data.json", "w+") as SD:
       segment_data = json.dump(map_data, SD, sort_keys = False)
         
-    #mesh_combine()
+    mesh_combine()
       
   else:
     with open("data/level0_data.json", "r") as SD:
@@ -150,7 +150,7 @@ def map_generation(seed, min, max, load = False):
       else:
         level0.Chunk(cords[0], 0, cords[1], walls=random.randint(1, 4)).place()
     
-    #mesh_combine()
+    mesh_combine()
 
   hum.play()
   print("done!")
