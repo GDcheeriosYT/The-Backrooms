@@ -48,6 +48,9 @@ import buttons
 
 app = Ursina()
 
+#levels
+import level0
+
 #window setup
 window.title = 'The Backrooms'          # The window title
 window.borderless = False               # Show a border
@@ -74,7 +77,6 @@ def mesh_combine():
   level0.door.texture = "resources/levels/level 0/wall.png"
 
 def map_generation(seed, min, max, load = False):
-  import level0
   '''
   generates a maze if load is False
   
@@ -195,14 +197,12 @@ if singleplayer_or_multiplayer == "s" or singleplayer_or_multiplayer == "S":
   if load == "y" or load == "Y":
     seed = input("seed: ")
     map_generation(seed, int(input("min: ")), int(input("max: ")))
-    import level0
     player.spawn(5, 0, 5)
   else:
     with open("data/level0_data.json", "r") as SD:
       segment_data = json.load(SD)
       
     map_generation("", segment_data["min"], segment_data["max"], True)
-    import level0
     player.spawn(5, 0, 5)
   
   def update():
