@@ -1,0 +1,33 @@
+# Blender MTL File: 'None'
+# Material Count: 3
+
+newmtl Standard
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 1.000000 0.419608 0.000000
+Ks 0.100000 0.041961 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+
+newmtl aaaaaa
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.666667 0.666667 0.666667
+Ks 0.009961 0.009961 0.009961
+Ni 1.000000
+d 1.000000
+illum 2
+
+newmtl bottle
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.100000 0.100000 0.100000
+Ni 1.000000
+d 0.000000
+illum 2
+map_Bump glass-effect6.png
+map_Kd glass-effect6.png
+map_Ke glass-effect6.png
+map_d glass-effect6.png
