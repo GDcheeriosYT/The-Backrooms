@@ -71,12 +71,10 @@ hum.volume = 0.3
 list_of_cords=[]
 
 def mesh_combine():
-  level0.walls.combine()
-  level0.door.combine()
-  level0.parent_light_entity.combine()
-  level0.walls.texture = "resources/levels/level 0/wall.png"
-  level0.door.texture = "resources/levels/level 0/wall.png"
-  level0.parent_light_entity.texture = "resources/levels/level 0/light.png"
+  level0.lights_on.combine()
+  level0.lights_off.combine()
+  level0.lights_off.texture = "resources/levels/level 0/lightoff.png"
+  level0.lights_on.texture = "resources/levels/level 0/light.png"
 
 chunks = []
 
@@ -132,7 +130,7 @@ def map_generation(seed, min, max, load = False):
     with open("data/level0_data.json", "w+") as SD:
       segment_data = json.dump(map_data, SD, sort_keys = False)
         
-    #mesh_combine()
+    mesh_combine()
       
   else:
     with open("data/level0_data.json", "r") as SD:
@@ -159,7 +157,7 @@ def map_generation(seed, min, max, load = False):
     
     print(chunks)
     
-    #mesh_combine()
+    mesh_combine()
 
   hum.play()
   print("done!")
