@@ -119,9 +119,9 @@ def map_generation(seed, min, max, load = False):
       cords = (cord[0] * multiplier, cord[1] * multiplier) #converting into tuple
       print(f"map generation: {cords} {int((list_of_cords.index(cord) / len(list_of_cords)) * 100)}%")
       if cords[0] == 0 and cords[1] == 0:
-        level0.Chunk(cords[0], 0, cords[1], walls=random.randint(1, 4)).place()
+        level0.Chunk(cords[0], 0, cords[1]).place()
       else:
-        level0.Chunk(cords[0], 0, cords[1], walls=random.randint(1, 4)).place()
+        level0.Chunk(cords[0], 0, cords[1]).place()
 
       
       count+=1
@@ -150,9 +150,9 @@ def map_generation(seed, min, max, load = False):
       cords = (cord[0] * multiplier, cord[1] * multiplier) #converting into tuple
       print(f"map generation: {cords} {int((list_of_cords.index(cord) / len(list_of_cords)) * 100)}%")
       if cords[0] == 0 and cords[1] == 0:
-        level0.Chunk(cords[0], 0, cords[1], walls=random.randint(1, 4)).place()
+        level0.Chunk(cords[0], 0, cords[1]).place()
       else:
-        level0.Chunk(cords[0], 0, cords[1], walls=random.randint(1, 4)).place()
+        level0.Chunk(cords[0], 0, cords[1]).place()
     
     mesh_combine()
 
