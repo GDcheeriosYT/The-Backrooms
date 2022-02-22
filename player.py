@@ -1,7 +1,8 @@
-from multiprocessing.sharedctypes import Value
+from turtle import position
 from ursina import *
 from ursina.prefabs.first_person_controller import FirstPersonController
 from ursina.prefabs.health_bar import HealthBar
+from UrsinaLighting import *
 
 class Player:
   def __init__(self, name, color, health=100, hydration=100, hunger=100, sanity=100, items={}):
@@ -41,7 +42,11 @@ class Player:
                            x=-2.5,
                            color=rgb(self.color[0],self.color[1],self.color[2]))
     
-    self.health_bar = HealthBar(value=self.health)
+    self.health_bar = HealthBar(value=self.health,
+                                position=(-0.9, -0.3))
+    self.hydration_bar = HealthBar(value=self.hydration,
+                                   bar_color=color.blue,
+                                   position=(-0.9, -0.4))
     
     camera.position = (0,10,0)
   
@@ -49,11 +54,15 @@ class Player:
     self.health -= damage
     self.health_bar.value = self.health
     if self.health <= 0:
-      self.controller.position = (0, 0, 0)
+      self.controller.position = (5, 0, 5)
       self.health = 100
   
   def thirst(self, thirst):
     self.hydration -= thirst
+    self.hydration_bar.value = self.hydration
+    if self.hydration <= 0:
+      self.damage(30)
+      self.hydration += 2
   
   def craze(self, craze):
     self.sanity -= craze
@@ -64,6 +73,7 @@ class Player:
   
   def hydrate(self, liquid):
     self.hydration += liquid
+    self.hydration_bar.value = self.hydration
   
   def uninsane(self, vbucks):
     self.sanity += vbucks

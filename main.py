@@ -78,7 +78,10 @@ def mesh_combine():
   level0.door.texture = "resources/levels/level 0/wall.png"
   level0.parent_light_entity.texture = "resources/levels/level 0/light.png"
 
+chunks = []
+
 def map_generation(seed, min, max, load = False):
+  global chunks
   '''
   generates a maze if load is False
   
@@ -86,7 +89,7 @@ def map_generation(seed, min, max, load = False):
   '''
   
   global list_of_cords
-  multiplier = 10
+  multiplier = 5
   if load == False:
     random.seed(seed)
     print(f"the map is {min} by {max}")
@@ -118,10 +121,10 @@ def map_generation(seed, min, max, load = False):
     for cord in list_of_cords:
       cords = (cord[0] * multiplier, cord[1] * multiplier) #converting into tuple
       print(f"map generation: {cords} {int((list_of_cords.index(cord) / len(list_of_cords)) * 100)}%")
-      if cords[0] == 0 and cords[1] == 0:
-        level0.Chunk(cords[0], 0, cords[1]).place()
-      else:
-        level0.Chunk(cords[0], 0, cords[1]).place()
+      thing = level0.Chunk(cords[0], 0, cords[1])
+      chunks.append(thing)
+      print(thing.x)
+      thing.place()
 
       
       count+=1
@@ -149,10 +152,12 @@ def map_generation(seed, min, max, load = False):
     for cord in list_of_cords:
       cords = (cord[0] * multiplier, cord[1] * multiplier) #converting into tuple
       print(f"map generation: {cords} {int((list_of_cords.index(cord) / len(list_of_cords)) * 100)}%")
-      if cords[0] == 0 and cords[1] == 0:
-        level0.Chunk(cords[0], 0, cords[1]).place()
-      else:
-        level0.Chunk(cords[0], 0, cords[1]).place()
+      thing = level0.Chunk(cords[0], 0, cords[1])
+      chunks.append(thing)
+      print(thing.structure.position)
+      thing.place()
+    
+    print(chunks)
     
     #mesh_combine()
 
@@ -200,12 +205,22 @@ if singleplayer_or_multiplayer == "s" or singleplayer_or_multiplayer == "S":
     seed = input("seed: ")
     map_generation(seed, int(input("min: ")), int(input("max: ")))
     player.spawn(5, 0, 5)
+    for chunk in chunks:
+      if distance(chunk.structure, player.controller) > 100:
+        chunk.structure.disable()
+      else:
+        chunk.structure.enable()
   else:
     with open("data/level0_data.json", "r") as SD:
       segment_data = json.load(SD)
       
     map_generation("", segment_data["min"], segment_data["max"], True)
     player.spawn(5, 0, 5)
+    for chunk in chunks:
+      if distance(chunk.structure, player.controller) > 100:
+        chunk.structure.disable()
+      else:
+        chunk.structure.enable()
   
   def update():
     '''if held_keys["f"]:
@@ -220,6 +235,15 @@ if singleplayer_or_multiplayer == "s" or singleplayer_or_multiplayer == "S":
       player.damage(1)
     elif held_keys["c"]:
       player.heal(1)
+    if held_keys["f"]:
+      for chunk in chunks:
+        print(distance(chunk.structure, player.controller))
+        print(f"wall: {chunk.structure.position}, player: {player.controller.position}")
+        if distance(chunk.structure, player.controller) > 100:
+          chunk.structure.disable()
+        else:
+          chunk.structure.enable()
+          
       
     
 else:
