@@ -18,28 +18,19 @@ wall = Entity(model="cube",
               position=(5,0,5),
               cubemapIntensity=0,
               shader=basic_lighting_shader,)
-'''floor = Entity(model="plane",
-               texture=Texture("resources/levels/level 0/carpet.png"),
-               scale=(1000, 1, 1000),
-               collider="mesh",
-               position=(0,0,0),
-               tiling=(250,250),
-               specularMap=load_texture("resources/levels/level 0/noreflect.png"),
-               cubemapIntensity=0,
-               shader=basic_lighting_shader)'''
 floor = Entity(model="cube",
                texture=Texture("resources/levels/level 0/carpet.png"),
                scale=(1000, 1, 1000),
                texture_scale=(1000,1000),
                collider="mesh",
-               position=(0,0,0),
-               shader=basic_lighting_shader)
+               position=(0,0,0))
+               #shader=basic_lighting_shader
 ceiling = Entity(model="cube",
                  texture=Texture("resources/levels/level 0/ceiling.png"),
                  scale=(1000, 1, 1000),
                  texture_scale=(1000,1000),
                  collider="mesh",
-                 position=(0,6,0),)
+                 position=(0,6,0))
                  #shader=basic_lighting_shader
 collider = Entity(collider="box")
 parent_light_entity = Entity()
