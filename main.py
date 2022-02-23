@@ -197,6 +197,8 @@ with open("data/program_info.json", "r+") as PI:
 
 singleplayer_or_multiplayer = input("S=M would you like singleplayer or multiplayer?\n")
 
+view_distance = 50
+
 if singleplayer_or_multiplayer == "s" or singleplayer_or_multiplayer == "S":
   load = input("Y=N would you like to generate a new map?\n")
   if load == "y" or load == "Y":
@@ -204,7 +206,7 @@ if singleplayer_or_multiplayer == "s" or singleplayer_or_multiplayer == "S":
     map_generation(seed, int(input("min: ")), int(input("max: ")))
     player.spawn(5, 0, 5)
     for chunk in chunks:
-      if distance(chunk.structure, player.controller) > 100:
+      if distance(chunk.structure, player.controller) > view_distance:
         chunk.structure.disable()
       else:
         chunk.structure.enable()
@@ -215,7 +217,7 @@ if singleplayer_or_multiplayer == "s" or singleplayer_or_multiplayer == "S":
     map_generation("", segment_data["min"], segment_data["max"], True)
     player.spawn(5, 0, 5)
     for chunk in chunks:
-      if distance(chunk.structure, player.controller) > 100:
+      if distance(chunk.structure, player.controller) > view_distance:
         chunk.structure.disable()
       else:
         chunk.structure.enable()
@@ -237,7 +239,7 @@ if singleplayer_or_multiplayer == "s" or singleplayer_or_multiplayer == "S":
       for chunk in chunks:
         print(distance(chunk.structure, player.controller))
         print(f"wall: {chunk.structure.position}, player: {player.controller.position}")
-        if distance(chunk.structure, player.controller) > 100:
+        if distance(chunk.structure, player.controller) > view_distance:
           chunk.structure.disable()
         else:
           chunk.structure.enable()
