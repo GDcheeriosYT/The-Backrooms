@@ -16,8 +16,7 @@ wall = Entity(model="cube",
               scale=(0,0,0),
               collider="mesh",
               position=(5,0,5),
-              cubemapIntensity=0,
-              shader=basic_lighting_shader,)
+              cubemapIntensity=0)
 floor = Entity(model="cube",
                texture=Texture("resources/levels/level 0/carpet.png"),
                scale=(1000, 1, 1000),
@@ -93,7 +92,7 @@ class Chunk():
                 position=(self.x * 2 - wall_spacing, 5.8, self.z * 2 - wall_spacing),
                 texture=Texture("resources/levels/level 0/light.png"),
                 parent=lights_on)
-      self.light = PointLight(x=self.x * 2 - wall_spacing, y=5.8, z=self.z * 2 - wall_spacing, parent=self.structure)
+      self.light = PointLight(x=self.x * 2 - wall_spacing, y=4, z=self.z * 2 - wall_spacing, parent=self.structure)
       
     left_rand = random.randint(0, 2)
     if left_rand == 1:
@@ -122,3 +121,4 @@ class Chunk():
     #performance
     self.structure.combine()
     self.structure.texture = "resources/levels/level 0/wall.png"
+    self.structure.shader = basic_lighting_shader
