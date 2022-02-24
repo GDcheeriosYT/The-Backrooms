@@ -8,7 +8,7 @@ class AlmondWater():
     self.z = z
     self.hydration = hydration
   
-  def spawn(self, chunk_entity):
+  def spawn(self, chunk_entity=Entity()):
     Entity(model="resources/items/almond water/bottle.obj",
            scale=(0.02,0.02,0.02),
            position=(self.x, self.y + 0.6, self.z),

@@ -41,12 +41,13 @@ light = Entity(model="cube", color=color.white, position=(100,5.8,100), scale=(2
 
 #class stuff
 class Chunk():
-  def __init__(self, x=0, y=0, z=0, has_item=random.randint(0,100)):
+  def __init__(self, x=0, y=0, z=0):
     self.x = x
     self.y = y
     self.z = z
     self.structure = Entity(position=(x, y, z))
-    if has_item < 2:
+    self.random_value = random.randint(0, 100)
+    if self.random_value < 2:
       self.has_item = True
     else:
       self.has_item = False
@@ -79,9 +80,7 @@ class Chunk():
     
   def place(self):
     if self.has_item == True:
-      spawn_item_chance = random.randint(0, 1)
-      if spawn_item_chance == 1:
-        items.AlmondWater(self.x + wall_spacing, self.y, self.z + wall_spacing).spawn(self.structure)
+      items.AlmondWater(self.x + wall_spacing, self.y, self.z + wall_spacing).spawn()
         
     light_level = random.randint(0, 1)
     if light_level == 0:
