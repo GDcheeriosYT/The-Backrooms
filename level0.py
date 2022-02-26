@@ -33,7 +33,7 @@ ceiling = Entity(model="cube",
                  #shader=basic_lighting_shader
 collider = Entity(collider="box")
 parent_light_entity = Entity()
-light = Entity(model="cube", color=color.white, position=(100,5.8,100), scale=(2.2,1.2,4), specularMap=load_texture("resources/levels/level 0/noreflect.png"))
+light = Entity(model="cube", color=color.white, position=(100,-1,100), scale=(2.2,1.2,4), specularMap=load_texture("resources/levels/level 0/noreflect.png"))
 
 
 
