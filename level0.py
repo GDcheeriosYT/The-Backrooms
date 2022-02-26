@@ -79,7 +79,9 @@ class Chunk():
     
   def place(self):
     if self.has_item == True:
-      items.AlmondWater(self.x + wall_spacing, self.y, self.z + wall_spacing).spawn()
+      self.item = random.randint(1, 1)
+      if self.item == 1:
+        items.AlmondWater(self.x + wall_spacing, self.y, self.z + wall_spacing).spawn()
         
     light_level = random.randint(0, 1)
     if light_level == 0:
