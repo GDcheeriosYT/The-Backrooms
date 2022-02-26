@@ -78,6 +78,15 @@ def mesh_combine():
 
 chunks = []
 
+def load_chunks(view_distance):
+  for chunk in chunks:
+    print(distance(chunk.structure, player.controller))
+    print(f"wall: {chunk.structure.position}, player: {player.controller.position}")
+    if distance(chunk.structure, player.controller) > view_distance:
+      chunk.structure.disable()
+    else:
+      chunk.structure.enable()
+
 def map_generation(seed, min, max, load = False):
   global chunks
   '''
@@ -197,7 +206,10 @@ with open("data/program_info.json", "r+") as PI:
 
 singleplayer_or_multiplayer = input("S=M would you like singleplayer or multiplayer?\n")
 
-view_distance = 50
+sequence = Sequence(
+  5,
+  Func(load_chunks, 50)
+)
 
 if singleplayer_or_multiplayer == "s" or singleplayer_or_multiplayer == "S":
   load = input("Y=N would you like to generate a new map?\n")
@@ -205,22 +217,12 @@ if singleplayer_or_multiplayer == "s" or singleplayer_or_multiplayer == "S":
     seed = input("seed: ")
     map_generation(seed, int(input("min: ")), int(input("max: ")))
     player.spawn(5, 0, 5)
-    for chunk in chunks:
-      if distance(chunk.structure, player.controller) > view_distance:
-        chunk.structure.disable()
-      else:
-        chunk.structure.enable()
   else:
     with open("data/level0_data.json", "r") as SD:
       segment_data = json.load(SD)
       
     map_generation("", segment_data["min"], segment_data["max"], True)
     player.spawn(5, 0, 5)
-    for chunk in chunks:
-      if distance(chunk.structure, player.controller) > view_distance:
-        chunk.structure.disable()
-      else:
-        chunk.structure.enable()
   
   def update():
     '''if held_keys["f"]:
@@ -235,14 +237,6 @@ if singleplayer_or_multiplayer == "s" or singleplayer_or_multiplayer == "S":
       player.damage(1)
     elif held_keys["c"]:
       player.heal(1)
-    if held_keys["f"]:
-      for chunk in chunks:
-        print(distance(chunk.structure, player.controller))
-        print(f"wall: {chunk.structure.position}, player: {player.controller.position}")
-        if distance(chunk.structure, player.controller) > view_distance:
-          chunk.structure.disable()
-        else:
-          chunk.structure.enable()
           
       
     
