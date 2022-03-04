@@ -131,15 +131,18 @@ chunks = []
 
 
 def load_chunks():
-  print("debug: loading chunks")
+  distance_mult = 2
+  current_location = (player.controller.position[0] / distance_mult, player.controller.position[1] / distance_mult, player.controller.position[2] / distance_mult)
+  current_location = Entity(position=current_location)
+  print(distance(chunks[0].structure, current_location))
+  #print("debug: loading chunks")
   if program_info["graphics"]["quality"] == "high":
     for chunk in chunks:
-      print(distance(chunk.structure, player.controller))
-      if distance(chunk.structure, player.controller) > program_info["graphics"]["view distance"]:
+      if distance(chunk.structure, current_location) > program_info["graphics"]["view distance"]:
         chunk.structure.disable()
         chunk.light_object.disable()
         try:
-          if distance(chunk.light, player.controller) > program_info["graphics"]["view distance"] / 2:
+          if distance(chunk.light, current_location) > program_info["graphics"]["view distance"] / 2:
             chunk.light.setIntensity(0)
             chunk.item.disable()
         except:
@@ -148,7 +151,7 @@ def load_chunks():
         chunk.structure.enable()
         chunk.light_object.enable()
         try:
-          if distance(chunk.light, player.controller) < program_info["graphics"]["view distance"] / 2:
+          if distance(chunk.light, current_location) < program_info["graphics"]["view distance"] / 2:
             chunk.light.setIntensity(1)
             chunk.item.enable()
         except:
@@ -159,21 +162,18 @@ def load_chunks():
           
   else:
     for chunk in chunks:
-      print(player.controller.position)
-      print(chunk.structure.position)
-      print(distance(chunk.structure, player.controller))
-      if distance(chunk.structure, player.controller) > program_info["graphics"]["view distance"]:
+      if distance(chunk.structure, current_location) > program_info["graphics"]["view distance"]:
         chunk.structure.disable()
       else:
         chunk.structure.enable()
         try:
-          if distance(chunk.light_structure, player.controller) < program_info["graphics"]["view distance"] / 2:
+          if distance(chunk.light_structure, current_location) < program_info["graphics"]["view distance"] / 2:
             chunk.light_structure.enable()
             chunk.item.enable()
         except:
             pass
       try:
-        if distance(chunk.light_structure, player.controller) > program_info["graphics"]["view distance"] / 2:
+        if distance(chunk.light_structure, current_location) > program_info["graphics"]["view distance"] / 2:
           chunk.light_structure.disable()
           chunk.item.disable()
       except:
