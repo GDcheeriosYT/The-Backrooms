@@ -134,8 +134,8 @@ def load_chunks():
   distance_mult = 2
   current_location = (player.controller.position[0] / distance_mult, player.controller.position[1] / distance_mult, player.controller.position[2] / distance_mult)
   current_location = Entity(position=current_location)
-  print(distance(chunks[0].structure, current_location))
-  #print("debug: loading chunks")
+  #print(distance(chunks[0].structure, current_location))
+  print("debug: loading chunks")
   if program_info["graphics"]["quality"] == "high":
     for chunk in chunks:
       if distance(chunk.structure, current_location) > program_info["graphics"]["view distance"]:
@@ -178,6 +178,10 @@ def load_chunks():
           chunk.item.disable()
       except:
           pass
+      if distance(chunk.structure, current_location) > program_info["graphics"]["view distance"] / 4:
+        chunk.collision_structure.disable()
+      else:
+        chunk.collision_structure.enable()
 
 
 
@@ -206,8 +210,8 @@ def map_generation(seed, min, max, load = False):
     map_data["min"] = min
     map_data["max"] = max
     map_data["seed"] = seed
-    while z <= diff:
-      while x <= diff:
+    while z <= max:
+      while x <= max:
         cords = [x, z]
         percent = int((z /  diff) * 100)
         if percent < 0:
@@ -242,8 +246,8 @@ def map_generation(seed, min, max, load = False):
     diff = max - min
     z = min
     x = min
-    while z <= diff:
-      while x <= diff:
+    while z <= max:
+      while x <= max:
         cords = [x, z]
         percent = int((z /  diff) * 100)
         if percent < 0:
@@ -281,7 +285,7 @@ def delayed_chunkload():
     load_chunks()
     invoke(delayed_chunkload, delay = 1)
 
-invoke(delayed_chunkload, delay = 1)
+invoke(delayed_chunkload, delay = 0.1)
 
 
 if singleplayer_or_multiplayer == "s" or singleplayer_or_multiplayer == "S":

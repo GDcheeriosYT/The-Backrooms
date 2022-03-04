@@ -51,7 +51,6 @@ class Chunk():
       self.y = y
       self.z = z
       self.structure = Entity(position=(x, y, z))
-      self.collision_structure = Entity(position=(x, y, z))
       self.light_object = LitObject(position=(x, y, z))
       self.item = LitObject(position=(x, y, z))
       self.random_value = random.randint(0, 100)
@@ -68,14 +67,14 @@ class Chunk():
         duplicate(wall, position=(x-wall_spacing / 1.5, y, z), scale=(wall_spacing / 1.5, 8, wall_side_scale), shader=basic_lighting_shader, parent=self.structure)#left side of door
         duplicate(wall, position=(x+wall_spacing / 1.5, y, z), scale=(wall_spacing / 1.5, 8, wall_side_scale), shader=basic_lighting_shader, parent=self.structure)#right side of door
         duplicate(wall, position=(x, y+5, z), scale=(wall_spacing * 2, 2, wall_side_scale), shader=basic_lighting_shader, parent=self.structure)#top side of door
-        duplicate(collider, position=(x-wall_spacing / 1.5, y, z), scale=(wall_spacing / 1.5, 8, wall_side_scale), shader=basic_lighting_shader, parent=self.collision_structure)
-        duplicate(collider, position=(x+wall_spacing / 1.5, y, z), scale=(wall_spacing / 1.5, 8, wall_side_scale), shader=basic_lighting_shader, parent=self.collision_structure)      
+        #duplicate(collider, position=(x-wall_spacing / 1.5, y, z), scale=(wall_spacing / 1.5, 8, wall_side_scale), shader=basic_lighting_shader, parent=self.collision_structure)
+        #duplicate(collider, position=(x+wall_spacing / 1.5, y, z), scale=(wall_spacing / 1.5, 8, wall_side_scale), shader=basic_lighting_shader, parent=self.collision_structure)      
       else:
         duplicate(wall, position=(x, y, z-wall_spacing / 1.5), scale=(wall_side_scale, 8, wall_spacing / 1.5), shader=basic_lighting_shader, parent=self.structure)#left side of door
         duplicate(wall, position=(x, y, z+wall_spacing / 1.5), scale=(wall_side_scale, 8, wall_spacing / 1.5), shader=basic_lighting_shader, parent=self.structure)#right side of door
         duplicate(wall, position=(x, y+5, z), scale=(wall_side_scale, 2, wall_spacing * 2), shader=basic_lighting_shader, parent=self.structure)#top side of door
-        duplicate(collider, position=(x, y, z-wall_spacing / 1.5), scale=(wall_side_scale, 8, wall_spacing / 1.5), shader=basic_lighting_shader, parent=self.collision_structure)
-        duplicate(collider, position=(x, y, z+wall_spacing / 1.5), scale=(wall_side_scale, 8, wall_spacing / 1.5), shader=basic_lighting_shader, parent=self.collision_structure)
+        #duplicate(collider, position=(x, y, z-wall_spacing / 1.5), scale=(wall_side_scale, 8, wall_spacing / 1.5), shader=basic_lighting_shader, parent=self.collision_structure)
+        #duplicate(collider, position=(x, y, z+wall_spacing / 1.5), scale=(wall_side_scale, 8, wall_spacing / 1.5), shader=basic_lighting_shader, parent=self.collision_structure)
     
     
     
@@ -83,10 +82,10 @@ class Chunk():
     def place_wall(self, x=0, y=0, z=0, sideways=False):
       if sideways == False:
         duplicate(wall, position=(x, y, z), scale=(wall_spacing * 2, 20, wall_side_scale), shader=basic_lighting_shader, parent=self.structure)
-        duplicate(collider, position=(x, y, z), scale=(wall_spacing * 2, 20, wall_side_scale), shader=basic_lighting_shader, parent=self.collision_structure)
+        #duplicate(collider, position=(x, y, z), scale=(wall_spacing * 2, 20, wall_side_scale), shader=basic_lighting_shader, parent=self.collision_structure)
       else:
         duplicate(wall, position=(x, y, z), scale=(wall_side_scale, 20, wall_spacing * 2), shader=basic_lighting_shader, parent=self.structure)
-        duplicate(collider, position=(x, y, z), scale=(wall_side_scale, 20, wall_spacing * 2), shader=basic_lighting_shader, parent=self.collision_structure)
+        #duplicate(collider, position=(x, y, z), scale=(wall_side_scale, 20, wall_spacing * 2), shader=basic_lighting_shader, parent=self.collision_structure)
       
     def place(self):
       if self.has_item == True:
@@ -114,11 +113,7 @@ class Chunk():
         
       left_rand = random.randint(0, 2)
       if left_rand == 1:
-        second_chance = random.randint(0, 1)
-        if second_chance == 1:
           self.place_door(self.x, self.y, self.z - wall_spacing, True)
-        else: 
-          self.place_wall(self.x, self.y, self.z - wall_spacing, True)
       elif left_rand == 2:
         self.place_wall(self.x, self.y, self.z - wall_spacing, True)
       else:
@@ -126,11 +121,7 @@ class Chunk():
       
       top_rand = random.randint(0, 2)
       if top_rand == 1:
-        second_chance = random.randint(0, 1)
-        if second_chance == 1:
-          self.place_door(self.x + wall_spacing, self.y, self.z, False)
-        else:
-          self.place_wall(self.x + wall_spacing, self.y, self.z, False)
+        self.place_door(self.x + wall_spacing, self.y, self.z, False)
       elif top_rand == 2:
         self.place_wall(self.x + wall_spacing, self.y, self.z, False)
       else:
@@ -214,11 +205,7 @@ class Chunk():
         
       left_rand = random.randint(0, 2)
       if left_rand == 1:
-        second_chance = random.randint(0, 1)
-        if second_chance == 1:
           self.place_door(self.x, self.y, self.z - wall_spacing, True)
-        else: 
-          self.place_wall(self.x, self.y, self.z - wall_spacing, True)
       elif left_rand == 2:
         self.place_wall(self.x, self.y, self.z - wall_spacing, True)
       else:
@@ -226,11 +213,7 @@ class Chunk():
       
       top_rand = random.randint(0, 2)
       if top_rand == 1:
-        second_chance = random.randint(0, 1)
-        if second_chance == 1:
-          self.place_door(self.x + wall_spacing, self.y, self.z, False)
-        else:
-          self.place_wall(self.x + wall_spacing, self.y, self.z, False)
+        self.place_door(self.x + wall_spacing, self.y, self.z, False)
       elif top_rand == 2:
         self.place_wall(self.x + wall_spacing, self.y, self.z, False)
       else:
