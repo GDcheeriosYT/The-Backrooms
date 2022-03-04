@@ -11,37 +11,12 @@ print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 print("Will now begin program setup")
 #time.sleep(1.5)
 
-def install(package):
-    print(f"installing requirement {package}")
-    subprocess.check_call([sys.executable, "-m", "pip", "install", package])
-
 #package requirements
-try:
-  from ursina import *
-  from ursina.prefabs.first_person_controller import FirstPersonController
-except:
-  install("ursina")
-  from ursina import *
-  from ursina.prefabs.first_person_controller import FirstPersonController
-
-try:
-  from ursinanetworking import *
-except:
-  install("ursinanetworking")
-  from ursinanetworking import *
-
-try:
-  import numpy
-except:
-  install("numpy")
-  import numpy
-  
-try:
-  import webbrowser
-except:
-  install("webbrowser")
-  import webbrowser
-
+from ursina import *
+from ursina.prefabs.first_person_controller import FirstPersonController
+from ursinanetworking import *
+import numpy
+import webbrowser
 from UrsinaLighting import *
 import player as br_player
 import buttons
@@ -118,8 +93,6 @@ application.print_warnings = False
 
 hum = Audio("resources\levels\level 0\Backrooms sound.mp3", loop=True)
 hum.volume = 0.1
-            
-list_of_cords=[]
 
 chunks = []
 
