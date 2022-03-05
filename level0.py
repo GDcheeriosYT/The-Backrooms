@@ -13,6 +13,10 @@ with open("data/program_info.json", "r") as f:
 chunk_types=[]
 list_of_cords={}
 
+hum = Audio("resources\levels\level 0\Backrooms sound.mp3", loop=True)
+hum.volume = 0.1
+hum.play()
+
 #initial map stuff
 wall = LitObject(model="cube",
               texture=Texture("resources/levels/level 0/wall.png"),

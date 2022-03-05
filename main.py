@@ -43,8 +43,7 @@ Texture.default_filtering = "mipmap"
 #console setup
 application.print_warnings = False
 
-hum = Audio("resources\levels\level 0\Backrooms sound.mp3", loop=True)
-hum.volume = 0.1
+
 
 chunks = []
 
@@ -189,7 +188,6 @@ def map_generation(seed, min, max, load = False):
     
     print(chunks)
 
-  hum.play()
   print("done!")
   #time.sleep(0.5)
 
