@@ -27,8 +27,7 @@ class Player:
                            x=-5)
   
   def spawn(self, x=0, y=0, z=0):
-    self.controller = FirstPersonController(model="resources/player/person.obj",
-                                            gravity=1,
+    self.controller = FirstPersonController(gravity=1,
                                             position=(x,y,z),
                                             scale=0.15,
                                             speed=5,
