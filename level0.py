@@ -10,6 +10,8 @@ wall_side_scale = 0.5
 wall_spacing = 5
 with open("data/program_info.json", "r") as f:
   program_info = json.load(f)
+chunk_types=[]
+list_of_cords={}
 
 #initial map stuff
 wall = LitObject(model="cube",
@@ -40,11 +42,50 @@ light = Entity(model="cube", color=color.white, position=(100,-1,100), scale=(2.
 #LitPointLight(position=Vec3(0,0,0), intensity=1, color=rgb(248, 252, 150))
 
 
-
-
-
 #class stuff
-class Chunk():
+class level:
+  def __init__(self, seed, chunks=5):
+    self.seed = seed
+    self.chunks = chunks
+
+  def generate():
+    print("hello")
+
+
+
+class NormalChunk:
+  s
+
+
+
+class Chunk:
+  def __init__(self, size=20, type="normal", position=(0,0,0), varients=5):
+    self.size = size
+    self.type = type
+    self.position = position
+    self.varients = varients
+  
+  def create(self):
+    global list_of_cords
+    global chunk_types
+    chunk_types.append(self.type)
+    new_chunk = []
+    while z <= self.size:
+      while x <= self.size:
+        cords = [x, z]
+        percent = int((z /  self.size) * 100)
+        if percent < 0:
+          percent = 0
+        print(f"generating {self.} varient {}: {cords} {percent}%")
+        new_chunk.append(cords)
+        x += 1
+      x = min
+      z += 1
+  
+
+
+
+class SubChunk:
   if program_info["graphics"]["quality"] == "high":
     def __init__(self, x=0, y=0, z=0):
       self.x = x
@@ -109,7 +150,6 @@ class Chunk():
                                   scale=(2.2,1.2,4),
                                   position=(self.x * 2 - wall_spacing, 5.8, self.z * 2 - wall_spacing),
                                   texture=Texture("resources/levels/level 0/light.png"))
-        self.light = LitPointLight(position=Vec3(self.x * 2 - wall_spacing, 4, self.z * 2 - wall_spacing), intensity=1, color=rgb(248, 252, 150))
         
       left_rand = random.randint(0, 2)
       if left_rand == 1:
