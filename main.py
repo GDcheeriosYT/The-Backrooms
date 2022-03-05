@@ -206,7 +206,5 @@ invoke(delayed_chunkload, delay = 0.1)'''
 
 
 import lobby
-player = br_player.Player(program_info["player"]["name"], color=(0, 180, 0))
-player.spawn(0, -7, 0)
 
 app.run()
