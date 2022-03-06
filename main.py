@@ -226,6 +226,7 @@ def singleplayer_instance():
   wall4.disable()
   import lobby
   lobby.players(game_instance)
+  light.setPosition(Vec3(0,-0.6, 0))
 
 def multiplayer_join_info():
   singleplayer.disable()
