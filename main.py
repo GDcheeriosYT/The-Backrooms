@@ -191,21 +191,43 @@ def map_generation(seed, min, max, load = False):
 
   print("done!")
   #time.sleep(0.5)
-
-
-
-
-
-
-
-
+  
 '''def delayed_chunkload():
     load_chunks()
     invoke(delayed_chunkload, delay = 1)
 
 invoke(delayed_chunkload, delay = 0.1)'''
 
+singleplayer = Button(text="singleplayer", position=(0, 0.3), scale=(0.4, 0.2))
+multiplayer = Button(text="multiplayer", position=(0, 0), scale=(0.4, 0.2))
+options = Button(text="options", position=(0, -0.3), scale=(0.4, 0.2))
+quithowto = Text("quit(shift + q)", position=(-0.078, -0.42))
+
+def singleplayer_instance():
+  global game_instance
+  game_instance = Game()
+  global player
+  player = Player(program_info["player"]["name"], color=(program_info["player"]["color"][0], program_info["player"]["color"][1], program_info["player"]["color"][2]))
+  singleplayer.disable()
+  multiplayer.disable()
+  options.disable()
+  quithowto.disable()
+  game_instance.add_player(player)
+  player.spawn(12, -6, 0)
+  lobby.players(game_instance)
+
+def multiplayer_join_info():
+  singleplayer.disable()
+  multiplayer.disable()
+  options.disable()
+  quithowto.disable()
+  server_ip = TextField(text="ip", position=(0, 0))
+  server_port = TextField(text="port", position=(0, -0.2))
+  
+singleplayer.on_click = singleplayer_instance
+multiplayer.on_click = multiplayer_join_info
 
 import lobby
+
 
 app.run()
