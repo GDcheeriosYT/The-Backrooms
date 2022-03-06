@@ -42,9 +42,9 @@ player.spawn(12, -4, 0)
 #buttons
 def update():
   if held_keys['f1']:
-    import 
+    print("doing something")
     scene.clear()
-    
+
 
 #lighting
 LitPointLight(position=Vec3(10, -0.6, 0), intensity=light_intensity, range=light_range, color=Vec3(0,0,0.4))
