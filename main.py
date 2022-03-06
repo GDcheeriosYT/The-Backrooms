@@ -215,6 +215,7 @@ def singleplayer_instance():
   quithowto.disable()
   game_instance.add_player(player)
   player.spawn(12, -6, 0)
+  player.set_immunity(True)
   lobby.players(game_instance)
 
 def multiplayer_join_info():
