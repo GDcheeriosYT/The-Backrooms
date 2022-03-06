@@ -225,8 +225,8 @@ def singleplayer_instance():
   wall3.disable()
   wall4.disable()
   import lobby
-  lobby.players(game_instance)
   light.setPosition(Vec3(0,-0.6, 0))
+  lobby.players(game_instance)
 
 def multiplayer_join_info():
   singleplayer.disable()
@@ -241,6 +241,8 @@ multiplayer.on_click = multiplayer_join_info
 
 leave.on_click = quit
 
-
+def input(key):
+  if key == "t":
+    game_instance.add_player(Player("test", (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))).spawn_test(0, -5, 0))
 
 app.run()
