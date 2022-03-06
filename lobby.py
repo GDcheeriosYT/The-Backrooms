@@ -4,7 +4,6 @@ from UrsinaLighting import *
 import player as br_player
 
 player = br_player.Player("GDcheerios", color=(0, 180, 0))
-player.spawn(10, -7, 10)
 
 #audio
 water_ambiance = Audio("resources/levels/lobby/water_ambiance.mp3", loop=True)
@@ -36,6 +35,7 @@ ceiling_light = LitObject(model="sphere", color=Vec4(10, 10, 10, 255), position=
 ceiling_light = LitObject(model="sphere", color=Vec4(10, 10, 10, 255), position=(-10, 0.7, 0), scale=(1, 1, 1))
 ceiling_light = LitObject(model="sphere", color=Vec4(10, 10, 10, 255), position=(0, 0.7, 10), scale=(1, 1, 1))
 ceiling_light = LitObject(model="sphere", color=Vec4(10, 10, 10, 255), position=(0, 0.7, -10), scale=(1, 1, 1))
+player.spawn(12, -4, 0)
 
 #buttons
 def update():
