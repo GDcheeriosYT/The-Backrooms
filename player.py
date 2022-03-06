@@ -35,7 +35,7 @@ class Player:
                                             color=rgb(self.color[0],self.color[1],self.color[2]))
     self.name_label = Text(self.name,
                            parent=self.controller,
-                           y=25,
+                           y=30,
                            billboard=True,
                            world_scale=10,
                            x=-2.5,
@@ -47,7 +47,7 @@ class Player:
                                    bar_color=color.blue,
                                    position=(-0.9, -0.4))
     
-    camera.position = (0,10,0)
+    camera.position = (0,18,0)
   
   def damage(self, damage):
     self.health -= damage
