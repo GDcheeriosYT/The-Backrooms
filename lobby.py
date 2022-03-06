@@ -35,6 +35,8 @@ ceiling_light = LitObject(model="sphere", color=Vec4(10, 10, 10, 255), position=
 ceiling_light = LitObject(model="sphere", color=Vec4(10, 10, 10, 255), position=(-10, 0.7, 0), scale=(1, 1, 1))
 ceiling_light = LitObject(model="sphere", color=Vec4(10, 10, 10, 255), position=(0, 0.7, 10), scale=(1, 1, 1))
 ceiling_light = LitObject(model="sphere", color=Vec4(10, 10, 10, 255), position=(0, 0.7, -10), scale=(1, 1, 1))
+water = LitObject(position = (0, -7.2, 1), color=rgb(0, 0, 35, 200), scale = 25, water = True, cubemapIntensity = 0.75, ambientStrength = 0.80)
+
 player.spawn(12, -4, 0)
 
 #buttons
