@@ -22,7 +22,7 @@ floor = LitObject(model="cube", texture=Texture('resources/levels/lobby/pool_til
 ceiling = LitObject(model="cube", texture=Texture('resources/levels/lobby/pool_tile.png'), collider="box", smoothness=100, position=(0, 1, 0), tiling=(20, 20), scale=(100, 1, 100))
 wall = LitObject(model="cube", texture=Texture('resources/levels/lobby/pool_tile.png'), collider="box", smoothness=100, position=(0, -10, 20), tiling=(10, 6), scale=(40, 30, 1))
 wall = LitObject(model="cube", texture=Texture('resources/levels/lobby/pool_tile.png'), collider="box", smoothness=100, position=(0, -10, -20), tiling=(10, 6), scale=(40, 30, 1))
-wall = LitObject(model="cube", texture=Texture('resources/levels/lobby/pool_tile.png'), smoothness=100, position=(20, -10, 0), tiling=(10, 6), scale=(1, 30, 40))
+wall = LitObject(model="cube", texture=Texture('resources/levels/lobby/pool_tile.png'), collider="box", smoothness=100, position=(20, -10, 0), tiling=(10, 6), scale=(1, 30, 40))
 wall = LitObject(model="cube", texture=Texture('resources/levels/lobby/pool_tile.png'), collider="box", smoothness=100, position=(-20, -10, 15), tiling=(6, 6), scale=(1, 30, 20))
 wall = LitObject(model="cube", texture=Texture('resources/levels/lobby/pool_tile.png'), collider="box", smoothness=100, position=(-20, -10, -15), tiling=(6, 6), scale=(1, 30, 20))
 pool_wall = LitObject(model="cube", texture=Texture('resources/levels/lobby/pool_tile_under.png'), collider="box", smoothness=100, position=(0, -10, 10.48), scale=(40, 8, 1), tiling=(15, 10))
