@@ -18,8 +18,9 @@ from ursinanetworking import *
 import numpy
 import webbrowser
 from UrsinaLighting import *
-import player as br_player
+from player import *
 import buttons
+from game import *
 
 
 
