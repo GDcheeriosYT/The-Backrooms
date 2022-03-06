@@ -12,16 +12,16 @@ water_ambiance.play()
 
 #variables
 light_range = 100
-light_intensity = 0.2
+light_intensity = 0.3
 
 
 #main room
 floor = LitObject(model="cube", texture=Texture('resources/levels/lobby/floor_tile.png'), collider="box", smoothness=100, position=(-30, -6, 0), tiling=(35, 35), scale=(40, 0.1, 40))
-floor = LitObject(model="cube", texture=Texture('resources/levels/lobby/floor_tile.png'), collider="box", smoothness=100, position=(30, -6, 0), tiling=(35, 16), scale=(40, 0.1, 40))
+floor = LitObject(model="cube", texture=Texture('resources/levels/lobby/floor_tile.png'), collider="box", smoothness=100, position=(30, -6, 0), tiling=(35, 35), scale=(40, 0.1, 40))
 floor = LitObject(model="cube", texture=Texture('resources/levels/lobby/floor_tile.png'), collider="box", smoothness=100, position=(0, -6, 30), tiling=(35, 35), scale=(40, 0.1, 40))
 floor = LitObject(model="cube", texture=Texture('resources/levels/lobby/floor_tile.png'), collider="box", smoothness=100, position=(0, -6, -30), tiling=(35, 35), scale=(40, 0.1, 40))
 floor = LitObject(model="cube", texture=Texture('resources/levels/lobby/pool_tile_under.png'), collider="box", smoothness=100, position=(0, -12, 0), tiling=(30, 30), scale=(40, 2, 40))
-ceiling = LitObject(model="cube", texture=Texture('resources/levels/lobby/pool_tile.png'), collider="box", smoothness=100, position=(0, 1, 0), tiling=(70, 70), scale=(40, 1, 40))
+ceiling = LitObject(model="cube", texture=Texture('resources/levels/lobby/pool_tile.png'), collider="box", smoothness=100, position=(0, 1, 0), tiling=(20, 20), scale=(100, 1, 100))
 wall = LitObject(model="cube", texture=Texture('resources/levels/lobby/pool_tile.png'), collider="box", smoothness=100, position=(0, -10, 20), tiling=(10, 6), scale=(40, 30, 1))
 wall = LitObject(model="cube", texture=Texture('resources/levels/lobby/pool_tile.png'), collider="box", smoothness=100, position=(0, -10, -20), tiling=(10, 6), scale=(40, 30, 1))
 wall = LitObject(model="cube", texture=Texture('resources/levels/lobby/pool_tile.png'), smoothness=100, position=(20, -10, 0), tiling=(10, 6), scale=(1, 30, 40))
