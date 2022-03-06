@@ -4,6 +4,8 @@ import sys
 import time
 import asyncio
 import json
+program_info = open("data/program_info.json")
+program_info = json.load(program_info)
 
 
 print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To The Backrooms Game")
@@ -48,8 +50,6 @@ application.print_warnings = False
 
 chunks = []
 
-program_info = open("data/program_info.json")
-program_info = json.load(program_info)
 
 
 def load_chunks():
