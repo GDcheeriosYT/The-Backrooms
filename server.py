@@ -5,12 +5,17 @@ import asyncio
 import random
 from ursina import *
 from UrsinaLighting import *
+from game import *
 
-seed = random.randint(0, 99999999999)
+server_name = input("server name: ")
+server_password = input("server password(optional): ")
+
+game = Game(server_name, server_password)
 
 def install(package):
     print(f"installing requirement {package}")
     subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+seed = random.randint(0, 99999999999)
 
 try:
   from ursinanetworking import *
