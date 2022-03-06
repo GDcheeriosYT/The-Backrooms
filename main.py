@@ -194,15 +194,20 @@ def map_generation(seed, min, max, load = False):
 '''def delayed_chunkload():
     load_chunks()
     invoke(delayed_chunkload, delay = 1)
-
 invoke(delayed_chunkload, delay = 0.1)'''
 
 #main menu
-singleplayer = Button(text="singleplayer", position=(0, 0.3), scale=(0.4, 0.2))
-multiplayer = Button(text="multiplayer", position=(0, 0), scale=(0.4, 0.2))
-options = Button(text="options", position=(0, -0.3), scale=(0.4, 0.2))
-quithowto = Text("quit(shift + q)", position=(-0.078, -0.42))
-
+singleplayer = Button(text="singleplayer", position=(-0.7, -0.1), scale=(0.4, 0.07))
+multiplayer = Button(text="multiplayer", position=(-0.7, -0.2), scale=(0.4, 0.07))
+options = Button(text="options", position=(-0.7, -0.3), scale=(0.4, 0.07))
+leave = Button(text="quit", position=(-0.7, -0.4), scale=(0.4, 0.07))
+wall = LitObject(model="cube", texture=Texture("resources/levels/level 0/logowall.png"), scale=(10,10,2), collider="box", position=(5,0,5), specularMap=load_texture("resources/levels/level 0/noreflect.png"), cubemapIntensity=0)
+wall2 = LitObject(model="cube", texture=Texture("resources/levels/level 0/wall.png"), scale=(10,10,2), collider="box", position=(-10, 0, 5), specularMap=load_texture("resources/levels/level 0/noreflect.png"), cubemapIntensity=0)
+wall3 = LitObject(model="cube", texture=Texture("resources/levels/level 0/wall.png"), scale=(2,10,10), collider="box", position=(-6, 0, 10), specularMap=load_texture("resources/levels/level 0/noreflect.png"), cubemapIntensity=0)
+wall4 = LitObject(model="cube", texture=Texture("resources/levels/level 0/wall.png"), scale=(10,10,2), collider="box", position=(0, 0, 15), specularMap=load_texture("resources/levels/level 0/noreflect.png"), cubemapIntensity=0)
+floor = LitObject(model="cube", texture=Texture("resources/levels/level 0/carpet.png"), scale=(1000, 1, 1000), collider="mesh", tiling=(250,250), position=(0,-3,0), specularMap=load_texture("resources/levels/level 0/noreflect.png"), cubemapIntensity=0)
+ceiling = LitObject(model="cube", texture=Texture("resources/levels/level 0/ceiling.png"), scale=(1000, 1, 1000), tiling=(500,500), collider="mesh", position=(0,3,0), specularMap=load_texture("resources/levels/level 0/noreflect.png"), cubemapIntensity=0)
+light = LitPointLight(position=Vec3(-5,0,-4), intensity=1, range=25, color=rgb(248, 252, 150))
 def singleplayer_instance():
   global game_instance
   game_instance = Game()
@@ -211,10 +216,14 @@ def singleplayer_instance():
   singleplayer.disable()
   multiplayer.disable()
   options.disable()
-  quithowto.disable()
+  leave.disable()
   game_instance.add_player(player)
   player.spawn(12, -6, 0)
   player.set_immunity(True)
+  wall.disable()
+  wall2.disable()
+  wall3.disable()
+  wall4.disable()
   import lobby
   lobby.players(game_instance)
 
@@ -222,12 +231,14 @@ def multiplayer_join_info():
   singleplayer.disable()
   multiplayer.disable()
   options.disable()
-  quithowto.disable()
+  leave.disable()
   server_ip = TextField(text="ip", position=(0, 0))
   server_port = TextField(text="port", position=(0, -0.2))
-  
+
 singleplayer.on_click = singleplayer_instance
 multiplayer.on_click = multiplayer_join_info
+
+leave.on_click = quit
 
 
 
