@@ -5,14 +5,16 @@ from ursina.prefabs.health_bar import HealthBar
 from UrsinaLighting import *
 
 class Player:
-  def __init__(self, name, color, health=100, hydration=100, hunger=100, sanity=100, items={}):
+  def __init__(self, name="player", color=(0, 0, 0), immune=True, health=100, hydration=100, hunger=100, sanity=100, items={}, is_host=False):
     self.name = name
     self.color = color
+    self.immune = immune
     self.health = health
     self.hydration = hydration
     self.hunger = hunger
     self.sanity = sanity
     self.items = {}
+    self.is_host = is_host
   
   def change_color(self, new_color):
     self.color = new_color
@@ -76,3 +78,19 @@ class Player:
   
   def uninsane(self, vbucks):
     self.sanity += vbucks
+  
+  def set_host(self, boolean):
+    if boolean == True:
+      self.is_host = True
+    else:
+      self.is_host = False
+  
+  def set_immunity(self, boolean):
+    if boolean == True:
+      self.immune = True
+      self.health_bar.disable()
+      self.hydration_bar.disable()
+    else:
+      self.immune = False
+      self.health_bar.enable()
+      self.hydration_bar.enable()
