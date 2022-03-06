@@ -35,6 +35,15 @@ ceiling_light = LitObject(model="sphere", color=Vec4(10, 10, 10, 255), position=
 ceiling_light = LitObject(model="sphere", color=Vec4(10, 10, 10, 255), position=(0, 0.7, -10), scale=(1, 1, 1))
 water = LitObject(position = (0, -7.2, 1), color=rgb(0, 0, 35, 200), scale = 25, water = True, cubemapIntensity = 0.75, ambientStrength = 0.80)
 door = LitObject(model="resources/levels/lobby/door.obj", scale=(50, 40, 50), position=(-13, -6.2, -19.5))
+screen = LitObject(model="cube", color=rgb(100, 100, 100, 255), position=(19, -6, 0), scale=(0.1, 10, 10))
+
+#lobby functions
+def players(game):
+  y_val = 0
+  for player in game.players:
+    Text(f"{player.name}", parent=screen, position=(0, y_val))
+    y_val -= 0.1
+    
 #lighting
 LitPointLight(position=Vec3(10, -0.6, 0), intensity=light_intensity, range=light_range, color=Vec3(0,0,0.4))
 LitPointLight(position=Vec3(-10, -0.6, 0), intensity=light_intensity, range=light_range, color=Vec3(0,0,0.4))
