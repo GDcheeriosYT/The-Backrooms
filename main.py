@@ -198,6 +198,7 @@ def map_generation(seed, min, max, load = False):
 
 invoke(delayed_chunkload, delay = 0.1)'''
 
+#main menu
 singleplayer = Button(text="singleplayer", position=(0, 0.3), scale=(0.4, 0.2))
 multiplayer = Button(text="multiplayer", position=(0, 0), scale=(0.4, 0.2))
 options = Button(text="options", position=(0, -0.3), scale=(0.4, 0.2))
