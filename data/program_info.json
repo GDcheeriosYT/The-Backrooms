@@ -9,7 +9,10 @@
     },
     "graphics": {
         "fullscreen" : true,
-        "quality": "low",
+        "borderless" : false,
+        "show fps" : false,
+        "vsync" : false,
+        "quality" : "low",
         "view distance": 50
     }
 }

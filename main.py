@@ -33,12 +33,11 @@ app = Ursina()
 #import level0
 
 #window setup
-window.title = 'The Backrooms'          # The window title
-window.borderless = False               # Show a border
-window.fullscreen = program_info["graphics"]["fullscreen"]                # Do not go Fullscreen
-window.exit_button.visible = False      # Do not show the in-game red X that loses the window
-window.fps_counter.enabled = True       # Show the FPS (Frames per second) counter
-window.vsync = False
+window.title = 'The Backrooms'
+window.borderless = program_info["graphics"]["borderless"]
+window.fullscreen = program_info["graphics"]["fullscreen"]
+window.fps_counter.enabled = program_info["graphics"]["show fps"]
+window.vsync = program_info["graphics"]["vsync"]
 
 #texture setup
 Texture.default_filtering = "mipmap"
