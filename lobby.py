@@ -11,6 +11,7 @@ water_ambiance.play()
 #variables
 light_range = 100
 light_intensity = 0.3
+light_color=Vec3(0, 0, 0.2)
 floor_color=rgb(500, 500, 500, 255)
 
 #main room
@@ -45,7 +46,7 @@ def players(game):
     y_val -= 0.1
     
 #lighting
-LitPointLight(position=Vec3(10, -0.6, 0), intensity=light_intensity, range=light_range, color=Vec3(0,0,0.4))
-LitPointLight(position=Vec3(-10, -0.6, 0), intensity=light_intensity, range=light_range, color=Vec3(0,0,0.4))
-LitPointLight(position=Vec3(0, -0.6, 10), intensity=light_intensity, range=light_range, color=Vec3(0,0,0.4))
-LitPointLight(position=Vec3(0, -0.6, -10), intensity=light_intensity, range=light_range, color=Vec3(0,0,0.4))
+LitPointLight(position=Vec3(10, -0.6, 0), intensity=light_intensity, range=light_range, color=light_color)
+LitPointLight(position=Vec3(-10, -0.6, 0), intensity=light_intensity, range=light_range, color=light_color)
+LitPointLight(position=Vec3(0, -0.6, 10), intensity=light_intensity, range=light_range, color=light_color)
+LitPointLight(position=Vec3(0, -0.6, -10), intensity=light_intensity, range=light_range, color=light_color)
