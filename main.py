@@ -215,6 +215,7 @@ def singleplayer_instance():
   game_instance.add_player(player)
   player.spawn(12, -6, 0)
   player.set_immunity(True)
+  import lobby
   lobby.players(game_instance)
 
 def multiplayer_join_info():
@@ -228,7 +229,6 @@ def multiplayer_join_info():
 singleplayer.on_click = singleplayer_instance
 multiplayer.on_click = multiplayer_join_info
 
-import lobby
 
 
 app.run()
