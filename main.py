@@ -208,10 +208,15 @@ wall4 = LitObject(model="cube", texture=Texture("resources/levels/level 0/wall.p
 floor = LitObject(model="cube", texture=Texture("resources/levels/level 0/carpet.png"), scale=(1000, 1, 1000), collider="mesh", tiling=(250,250), position=(0,-3,0), specularMap=load_texture("resources/levels/level 0/noreflect.png"), cubemapIntensity=0)
 ceiling = LitObject(model="cube", texture=Texture("resources/levels/level 0/ceiling.png"), scale=(1000, 1, 1000), tiling=(500,500), collider="mesh", position=(0,3,0), specularMap=load_texture("resources/levels/level 0/noreflect.png"), cubemapIntensity=0)
 light = LitPointLight(position=Vec3(-5,0,-4), intensity=1, range=25, color=rgb(248, 252, 150))
+player_preview = Player(program_info["player"]["name"], color=(program_info["player"]["color"][0], program_info["player"]["color"][1], program_info["player"]["color"][2]))
+player_preview.spawn(-2, -2.45, 0, preview=True)
+player_preview.set_immunity(True)
+player_preview.name_label.x=1.5
 def singleplayer_instance():
   global game_instance
   game_instance = Game()
   global player
+  global player_preview
   player = Player(program_info["player"]["name"], color=(program_info["player"]["color"][0], program_info["player"]["color"][1], program_info["player"]["color"][2]))
   singleplayer.disable()
   multiplayer.disable()
@@ -224,6 +229,10 @@ def singleplayer_instance():
   wall2.disable()
   wall3.disable()
   wall4.disable()
+  floor.disable()
+  ceiling.disable()
+  player_preview.controller.disable()
+  del player_preview
   import lobby
   light.setPosition(Vec3(0,-0.6, 0))
   lobby.players(game_instance)
