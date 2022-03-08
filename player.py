@@ -28,16 +28,25 @@ class Player:
                            world_scale=10,
                            x=-5)
   
-  def spawn(self, x=0, y=0, z=0):
-    self.controller = FirstPersonController(gravity=1,
-                                            position=(x,y,z),
-                                            scale=0.15,
-                                            speed=5,
-                                            jump_height=0,
-                                            color=rgb(self.color[0],self.color[1],self.color[2]))
+  def spawn(self, x=0, y=0, z=0, preview=False):
+    if preview == False:
+      self.controller = FirstPersonController(gravity=1,
+                                              position=(x,y,z),
+                                              scale=0.15,
+                                              speed=5,
+                                              jump_height=0,
+                                              color=rgb(self.color[0],self.color[1],self.color[2]))
+      camera.position = (0,18,0)
+    else:
+      self.controller = Entity(model="resources/player/person.obj",
+                               position=(x,y,z),
+                               scale=0.15,
+                               color=rgb(self.color[0],self.color[1],self.color[2]),
+                               rotation=Vec3(0,180,0))
+      
     self.name_label = Text(self.name,
                            parent=self.controller,
-                           y=30,
+                           y=25,
                            billboard=True,
                            world_scale=10,
                            x=-2.5,
@@ -49,16 +58,6 @@ class Player:
                                    bar_color=color.blue,
                                    position=(-0.9, -0.4))
     
-    camera.position = (0,18,0)
-  
-  def spawn_test(self, x=0, y=0, z=0):
-    self.name_label = self.name_label = Text(self.name,
-                           parent=self.controller,
-                           y=30,
-                           billboard=True,
-                           world_scale=10,
-                           x=-2.5,
-                           color=rgb(self.color[0],self.color[1],self.color[2]))
   
   def damage(self, damage):
     self.health -= damage
