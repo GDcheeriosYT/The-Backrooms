@@ -15,6 +15,7 @@ class Player:
     self.sanity = sanity
     self.items = {}
     self.is_host = is_host
+    self.controller = Entity()
   
   def change_color(self, new_color):
     self.color = new_color
