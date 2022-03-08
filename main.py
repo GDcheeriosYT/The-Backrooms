@@ -21,7 +21,6 @@ import numpy
 import webbrowser
 from UrsinaLighting import *
 from player import *
-import buttons
 from game import *
 
 
@@ -318,5 +317,9 @@ leave.on_click = quit
 def input(key):
   if key == "t":
     game_instance.add_player(Player("test", (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))).spawn_test(0, -5, 0))
+
+def update():
+  if held_keys["shift"]:
+    player.controller.speed = 10
 
 app.run()
