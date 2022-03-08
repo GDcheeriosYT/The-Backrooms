@@ -237,7 +237,7 @@ def singleplayer_instance():
   light.setPosition(Vec3(0,-0.6, 0))
   lobby.players(game_instance)
 
-def multiplayer_join_info():
+def multiplayer_menu():
   singleplayer.disable()
   multiplayer.disable()
   options.disable()
@@ -250,9 +250,54 @@ def options_menu():
   multiplayer.disable()
   options.disable()
   leave.disable()
+  fullscreen = Button(text="fullscreen", position=(-0.7, -0.1), scale=(0.4, 0.07))
+  #borderless = Button(text="borderless", position=(-0.7, -0.2), scale=(0.4, 0.07))
+  show_fps = Button(text="show fps", position=(-0.7, -0.2), scale=(0.4, 0.07))
+  def fullscreen_toggle():
+    global program_info
+    if program_info["graphics"]["fullscreen"] == True:
+      program_info["graphics"]["fullscreen"] = False
+      window.fullscreen = False
+      json.dump(program_info, open("data/program_info.json", "w"), indent=4)
+      program_info = json.load(open("data/program_info.json"))
+    else:
+      program_info["graphics"]["fullscreen"] = True
+      window.fullscreen = True
+      json.dump(program_info, open("data/program_info.json", "w"), indent=4)
+      program_info = json.load(open("data/program_info.json"))
+  
+  def borderless_toggle():
+    global program_info
+    if program_info["graphics"]["borderless"] == True:
+      program_info["graphics"]["borderless"] = False
+      window.borderless = False
+      json.dump(program_info, open("data/program_info.json", "w"), indent=4)
+      program_info = json.load(open("data/program_info.json"))
+    else:
+      program_info["graphics"]["fullscreen"] = True
+      window.borderless = True
+      json.dump(program_info, open("data/program_info.json", "w"), indent=4)
+      program_info = json.load(open("data/program_info.json"))
+  
+  def show_fps_toggle():
+    global program_info
+    if program_info["graphics"]["show fps"] == True:
+      program_info["graphics"]["show fps"] = False
+      window.fps_counter = False
+      json.dump(program_info, open("data/program_info.json", "w"), indent=4)
+      program_info = json.load(open("data/program_info.json"))
+    else:
+      program_info["graphics"]["show fps"] = True
+      window.fps_counter = True
+      json.dump(program_info, open("data/program_info.json", "w"), indent=4)
+      program_info = json.load(open("data/program_info.json"))
+  
+  fullscreen.on_click = fullscreen_toggle
+  #borderless.on_click = borderless_toggle
+  show_fps.on_click = show_fps_toggle
 
 singleplayer.on_click = singleplayer_instance
-multiplayer.on_click = multiplayer_join_info
+multiplayer.on_click = multiplayer_menu
 options.on_click = options_menu
 
 leave.on_click = quit
