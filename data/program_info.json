@@ -1,18 +1,18 @@
 {
     "player": {
-        "name": "Player",
+        "name": "GDcheerios",
         "color": [
             0,
-            0,
+            180,
             0
         ]
     },
     "graphics": {
-        "fullscreen" : true,
-        "borderless" : false,
-        "show fps" : false,
-        "vsync" : false,
-        "quality" : "low",
+        "fullscreen": true,
+        "borderless": false,
+        "show fps": true,
+        "vsync": false,
+        "quality": "low",
         "view distance": 50
     }
 }

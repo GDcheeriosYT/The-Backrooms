@@ -7,10 +7,9 @@ from game import *
 
 server_name = input("server name: ")
 server_password = input("server password(optional): ")
+seed = input("seed(optional): ")
 
 game = Game(server_name, server_password)
-
-seed = random.randint(0, 99999999999)
 
 from ursinanetworking import *
 
