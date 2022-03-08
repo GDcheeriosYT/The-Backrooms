@@ -245,8 +245,15 @@ def multiplayer_join_info():
   server_ip = TextField(text="ip", position=(0, 0))
   server_port = TextField(text="port", position=(0, -0.2))
 
+def options_menu():
+  singleplayer.disable()
+  multiplayer.disable()
+  options.disable()
+  leave.disable()
+
 singleplayer.on_click = singleplayer_instance
 multiplayer.on_click = multiplayer_join_info
+options.on_click = options_menu
 
 leave.on_click = quit
 
