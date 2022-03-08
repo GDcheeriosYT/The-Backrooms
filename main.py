@@ -321,5 +321,7 @@ def input(key):
 def update():
   if held_keys["shift"]:
     player.controller.speed = 10
+  else:
+    player.controller.speed = 5
 
 app.run()
