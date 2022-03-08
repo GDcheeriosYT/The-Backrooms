@@ -253,6 +253,7 @@ def options_menu():
   fullscreen = Button(text="fullscreen", position=(-0.7, -0.1), scale=(0.4, 0.07))
   #borderless = Button(text="borderless", position=(-0.7, -0.2), scale=(0.4, 0.07))
   show_fps = Button(text="show fps", position=(-0.7, -0.2), scale=(0.4, 0.07))
+  back = Button(text="back", position=(-0.7, -0.3), scale=(0.4, 0.07))
   def fullscreen_toggle():
     global program_info
     if program_info["graphics"]["fullscreen"] == True:
@@ -292,9 +293,21 @@ def options_menu():
       json.dump(program_info, open("data/program_info.json", "w"), indent=4)
       program_info = json.load(open("data/program_info.json"))
   
+  def back_thing():
+    fullscreen.disable()
+    #borderless.disable()
+    show_fps.disable()
+    singleplayer.enable()
+    multiplayer.enable()
+    options.enable()
+    leave.enable()
+    back.disable()
+    
+  
   fullscreen.on_click = fullscreen_toggle
   #borderless.on_click = borderless_toggle
   show_fps.on_click = show_fps_toggle
+  back.on_click = back_thing
 
 singleplayer.on_click = singleplayer_instance
 multiplayer.on_click = multiplayer_menu
