@@ -211,12 +211,12 @@ player_preview = Player(program_info["player"]["name"], color=(program_info["pla
 player_preview.spawn(-2, -2.45, 0, preview=True)
 player_preview.set_immunity(True)
 player_preview.name_label.x=1.5
+player = Player(program_info["player"]["name"], color=(program_info["player"]["color"][0], program_info["player"]["color"][1], program_info["player"]["color"][2]))
 def singleplayer_instance():
   global game_instance
   game_instance = Game()
   global player
   global player_preview
-  player = Player(program_info["player"]["name"], color=(program_info["player"]["color"][0], program_info["player"]["color"][1], program_info["player"]["color"][2]))
   singleplayer.disable()
   multiplayer.disable()
   options.disable()
