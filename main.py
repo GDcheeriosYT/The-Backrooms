@@ -22,6 +22,7 @@ import webbrowser
 from UrsinaLighting import *
 from player import *
 from game import *
+from console import *
 
 
 
@@ -190,10 +191,6 @@ def map_generation(seed, min, max, load = False):
   print("done!")
   #time.sleep(0.5)
   
-'''def delayed_chunkload():
-    load_chunks()
-    invoke(delayed_chunkload, delay = 1)
-invoke(delayed_chunkload, delay = 0.1)'''
 
 #main menu
 singleplayer = Button(text="singleplayer", position=(-0.7, -0.1), scale=(0.4, 0.07))
