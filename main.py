@@ -191,6 +191,7 @@ def map_generation(seed, min, max, load = False):
   print("done!")
   #time.sleep(0.5)
   
+console = Console() #initialize console instance
 
 #main menu
 singleplayer = Button(text="singleplayer", position=(-0.7, -0.1), scale=(0.4, 0.07))
