@@ -58,7 +58,18 @@ class level:
 
 
 class NormalChunk:
-  s
+  def __init__(self, x, y, z, size=20):
+    self.x = x
+    self.y = y
+    self.z = z
+    
+  def place(self):
+    row = 0
+    collumn = 0
+    while row < self.size:
+      while collumn < self.size:
+        SubChunk(self.x + (collumn * wall_spacing), 0, self.z + (row * wall_spacing)).place()
+    
 
 
 
@@ -80,7 +91,7 @@ class Chunk:
         percent = int((z /  self.size) * 100)
         if percent < 0:
           percent = 0
-        print(f"generating {self.} varient {}: {cords} {percent}%")
+        print(f"generating {self.position} varient {self.type}: {cords} {percent}%")
         new_chunk.append(cords)
         x += 1
       x = min
