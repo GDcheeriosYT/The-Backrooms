@@ -33,6 +33,3 @@ class Console:
     except:
       pass
     self.open = False
-     
-  def test_output(self, text):
-    self.console_output.append(text)
