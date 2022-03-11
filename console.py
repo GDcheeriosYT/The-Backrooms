@@ -13,7 +13,7 @@ class Console:
     
   
   def appear(self):
-    self.cosnole.enable()
+    self.console.enable()
   
   def disappear(self):
     self.console.disable()
