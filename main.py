@@ -318,6 +318,10 @@ def input(key):
       console.appear()
     else:
       console.disappear()
+      
+  if key == "enter" and console.open == True:
+    console.console_output.append(console.input.text)
+    print(console.input.text)
   
 
 app.run()

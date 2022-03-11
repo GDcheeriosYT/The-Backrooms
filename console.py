@@ -16,10 +16,22 @@ class Console:
   
   def appear(self):
     self.console.enable()
+    try:
+      self.input.enable()
+      self.input.text_field.enable()
+    except:
+      self.input = InputField(max_lines = 1, position=(0, -0.36), scale=(0.85, 0.2), text_field=TextField(position=(-0.8, 0.08), world_parent=self, max_lines=1), parent=self.console)
+    self.input.input("enter")
     self.open = True
+    
   
   def disappear(self):
     self.console.disable()
+    try:
+      self.input.disable()
+      self.input.text_field.disable()
+    except:
+      pass
     self.open = False
      
   def test_output(self, text):
