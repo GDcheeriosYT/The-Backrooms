@@ -41,7 +41,6 @@ console.disappear()
 singleplayer = Button(text="singleplayer", position=(-0.7, -0.1), scale=(0.4, 0.07))
 multiplayer = Button(text="multiplayer", position=(-0.7, -0.2), scale=(0.4, 0.07))
 options = Button(text="options", position=(-0.7, -0.3), scale=(0.4, 0.07))
-leave = Button(text="quit", position=(-0.7, -0.4), scale=(0.4, 0.07))
 wall = LitObject(model="cube", texture=Texture("resources/levels/level 0/logowall.png"), scale=(10,10,2), collider="box", position=(5,0,5), specularMap=load_texture("resources/levels/level 0/noreflect.png"), cubemapIntensity=0)
 wall2 = LitObject(model="cube", texture=Texture("resources/levels/level 0/wall.png"), scale=(10,10,2), collider="box", position=(-10, 0, 5), specularMap=load_texture("resources/levels/level 0/noreflect.png"), cubemapIntensity=0)
 wall3 = LitObject(model="cube", texture=Texture("resources/levels/level 0/wall.png"), scale=(2,10,10), collider="box", position=(-6, 0, 10), specularMap=load_texture("resources/levels/level 0/noreflect.png"), cubemapIntensity=0)
@@ -176,8 +175,6 @@ def options_menu():
 singleplayer.on_click = singleplayer_instance
 multiplayer.on_click = multiplayer_menu
 options.on_click = options_menu
-
-leave.on_click = quit
 
 def input(key):
   if key == "t":
