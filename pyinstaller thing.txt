@@ -1,1 +1,1 @@
-pyinstaller main.py --onefile -n The-Backrooms -c --collect-all panda3d --collect-all ursina
+PyInstaller main.py -n The-Backrooms -c --collect-all panda3d --collect-all ursina
