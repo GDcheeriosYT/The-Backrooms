@@ -5,4 +5,6 @@ PyInstaller.__main__.run([
     '--onefile',
     '-n The-Backrooms',
     '-c',
+    '--collect-all panda3d',
+    '--collect-all ursina'
 ])
