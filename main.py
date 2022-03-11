@@ -307,10 +307,12 @@ def input(key):
     print("bruh")
 
 def update():
-  if held_keys["shift"]:
+  if held_keys["shift"] and console.open != True:
     player.controller.speed = 10
-  else:
+  elif console.open != True:
     player.controller.speed = 5
+  else:
+    player.controller.speed = 0
 
 def input(key):
   if key == "`":
