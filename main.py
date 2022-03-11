@@ -313,7 +313,7 @@ def update():
     player.controller.speed = 5
 
 def input(key):
-  if key == "c":
+  if key == "`":
     if console.open == False:
       console.appear()
     else:
