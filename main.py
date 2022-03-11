@@ -20,14 +20,11 @@ from ursinanetworking import *
 import numpy
 import webbrowser
 from UrsinaLighting import *
+
+app = Ursina()
 from player import *
 from game import *
 from console import *
-
-
-
-
-app = Ursina()
 
 #levels
 #import level0
@@ -321,5 +318,9 @@ def update():
     player.controller.speed = 10
   else:
     player.controller.speed = 5
+
+def input(key):
+  if key == "c":
+    console.appear()
 
 app.run()
