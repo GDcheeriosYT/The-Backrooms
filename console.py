@@ -8,7 +8,7 @@ class Console:
   def __init__(self):
     self.console = Entity(parent="camera.ui")
     self.console_background = Entity(model="cube", color=rgb(30, 180, 30, 200), parent=self.console)
-    self.console_output_area = Entity(model="cube", color=Color.black, parent=self.console)
+    self.console_output_area = Entity(model="cube", color=rgb(0, 0, 0), parent=self.console)
     self.console_output = []
     
   
