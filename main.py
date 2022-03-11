@@ -80,7 +80,6 @@ def singleplayer_instance():
   singleplayer.disable()
   multiplayer.disable()
   options.disable()
-  leave.disable()
   game_instance.add_player(player)
   player.spawn(12, -6, 0)
   player.set_immunity(True)
@@ -104,7 +103,6 @@ def multiplayer_menu():
   singleplayer.disable()
   multiplayer.disable()
   options.disable()
-  leave.disable()
   server_ip = InputField(text="ip", position=(0, 0))
   server_port = InputField(text="port", position=(0, -0.2))
 
@@ -112,7 +110,6 @@ def options_menu():
   singleplayer.disable()
   multiplayer.disable()
   options.disable()
-  leave.disable()
   fullscreen = Button(text="fullscreen", position=(-0.7, -0.1), scale=(0.4, 0.07))
   #borderless = Button(text="borderless", position=(-0.7, -0.2), scale=(0.4, 0.07))
   show_fps = Button(text="show fps", position=(-0.7, -0.2), scale=(0.4, 0.07))
@@ -163,7 +160,6 @@ def options_menu():
     singleplayer.enable()
     multiplayer.enable()
     options.enable()
-    leave.enable()
     back.disable()
     
   
