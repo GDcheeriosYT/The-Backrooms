@@ -1,8 +1,3 @@
-
-import subprocess
-import sys
-import time
-import asyncio
 import json
 program_info = open("data/program_info.json")
 program_info = json.load(program_info)
