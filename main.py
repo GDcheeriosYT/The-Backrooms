@@ -15,10 +15,7 @@ print("Will now begin program setup")
 
 #package requirements
 from ursina import *
-from ursina.prefabs.first_person_controller import FirstPersonController
 from ursinanetworking import *
-import numpy
-import webbrowser
 from UrsinaLighting import *
 
 app = Ursina()
