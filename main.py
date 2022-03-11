@@ -52,13 +52,32 @@ light = LitPointLight(position=Vec3(-5,0,-4), intensity=1, range=25, color=rgb(2
 player_preview = Player(program_info["player"]["name"], color=(program_info["player"]["color"][0], program_info["player"]["color"][1], program_info["player"]["color"][2]))
 player_preview.spawn(-2, -2.45, 0, preview=True)
 player_preview.set_immunity(True)
-player_preview.name_label.x=1.5
 player = Player(program_info["player"]["name"], color=(program_info["player"]["color"][0], program_info["player"]["color"][1], program_info["player"]["color"][2]))
+player_name = InputField(position=(0.62, 0.17), text_field=TextField(text=f"{program_info['player']['name']}", position=(0.08,-0.06)), max_lines=1, max_width=12)
+player_r = ThinSlider(text="R", min=0, max=255, value=program_info["player"]["color"][0], position=(0.3, -0.1))
+player_g = ThinSlider(text="G", min=0, max=255, value=program_info["player"]["color"][1], position=(0.3, -0.2))
+player_b = ThinSlider(text="B", min=0, max=255, value=program_info["player"]["color"][2], position=(0.3, -0.3))
+version =  Text(text="pre-0.0.1", position=(0.75, -0.45))
+def player_refresher():
+  try:
+    player_preview.controller.color = rgb(player_r.value, player_g.value, player_b.value)
+    player_preview.name_label.color = rgb(player_r.value, player_g.value, player_b.value)
+    player_preview.name_label.text = player_name.text
+    player.change_name(player_name.text)
+    player.change_color((int(player_r.value), int(player_g.value), int(player_b.value)))
+    program_info["player"]["name"] = player_name.text
+    program_info["player"]["color"] = [int(player_r.value), int(player_g.value), int(player_b.value)]
+    json.dump(program_info, open("data/program_info.json", "w"), indent=4)
+  except:
+    pass
+  invoke(player_refresher, delay=0.1)
+player_refresher()
 def singleplayer_instance():
   global game_instance
   game_instance = Game()
   global player
   global player_preview
+  player_name.text_field.disable()
   singleplayer.disable()
   multiplayer.disable()
   options.disable()
@@ -73,6 +92,10 @@ def singleplayer_instance():
   floor.disable()
   ceiling.disable()
   player_preview.controller.disable()
+  player_name.disable()
+  player_r.disable()
+  player_g.disable()
+  player_b.disable()
   del player_preview
   import lobby
   light.setPosition(Vec3(0,-0.6, 0))
