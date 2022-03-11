@@ -37,7 +37,7 @@ screen = LitObject(model="cube", color=rgb(100, 100, 100, 255), position=(19, -4
 
 #lobby functions
 def players(game):
-  y_val = 0.4
+  y_val = 0.3
   for player in game.players:
     print(player.name)
     print(player.color)
