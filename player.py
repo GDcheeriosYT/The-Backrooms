@@ -21,12 +21,6 @@ class Player:
   
   def change_name(self, new_name):
     self.name = new_name
-    self.name_label = Text(new_name,
-                           parent=self,
-                           y=1.5,
-                           billboard=True,
-                           world_scale=10,
-                           x=-5)
   
   def spawn(self, x=0, y=0, z=0, preview=False):
     if preview == False:
