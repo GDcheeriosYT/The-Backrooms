@@ -323,5 +323,6 @@ def input(key):
     console.console_output.append(console.input.text)
     print(console.input.text)
     console.input.text = ""
+    console.output_log()
 
 app.run()

@@ -16,6 +16,7 @@ class Console:
   
   def appear(self):
     self.console.enable()
+    self.console_output_text = Text(text="", position=(-0.8, 0.5))
     try:
       self.input.enable()
       self.input.text_field.enable()
@@ -30,6 +31,15 @@ class Console:
     try:
       self.input.disable()
       self.input.text_field.disable()
+      self.console_output_text.disable()
     except:
       pass
     self.open = False
+  
+  def output_log(self):
+    for text in self.console_output:
+      self.console_output_text.text += (text + "\n")
+      self.console_output.pop(0)
+    
+    if len(str(self.console_output_text.text).splitlines()) == 13:
+      self.console_output_text.text = ""
