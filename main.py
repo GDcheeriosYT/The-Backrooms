@@ -83,8 +83,8 @@ def multiplayer_menu():
   multiplayer.disable()
   options.disable()
   leave.disable()
-  server_ip = TextField(text="ip", position=(0, 0))
-  server_port = TextField(text="port", position=(0, -0.2))
+  server_ip = InputField(text="ip", position=(0, 0))
+  server_port = InputField(text="port", position=(0, -0.2))
 
 def options_menu():
   singleplayer.disable()
