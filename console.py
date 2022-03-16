@@ -37,6 +37,23 @@ class Console:
     except:
       pass
     self.open = False
+  def handle(self, i):
+    self.commands = {
+      'spawn':self.spawn,
+      'help':self.command_help
+    }
+    
+    
+    args = i.split()
+    try:
+      try:
+        p, params, = args[0], args[1:]
+        self.commands[p](*params)
+      except:
+        self.commands[p]()
+    except Exception as poop:
+      self.out(f"error in: {i}\n {poop}")
+        
   
   def output_log(self):
     for text in self.console_output:
