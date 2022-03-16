@@ -81,5 +81,5 @@ spawn (*args), used for spawning items, entities, and test players
       self.console_output_text.text += (text + "\n")
       self.console_output.pop(0)
     
-    if len(str(self.console_output_text.text).splitlines()) == 13:
+    if len(str(self.console_output_text.text).splitlines()) >= 13:
       self.console_output_text.text = ""
