@@ -102,7 +102,7 @@ class Chunk:
 
 class SubChunk:
   if program_info["graphics"]["quality"] == "high":
-    def __init__(self, x=0, y=0, z=0):
+    def __init__(self, x=0, y=0, z=0, has_item=None):
       self.x = x
       self.y = y
       self.z = z
@@ -110,10 +110,13 @@ class SubChunk:
       self.light_object = LitObject(position=(x, y, z))
       self.item = LitObject(position=(x, y, z))
       self.random_value = random.randint(0, 100)
-      if self.random_value < 2:
-        self.has_item = True
+      if has_item == None:
+        if self.random_value < 2:
+          self.has_item = True
+        else:
+          self.has_item = False
       else:
-        self.has_item = False
+        self.has_item = has_item
     
     
     
@@ -190,7 +193,7 @@ class SubChunk:
       
   
   else:
-    def __init__(self, x=0, y=0, z=0):
+    def __init__(self, x=0, y=0, z=0, has_item=None):
       self.x = x
       self.y = y
       self.z = z
@@ -199,10 +202,13 @@ class SubChunk:
       self.light_structure = Entity(position=(x, y, z))
       self.item = Entity(position=(x, y, z))
       self.random_value = random.randint(0, 100)
-      if self.random_value < 2:
-        self.has_item = True
+      if has_item == None:
+        if self.random_value < 2:
+          self.has_item = True
+        else:
+          self.has_item = False
       else:
-        self.has_item = False
+        self.has_item = has_item
     
     
     
