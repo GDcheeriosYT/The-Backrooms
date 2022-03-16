@@ -12,6 +12,7 @@ class Console:
     self.console_output = []
     self.console_input_area = Entity(model="cube", color=rgb(0, 0, 0), position=(0, -0.36), scale=(0.85, 0.2), parent=self.console)
     self.open = open
+    self.objects = []
   
   def out(self, i):  
     self.console_output.append(i)
@@ -39,28 +40,38 @@ class Console:
       pass
     self.open = False
     
-  def spawn(self, type, params):
+  def spawn(self, type, type2, params):
     params = eval(params)
     if str(type) == "item":
-      try:
-        AlmondWater(params[0], params[1], params[2]).spawn()
-      except:
-        AlmondWater().spawn()
+      if str(type2) == 'almondwater':
+        try:
+          object = AlmondWater(params[0], params[1], params[2]).spawn()
+          self.objects.append(object)
+        except:
+          object = AlmondWater().spawn()
+          self.objects.append(object)
     elif str(type) == "player":
-      Player.spawn(x=params[0], y=params[1], z=params[2], preview=True).set_immunity(True)
+      object = Player.spawn(x=params[0], y=params[1], z=params[2], preview=True).set_immunity(True)
+      self.objects.append(object)
     else:
       self.out(f"tf you want me to do with {type} with {params}")
-    
+  
+  def clear(self):
+    for object in self.objects:
+      object.disable()
+      self.objects.pop(object)
   
   def command_help(self):
     self.out('''
-help is for help
-spawn (*args), used for spawning items, entities, and test players
+help, for help
+spawn type type2 (*args), used for spawning items, entities, and test players
+clear, clears all things that have been spawned by the console
             ''')
   
   def handle(self, i):
     self.commands = {
       'spawn':self.spawn,
+      'clear':self.clear,
       'help':self.command_help
     }
     
