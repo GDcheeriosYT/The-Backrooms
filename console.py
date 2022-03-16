@@ -51,6 +51,13 @@ class Console:
     else:
       self.out(f"tf you want me to do with {type} with {params}")
     
+  
+  def command_help(self):
+    self.out('''
+help is for help
+spawn (*args), used for spawning items, entities, and test players
+            ''')
+  
   def handle(self, i):
     self.commands = {
       'spawn':self.spawn,
