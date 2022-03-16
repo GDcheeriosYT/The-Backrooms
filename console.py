@@ -93,4 +93,4 @@ clear, clears all things that have been spawned by the console
       self.console_output.pop(0)
     
     if len(str(self.console_output_text.text).splitlines()) >= 13:
-      self.console_output_text.text = ""
+      self.console_output_text.text = f"{self.console_output_text.text.splitlines()[len(self.console_output_text.text.splitlines()) - 2]}\n{self.console_output_text.text.splitlines()[len(self.console_output_text.text.splitlines()) - 1]}\n"
