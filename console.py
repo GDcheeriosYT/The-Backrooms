@@ -12,8 +12,10 @@ class Console:
     self.console_output = []
     self.console_input_area = Entity(model="cube", color=rgb(0, 0, 0), position=(0, -0.36), scale=(0.85, 0.2), parent=self.console)
     self.open = open
-    
   
+  def out(self, i):  
+    self.console_output.append(i)
+    
   def appear(self):
     self.console.enable()
     self.console_output_text = Text(text="", position=(-0.8, 0.5))
