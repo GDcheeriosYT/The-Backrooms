@@ -37,6 +37,19 @@ class Console:
     except:
       pass
     self.open = False
+    
+  def spawn(self, type, params):
+    params = eval(params)
+    if str(type) == "item":
+      try:
+        AlmondWater(params[0], params[1], params[2]).spawn()
+      except:
+        AlmondWater().spawn()
+    elif str(type) == "player":
+      Player.spawn(x=params[0], y=params[1], z=params[2], preview=True).set_immunity(True)
+    else:
+      self.out(f"tf you want me to do with {type} with {params}")
+    
   def handle(self, i):
     self.commands = {
       'spawn':self.spawn,
