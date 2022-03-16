@@ -15,6 +15,7 @@ class Console:
   
   def out(self, i):  
     self.console_output.append(i)
+    print(i)
     
   def appear(self):
     self.console.enable()
