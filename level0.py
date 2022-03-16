@@ -102,7 +102,7 @@ class Chunk:
 
 class SubChunk:
   if program_info["graphics"]["quality"] == "high":
-    def __init__(self, x=0, y=0, z=0):
+    def __init__(self, x=0, y=0, z=0, has_item=None, has_pillar=None):
       self.x = x
       self.y = y
       self.z = z
@@ -110,10 +110,24 @@ class SubChunk:
       self.light_object = LitObject(position=(x, y, z))
       self.item = LitObject(position=(x, y, z))
       self.random_value = random.randint(0, 100)
-      if self.random_value < 2:
-        self.has_item = True
+      if has_item == None:
+        if self.random_value < 2:
+          self.has_item = True
+        else:
+          self.has_item = False
       else:
-        self.has_item = False
+        self.has_item = has_item
+      if has_pillar == None:
+        if self.random_value <= 25:
+          self.has_pillar = True
+        else:
+          self.has_pillar = False
+      else:
+        self.has_pillar = has_pillar
+    
+    
+    def place_pillar(self, x=0, y=0, z=0):
+      duplicate(wall, position=(x,y,z), scale=(1,10,1))
     
     
     
@@ -153,6 +167,9 @@ class SubChunk:
       else:
         self.items = Entity(position=(self.x, self.y, self.z))
       
+      if self.has_pillar == True:
+        self.place_pillar(self.x, self.y, self.z)
+      
           
       light_level = random.randint(0, 1)
       if light_level == 0:
@@ -190,7 +207,7 @@ class SubChunk:
       
   
   else:
-    def __init__(self, x=0, y=0, z=0):
+    def __init__(self, x=0, y=0, z=0, has_item=None, has_pillar=None):
       self.x = x
       self.y = y
       self.z = z
@@ -199,10 +216,25 @@ class SubChunk:
       self.light_structure = Entity(position=(x, y, z))
       self.item = Entity(position=(x, y, z))
       self.random_value = random.randint(0, 100)
-      if self.random_value < 2:
-        self.has_item = True
+      if has_item == None:
+        if self.random_value < 2:
+          self.has_item = True
+        else:
+          self.has_item = False
       else:
-        self.has_item = False
+        self.has_item = has_item
+      if has_pillar == None:
+        if self.random_value <= 25:
+          self.has_pillar = True
+        else:
+          self.has_pillar = False
+      else:
+        self.has_pillar = has_pillar
+    
+    
+    
+    def place_pillar(self, x=0, y=0, z=0):
+      duplicate(wall, position=(x,y,z), scale=(1,10,1))
     
     
     
@@ -241,6 +273,9 @@ class SubChunk:
           self.item = Entity(position=(self.x - wall_spacing, self.y, self.z - wall_spacing))
       else:
         self.items = Entity(position=(self.x - wall_spacing, self.y, self.z - wall_spacing))
+      
+      if self.has_pillar == True:
+        self.place_pillar(self.x, self.y, self.z)
       
           
       light_level = random.randint(0, 1)
