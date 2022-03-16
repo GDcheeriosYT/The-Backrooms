@@ -52,7 +52,7 @@ player_preview = Player(program_info["player"]["name"], color=(program_info["pla
 player_preview.spawn(-2, -2.45, 0, preview=True)
 player_preview.set_immunity(True)
 player = Player(program_info["player"]["name"], color=(program_info["player"]["color"][0], program_info["player"]["color"][1], program_info["player"]["color"][2]))
-player_name = InputField(position=(0.62, 0.17), text_field=TextField(text=f"{program_info['player']['name']}", position=(0.08,-0.06)), max_lines=1, max_width=12)
+player_name = InputField(position=(0.58, 0.17), max_lines=1, max_width=12)
 player_r = ThinSlider(text="R", min=0, max=255, value=program_info["player"]["color"][0], position=(0.3, -0.1))
 player_g = ThinSlider(text="G", min=0, max=255, value=program_info["player"]["color"][1], position=(0.3, -0.2))
 player_b = ThinSlider(text="B", min=0, max=255, value=program_info["player"]["color"][2], position=(0.3, -0.3))
