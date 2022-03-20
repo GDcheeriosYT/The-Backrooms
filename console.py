@@ -5,7 +5,7 @@ from player import *
 from items import *
 
 class Console:
-  def __init__(self, open=False):
+  def __init__(self, open=False, coordinates=(0,0,0)):
     self.console = Entity(parent=camera.ui, position=(0, 0.25), scale=(2, 0.5))
     self.console_background = Entity(model="cube", color=rgb(80, 80, 80, 120), parent=self.console)
     self.console_output_area = Entity(model="cube", color=rgb(0, 0, 0), position=(0, 0.2), scale=(0.85, 0.7), parent=self.console)
@@ -13,13 +13,15 @@ class Console:
     self.console_input_area = Entity(model="cube", color=rgb(0, 0, 0), position=(0, -0.36), scale=(0.85, 0.2), parent=self.console)
     self.open = open
     self.objects = []
+    self.coordinates = coordinates
   
   def out(self, i):  
     self.console_output.append(i)
     print(i)
     
-  def appear(self):
+  def appear(self, player_coordinates):
     self.console.enable()
+    self.coordinates = player_coordinates
     self.console_output_text = Text(text="", position=(-0.8, 0.5))
     try:
       self.input.enable()
@@ -40,21 +42,21 @@ class Console:
       pass
     self.open = False
     
-  def spawn(self, type, type2, params):
+  def spawn(self, type=None, type2=None, coordinates=(0,0,0)):
     params = eval(params)
     if str(type) == "item":
       if str(type2) == 'almondwater':
         try:
-          object = AlmondWater(params[0], params[1], params[2]).spawn()
+          object = AlmondWater(coordinates[0], coordinates[1], coordinates[2]).spawn()
           self.objects.append(object)
         except:
           object = AlmondWater().spawn()
           self.objects.append(object)
     elif str(type) == "player":
-      object = Player.spawn(x=params[0], y=params[1], z=params[2], preview=True).set_immunity(True)
+      object = Player.spawn(x=coordinates[0], y=coordinates[1], z=coordinates[2], preview=True).set_immunity(True)
       self.objects.append(object)
     else:
-      self.out(f"tf you want me to do with {type} with {params}")
+      self.out(f"tf you want me to do with {type} with {coordinates}")
   
   def clear(self):
     for object in self.objects:

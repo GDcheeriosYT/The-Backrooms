@@ -187,7 +187,7 @@ def update():
 def input(key):
   if key == "`":
     if console.open == False:
-      console.appear()
+      console.appear(player.controller.position)
     else:
       console.disappear()
       
