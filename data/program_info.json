@@ -1,14 +1,14 @@
 {
     "player": {
-        "name": "Player",
+        "name": "jesus christ",
         "color": [
-            100,
-            100,
-            100
+            0,
+            71,
+            0
         ]
     },
     "graphics": {
-        "fullscreen": true,
+        "fullscreen": false,
         "borderless": false,
         "show fps": true,
         "vsync": false,

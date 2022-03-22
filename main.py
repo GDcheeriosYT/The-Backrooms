@@ -18,9 +18,6 @@ from player import *
 from game import *
 from console import *
 
-#levels
-#import level0
-
 #window setup
 window.title = 'The Backrooms'
 window.borderless = program_info["graphics"]["borderless"]
