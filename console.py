@@ -41,9 +41,16 @@ class Console:
     except:
       pass
     self.open = False
-    
+  
+  
+  
+  
+  #commands  
   def spawn(self, type=None, type2=None, coordinates=(0,0,0)):
-    params = eval(params)
+    try:
+      coordinates = eval(coordinates)
+    except:
+      pass
     if str(type) == "item":
       if str(type2) == 'almondwater':
         try:
@@ -56,12 +63,24 @@ class Console:
       object = Player.spawn(x=coordinates[0], y=coordinates[1], z=coordinates[2], preview=True).set_immunity(True)
       self.objects.append(object)
     else:
-      self.out(f"tf you want me to do with {type} with {coordinates}")
+      self.out(f"tf you want me to do with {type} & {coordinates}")
+  
+  
+  
   
   def clear(self):
     for object in self.objects:
       object.disable()
       self.objects.pop(object)
+  
+  
+  
+  
+  def list_objects(self):
+    self.out(self.objects)
+  
+  
+  
   
   def command_help(self):
     self.out('''
@@ -74,6 +93,7 @@ clear, clears all things that have been spawned by the console
     self.commands = {
       'spawn':self.spawn,
       'clear':self.clear,
+      'list':self.list_objects,
       'help':self.command_help
     }
     
