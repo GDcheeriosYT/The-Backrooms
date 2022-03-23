@@ -9,7 +9,13 @@ class AlmondWater():
     self.hydration = hydration
   
   def spawn(self, chunk_entity=Entity()):
-    Entity(model="resources/items/almond water/bottle.obj",
-           scale=(0.02,0.02,0.02),
-           position=(self.x, self.y + 0.6, self.z),
-           parent=chunk_entity)
+    self.object = Entity(model="resources/items/almond water/bottle.obj",
+                         scale=(0.02,0.02,0.02),
+                         position=(self.x, self.y + 0.6, self.z),
+                         parent=chunk_entity)
+  
+  def get_type(self):
+    return("almond water")
+
+  def delete(self):
+    self.object.disable()
