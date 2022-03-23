@@ -80,8 +80,11 @@ class Console:
   
   
   def list_objects(self):
+    out_string = ""
     for object in self.objects:
-      self.out(object.get_type())
+      out_string += f"{object.get_type()}\n"
+      
+    self.out(out_string)
   
   
   
