@@ -57,48 +57,6 @@ class level:
 
 
 
-class NormalChunk:
-  def __init__(self, x, y, z, size=20):
-    self.x = x
-    self.y = y
-    self.z = z
-    
-  def place(self):
-    row = 0
-    collumn = 0
-    while row < self.size:
-      while collumn < self.size:
-        SubChunk(self.x + (collumn * wall_spacing), 0, self.z + (row * wall_spacing)).place()
-    
-
-
-
-class Chunk:
-  def __init__(self, size=20, type="normal", position=(0,0,0), varients=5):
-    self.size = size
-    self.type = type
-    self.position = position
-    self.varients = varients
-  
-  def create(self):
-    global list_of_cords
-    global chunk_types
-    chunk_types.append(self.type)
-    new_chunk = []
-    while z <= self.size:
-      while x <= self.size:
-        cords = [x, z]
-        percent = int((z /  self.size) * 100)
-        if percent < 0:
-          percent = 0
-        print(f"generating {self.position} varient {self.type}: {cords} {percent}%")
-        new_chunk.append(cords)
-        x += 1
-      x = min
-      z += 1
-  
-
-
 
 class SubChunk:
   def __init__(self, x=0, y=0, z=0, has_item=None, has_pillar=None):
@@ -197,3 +155,49 @@ class SubChunk:
       self.place_wall(self.x + wall_spacing, self.y, self.z, False)
     else:
       pass
+    
+    
+    
+
+class NormalChunk:
+  def __init__(self, x, y, z, size=20):
+    self.x = x
+    self.y = y
+    self.z = z
+    
+  def place(self):
+    row = 0
+    collumn = 0
+    while row < self.size:
+      while collumn < self.size:
+        SubChunk(self.x + (collumn * wall_spacing), 0, self.z + (row * wall_spacing)).place()
+
+
+
+
+class Chunk:
+  def __init__(self, size=20, type="normal", position=(0,0,0), varients=5):
+    self.size = size
+    self.type = type
+    self.position = position
+    self.varients = varients
+  
+  def create(self):
+    global list_of_cords
+    global chunk_types
+    chunk_types.append(self.type)
+    new_chunk = []
+    while z <= self.size:
+      while x <= self.size:
+        cords = [x, z]
+        percent = int((z /  self.size) * 100)
+        if percent < 0:
+          percent = 0
+        print(f"generating {self.position} varient {self.type}: {cords} {percent}%")
+        new_chunk.append(cords)
+        x += 1
+      x = min
+      z += 1
+  
+
+
