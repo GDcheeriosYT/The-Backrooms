@@ -54,11 +54,13 @@ class Console:
     if str(type) == "item":
       if str(type2) == 'almondwater':
         try:
-          object = AlmondWater(coordinates[0], coordinates[1], coordinates[2]).spawn()
+          object = AlmondWater(coordinates[0], coordinates[1], coordinates[2])
           self.objects.append(object)
+          object.spawn()
         except:
-          object = AlmondWater().spawn()
+          object = AlmondWater()
           self.objects.append(object)
+          object.spawn()
     elif str(type) == "player":
       object = Player.spawn(x=coordinates[0], y=coordinates[1], z=coordinates[2], preview=True).set_immunity(True)
       self.objects.append(object)
@@ -77,7 +79,8 @@ class Console:
   
   
   def list_objects(self):
-    self.out(self.objects)
+    for object in self.objects:
+      self.out(object.get_type())
   
   
   
