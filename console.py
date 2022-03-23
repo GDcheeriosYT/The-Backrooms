@@ -41,7 +41,11 @@ class Console:
     except:
       pass
     self.open = False
-    
+  
+  
+  
+  
+  #commands  
   def spawn(self, type=None, type2=None, coordinates=(0,0,0)):
     params = eval(params)
     if str(type) == "item":
@@ -58,10 +62,20 @@ class Console:
     else:
       self.out(f"tf you want me to do with {type} with {coordinates}")
   
+  
+  
+  
   def clear(self):
     for object in self.objects:
       object.disable()
       self.objects.pop(object)
+  
+  
+  
+  
+  
+  
+  
   
   def command_help(self):
     self.out('''
