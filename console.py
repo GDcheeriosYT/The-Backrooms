@@ -73,7 +73,7 @@ class Console:
   def clear(self):
     for object in self.objects:
       object.disable()
-      self.objects.pop(object)
+    self.objects = []
   
   
   
