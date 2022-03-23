@@ -175,6 +175,13 @@ class NormalChunk:
 
 
 
+class IrregularChunk:
+  def __init__(self, x, y, z, size=20):
+    None
+        
+
+
+
 class Chunk:
   def __init__(self, size=20, type="normal", position=(0,0,0), varients=5):
     self.size = size
