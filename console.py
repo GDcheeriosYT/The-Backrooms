@@ -91,6 +91,7 @@ class Console:
 help, for help
 spawn type type2 (*args), used for spawning items, entities, and test players
 clear, clears all things that have been spawned by the console
+list, lists all the objects spawned
             ''')
   
   def handle(self, i):
