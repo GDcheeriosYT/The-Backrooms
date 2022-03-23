@@ -13,3 +13,6 @@ class AlmondWater():
            scale=(0.02,0.02,0.02),
            position=(self.x, self.y + 0.6, self.z),
            parent=chunk_entity)
+  
+  def get_type():
+    return("almond water")
