@@ -184,13 +184,12 @@ def update():
 def input(key):
   if key == "`":
     if console.open == False:
-      console.appear()
+      console.appear(player.controller.position)
     else:
       console.disappear()
       
   if key == "enter" and console.open == True:
-    console.console_output.append(console.input.text)
-    print(console.input.text)
+    console.handle(console.input.text)
     console.input.text = ""
     console.output_log()
 
