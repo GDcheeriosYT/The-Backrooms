@@ -63,8 +63,8 @@ class Console:
           object = AlmondWater()
           self.objects.append(object)
           object.spawn()
-    elif str(type) == "player":
       object = Player.spawn(x=coordinates[0], y=coordinates[1], z=coordinates[2], preview=True).set_immunity(True)
+    elif str(type) == "bot":
       self.objects.append(object)
     else:
       self.out(f"tf you want me to do with {type}, {type2}, & {coordinates}")
