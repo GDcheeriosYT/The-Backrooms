@@ -76,6 +76,8 @@ class Console:
   
   
   
+  def list_objects(self):
+    self.out(self.objects)
   
   
   
@@ -91,6 +93,7 @@ clear, clears all things that have been spawned by the console
     self.commands = {
       'spawn':self.spawn,
       'clear':self.clear,
+      'list':self.list_objects,
       'help':self.command_help
     }
     
