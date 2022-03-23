@@ -16,3 +16,6 @@ class AlmondWater():
   
   def get_type(self):
     return("almond water")
+
+  def delete(self):
+    self.object.disable()
