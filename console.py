@@ -67,7 +67,7 @@ class Console:
       object = Player.spawn(x=coordinates[0], y=coordinates[1], z=coordinates[2], preview=True).set_immunity(True)
       self.objects.append(object)
     else:
-      self.out(f"tf you want me to do with {type} & {coordinates}")
+      self.out(f"tf you want me to do with {type}, {type2}, & {coordinates}")
   
   
   
