@@ -14,5 +14,5 @@ class AlmondWater():
            position=(self.x, self.y + 0.6, self.z),
            parent=chunk_entity)
   
-  def get_type():
+  def get_type(self):
     return("almond water")
