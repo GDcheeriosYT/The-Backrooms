@@ -72,7 +72,8 @@ class Console:
   
   def clear(self):
     for object in self.objects:
-      object.disable()
+      object.delete()
+    
     self.objects = []
   
   
