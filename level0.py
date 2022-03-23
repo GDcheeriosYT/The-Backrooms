@@ -58,7 +58,7 @@ class level:
 
 
 
-class SubChunk:
+class SubChunk: #represents every segment in NormalChunk class
   def __init__(self, x=0, y=0, z=0, has_item=None, has_pillar=None):
     self.x = x
     self.y = y
