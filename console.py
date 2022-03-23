@@ -46,11 +46,13 @@ class Console:
   
   
   #commands  
-  def spawn(self, type=None, type2=None, coordinates=(0,0,0)):
-    try:
+  def spawn(self, type=None, type2=None, coordinates=None):
+    print(type, type2, coordinates)
+    if coordinates != None:
       coordinates = eval(coordinates)
-    except:
-      pass
+      coordinates = (coordinates[0] + self.coordinates[0], coordinates[1] + self.coordinates[1], coordinates[2] + self.coordinates[2])
+    else:
+      coordinates = self.coordinates
     if str(type) == "item":
       if str(type2) == 'almondwater':
         try:
