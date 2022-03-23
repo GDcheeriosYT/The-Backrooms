@@ -101,214 +101,99 @@ class Chunk:
 
 
 class SubChunk:
-  if program_info["graphics"]["quality"] == "high":
-    def __init__(self, x=0, y=0, z=0, has_item=None, has_pillar=None):
-      self.x = x
-      self.y = y
-      self.z = z
-      self.structure = Entity(position=(x, y, z))
-      self.light_object = LitObject(position=(x, y, z))
-      self.item = LitObject(position=(x, y, z))
-      self.random_value = random.randint(0, 100)
-      if has_item == None:
-        if self.random_value < 2:
-          self.has_item = True
-        else:
-          self.has_item = False
+  def __init__(self, x=0, y=0, z=0, has_item=None, has_pillar=None):
+    self.x = x
+    self.y = y
+    self.z = z
+    self.structure = Entity(position=(x, y, z))
+    self.light_object = LitObject(position=(x, y, z))
+    self.item = LitObject(position=(x, y, z))
+    self.random_value = random.randint(0, 100)
+    if has_item == None:
+      if self.random_value < 2:
+        self.has_item = True
       else:
-        self.has_item = has_item
-      if has_pillar == None:
-        if self.random_value <= 25:
-          self.has_pillar = True
-        else:
-          self.has_pillar = False
+        self.has_item = False
+    else:
+      self.has_item = has_item
+    if has_pillar == None:
+      if self.random_value <= 25:
+        self.has_pillar = True
       else:
-        self.has_pillar = has_pillar
-    
-    
-    def place_pillar(self, x=0, y=0, z=0):
-      duplicate(wall, position=(x,y,z), scale=(1,10,1))
-    
-    
-    
-    
-    def place_door(self, x=0, y=0, z=0, sideways=False):
-      if sideways == False:
-        duplicate(wall, position=(x-wall_spacing / 1.5, y, z), scale=(wall_spacing / 1.5, 8, wall_side_scale), shader=basic_lighting_shader, parent=self.structure)#left side of door
-        duplicate(wall, position=(x+wall_spacing / 1.5, y, z), scale=(wall_spacing / 1.5, 8, wall_side_scale), shader=basic_lighting_shader, parent=self.structure)#right side of door
-        duplicate(wall, position=(x, y+5, z), scale=(wall_spacing * 2, 2, wall_side_scale), shader=basic_lighting_shader, parent=self.structure)#top side of door
-        #duplicate(collider, position=(x-wall_spacing / 1.5, y, z), scale=(wall_spacing / 1.5, 8, wall_side_scale), shader=basic_lighting_shader, parent=self.collision_structure)
-        #duplicate(collider, position=(x+wall_spacing / 1.5, y, z), scale=(wall_spacing / 1.5, 8, wall_side_scale), shader=basic_lighting_shader, parent=self.collision_structure)      
-      else:
-        duplicate(wall, position=(x, y, z-wall_spacing / 1.5), scale=(wall_side_scale, 8, wall_spacing / 1.5), shader=basic_lighting_shader, parent=self.structure)#left side of door
-        duplicate(wall, position=(x, y, z+wall_spacing / 1.5), scale=(wall_side_scale, 8, wall_spacing / 1.5), shader=basic_lighting_shader, parent=self.structure)#right side of door
-        duplicate(wall, position=(x, y+5, z), scale=(wall_side_scale, 2, wall_spacing * 2), shader=basic_lighting_shader, parent=self.structure)#top side of door
-        #duplicate(collider, position=(x, y, z-wall_spacing / 1.5), scale=(wall_side_scale, 8, wall_spacing / 1.5), shader=basic_lighting_shader, parent=self.collision_structure)
-        #duplicate(collider, position=(x, y, z+wall_spacing / 1.5), scale=(wall_side_scale, 8, wall_spacing / 1.5), shader=basic_lighting_shader, parent=self.collision_structure)
-    
-    
-    
-    
-    def place_wall(self, x=0, y=0, z=0, sideways=False):
-      if sideways == False:
-        duplicate(wall, position=(x, y, z), scale=(wall_spacing * 2, 20, wall_side_scale), shader=basic_lighting_shader, parent=self.structure)
-        #duplicate(collider, position=(x, y, z), scale=(wall_spacing * 2, 20, wall_side_scale), shader=basic_lighting_shader, parent=self.collision_structure)
-      else:
-        duplicate(wall, position=(x, y, z), scale=(wall_side_scale, 20, wall_spacing * 2), shader=basic_lighting_shader, parent=self.structure)
-        #duplicate(collider, position=(x, y, z), scale=(wall_side_scale, 20, wall_spacing * 2), shader=basic_lighting_shader, parent=self.collision_structure)
-      
-    def place(self):
-      if self.has_item == True:
-        self.item = random.randint(1, 1)
-        if self.item == 1:
-          self.item = items.AlmondWater(self.x, self.y, self.z).spawn()
-        else:
-          self.item = Entity(position=(self.x, self.y, self.z))
-      else:
-        self.items = Entity(position=(self.x, self.y, self.z))
-      
-      if self.has_pillar == True:
-        self.place_pillar(self.x, self.y, self.z)
-      
-          
-      light_level = random.randint(0, 1)
-      if light_level == 0:
-        self.light_object = Entity(model="cube", 
-                                  scale=(2.2,1.2,4),
-                                  position=(self.x * 2 - wall_spacing, 5.8, self.z * 2 - wall_spacing),
-                                  texture=Texture("resources/levels/level 0/lightoff.png"))
-      else:
-        self.light_object = Entity(model="cube", 
-                                  scale=(2.2,1.2,4),
-                                  position=(self.x * 2 - wall_spacing, 5.8, self.z * 2 - wall_spacing),
-                                  texture=Texture("resources/levels/level 0/light.png"))
-        
-      left_rand = random.randint(0, 2)
-      if left_rand == 1:
-          self.place_door(self.x, self.y, self.z - wall_spacing, True)
-      elif left_rand == 2:
-        self.place_wall(self.x, self.y, self.z - wall_spacing, True)
-      else:
-        pass
-      
-      top_rand = random.randint(0, 2)
-      if top_rand == 1:
-        self.place_door(self.x + wall_spacing, self.y, self.z, False)
-      elif top_rand == 2:
-        self.place_wall(self.x + wall_spacing, self.y, self.z, False)
-      else:
-        pass
-      
-      
-      
-      
-      
-      
-      
+        self.has_pillar = False
+    else:
+      self.has_pillar = has_pillar
   
-  else:
-    def __init__(self, x=0, y=0, z=0, has_item=None, has_pillar=None):
-      self.x = x
-      self.y = y
-      self.z = z
-      self.structure = Entity(position=(x, y, z))
-      self.collision_structure = Entity(position=(x, y, z))
-      self.light_structure = Entity(position=(x, y, z))
-      self.item = Entity(position=(x, y, z))
-      self.random_value = random.randint(0, 100)
-      if has_item == None:
-        if self.random_value < 2:
-          self.has_item = True
-        else:
-          self.has_item = False
+  
+  def place_pillar(self, x=0, y=0, z=0):
+    duplicate(wall, position=(x,y,z), scale=(1,10,1))
+  
+  
+  
+  
+  def place_door(self, x=0, y=0, z=0, sideways=False):
+    if sideways == False:
+      duplicate(wall, position=(x-wall_spacing / 1.5, y, z), scale=(wall_spacing / 1.5, 8, wall_side_scale), shader=basic_lighting_shader, parent=self.structure)#left side of door
+      duplicate(wall, position=(x+wall_spacing / 1.5, y, z), scale=(wall_spacing / 1.5, 8, wall_side_scale), shader=basic_lighting_shader, parent=self.structure)#right side of door
+      duplicate(wall, position=(x, y+5, z), scale=(wall_spacing * 2, 2, wall_side_scale), shader=basic_lighting_shader, parent=self.structure)#top side of door
+      #duplicate(collider, position=(x-wall_spacing / 1.5, y, z), scale=(wall_spacing / 1.5, 8, wall_side_scale), shader=basic_lighting_shader, parent=self.collision_structure)
+      #duplicate(collider, position=(x+wall_spacing / 1.5, y, z), scale=(wall_spacing / 1.5, 8, wall_side_scale), shader=basic_lighting_shader, parent=self.collision_structure)      
+    else:
+      duplicate(wall, position=(x, y, z-wall_spacing / 1.5), scale=(wall_side_scale, 8, wall_spacing / 1.5), shader=basic_lighting_shader, parent=self.structure)#left side of door
+      duplicate(wall, position=(x, y, z+wall_spacing / 1.5), scale=(wall_side_scale, 8, wall_spacing / 1.5), shader=basic_lighting_shader, parent=self.structure)#right side of door
+      duplicate(wall, position=(x, y+5, z), scale=(wall_side_scale, 2, wall_spacing * 2), shader=basic_lighting_shader, parent=self.structure)#top side of door
+      #duplicate(collider, position=(x, y, z-wall_spacing / 1.5), scale=(wall_side_scale, 8, wall_spacing / 1.5), shader=basic_lighting_shader, parent=self.collision_structure)
+      #duplicate(collider, position=(x, y, z+wall_spacing / 1.5), scale=(wall_side_scale, 8, wall_spacing / 1.5), shader=basic_lighting_shader, parent=self.collision_structure)
+  
+  
+  
+  
+  def place_wall(self, x=0, y=0, z=0, sideways=False):
+    if sideways == False:
+      duplicate(wall, position=(x, y, z), scale=(wall_spacing * 2, 20, wall_side_scale), shader=basic_lighting_shader, parent=self.structure)
+      #duplicate(collider, position=(x, y, z), scale=(wall_spacing * 2, 20, wall_side_scale), shader=basic_lighting_shader, parent=self.collision_structure)
+    else:
+      duplicate(wall, position=(x, y, z), scale=(wall_side_scale, 20, wall_spacing * 2), shader=basic_lighting_shader, parent=self.structure)
+      #duplicate(collider, position=(x, y, z), scale=(wall_side_scale, 20, wall_spacing * 2), shader=basic_lighting_shader, parent=self.collision_structure)
+    
+  def place(self):
+    if self.has_item == True:
+      self.item = random.randint(1, 1)
+      if self.item == 1:
+        self.item = items.AlmondWater(self.x, self.y, self.z).spawn()
       else:
-        self.has_item = has_item
-      if has_pillar == None:
-        if self.random_value <= 25:
-          self.has_pillar = True
-        else:
-          self.has_pillar = False
-      else:
-        self.has_pillar = has_pillar
+        self.item = Entity(position=(self.x, self.y, self.z))
+    else:
+      self.items = Entity(position=(self.x, self.y, self.z))
     
+    if self.has_pillar == True:
+      self.place_pillar(self.x, self.y, self.z)
     
-    
-    def place_pillar(self, x=0, y=0, z=0):
-      duplicate(wall, position=(x,y,z), scale=(1,10,1))
-    
-    
-    
-    
-    def place_door(self, x=0, y=0, z=0, sideways=False):
-      if sideways == False:
-        duplicate(wall, position=(x-wall_spacing / 1.5, y, z), scale=(wall_spacing / 1.5, 8, wall_side_scale), shader=basic_lighting_shader, parent=self.structure)#left side of door
-        duplicate(wall, position=(x+wall_spacing / 1.5, y, z), scale=(wall_spacing / 1.5, 8, wall_side_scale), shader=basic_lighting_shader, parent=self.structure)#right side of door
-        duplicate(wall, position=(x, y+5, z), scale=(wall_spacing * 2, 2, wall_side_scale), shader=basic_lighting_shader, parent=self.structure)#top side of door
-        duplicate(collider, position=(x-wall_spacing / 1.5, y, z), scale=(wall_spacing / 1.5, 8, wall_side_scale), shader=basic_lighting_shader, parent=self.collision_structure)
-        duplicate(collider, position=(x+wall_spacing / 1.5, y, z), scale=(wall_spacing / 1.5, 8, wall_side_scale), shader=basic_lighting_shader, parent=self.collision_structure)      
-      else:
-        duplicate(wall, position=(x, y, z-wall_spacing / 1.5), scale=(wall_side_scale, 8, wall_spacing / 1.5), shader=basic_lighting_shader, parent=self.structure)#left side of door
-        duplicate(wall, position=(x, y, z+wall_spacing / 1.5), scale=(wall_side_scale, 8, wall_spacing / 1.5), shader=basic_lighting_shader, parent=self.structure)#right side of door
-        duplicate(wall, position=(x, y+5, z), scale=(wall_side_scale, 2, wall_spacing * 2), shader=basic_lighting_shader, parent=self.structure)#top side of door
-        duplicate(collider, position=(x, y, z-wall_spacing / 1.5), scale=(wall_side_scale, 8, wall_spacing / 1.5), shader=basic_lighting_shader, parent=self.collision_structure)
-        duplicate(collider, position=(x, y, z+wall_spacing / 1.5), scale=(wall_side_scale, 8, wall_spacing / 1.5), shader=basic_lighting_shader, parent=self.collision_structure)
         
-
-
-
-    def place_wall(self, x=0, y=0, z=0, sideways=False):
-      if sideways == False:
-        duplicate(wall, position=(x, y, z), scale=(wall_spacing * 2, 20, wall_side_scale), shader=basic_lighting_shader, parent=self.structure)
-        duplicate(collider, position=(x, y, z), scale=(wall_spacing * 2, 20, wall_side_scale), shader=basic_lighting_shader, parent=self.collision_structure)
-      else:
-        duplicate(wall, position=(x, y, z), scale=(wall_side_scale, 20, wall_spacing * 2), shader=basic_lighting_shader, parent=self.structure)
-        duplicate(collider, position=(x, y, z), scale=(wall_side_scale, 20, wall_spacing * 2), shader=basic_lighting_shader, parent=self.collision_structure)
+    light_level = random.randint(0, 1)
+    if light_level == 0:
+      self.light_object = Entity(model="cube", 
+                                scale=(2.2,1.2,4),
+                                position=(self.x * 2 - wall_spacing, 5.8, self.z * 2 - wall_spacing),
+                                texture=Texture("resources/levels/level 0/lightoff.png"))
+    else:
+      self.light_object = Entity(model="cube", 
+                                scale=(2.2,1.2,4),
+                                position=(self.x * 2 - wall_spacing, 5.8, self.z * 2 - wall_spacing),
+                                texture=Texture("resources/levels/level 0/light.png"))
       
-    def place(self):
-      if self.has_item == True:
-        self.item = random.randint(1, 1)
-        if self.item == 1:
-          self.item = items.AlmondWater(self.x - wall_spacing, self.y, self.z - wall_spacing).spawn()
-        else:
-          self.item = Entity(position=(self.x - wall_spacing, self.y, self.z - wall_spacing))
-      else:
-        self.items = Entity(position=(self.x - wall_spacing, self.y, self.z - wall_spacing))
-      
-      if self.has_pillar == True:
-        self.place_pillar(self.x, self.y, self.z)
-      
-          
-      light_level = random.randint(0, 1)
-      if light_level == 0:
-        self.light_object = Entity(model="cube", 
-                                  scale=(2.2,1.2,4),
-                                  position=(self.x - wall_spacing, 5.8, self.z - wall_spacing),
-                                  texture=Texture("resources/levels/level 0/lightoff.png"),
-                                  parent=self.light_structure)
-      else:
-        self.light_object = Entity(model="cube", 
-                                  scale=(2.2,1.2,4),
-                                  position=(self.x - wall_spacing, 5.8, self.z - wall_spacing),
-                                  texture=Texture("resources/levels/level 0/light.png"),
-                                  parent=self.light_structure)
-        self.light = PointLight(position=(self.x - wall_spacing, 4, self.z - wall_spacing), shadows=True, parent=self.light_structure)
-        
-      left_rand = random.randint(0, 2)
-      if left_rand == 1:
-          self.place_door(self.x, self.y, self.z - wall_spacing, True)
-      elif left_rand == 2:
-        self.place_wall(self.x, self.y, self.z - wall_spacing, True)
-      else:
-        pass
-      
-      top_rand = random.randint(0, 2)
-      if top_rand == 1:
-        self.place_door(self.x + wall_spacing, self.y, self.z, False)
-      elif top_rand == 2:
-        self.place_wall(self.x + wall_spacing, self.y, self.z, False)
-      else:
-        pass
-      
-      self.structure.combine()
-      self.structure.texture = "resources/levels/level 0/wall.png"
-      self.structure.shader = basic_lighting_shader
+    left_rand = random.randint(0, 2)
+    if left_rand == 1:
+        self.place_door(self.x, self.y, self.z - wall_spacing, True)
+    elif left_rand == 2:
+      self.place_wall(self.x, self.y, self.z - wall_spacing, True)
+    else:
+      pass
+    
+    top_rand = random.randint(0, 2)
+    if top_rand == 1:
+      self.place_door(self.x + wall_spacing, self.y, self.z, False)
+    elif top_rand == 2:
+      self.place_wall(self.x + wall_spacing, self.y, self.z, False)
+    else:
+      pass
