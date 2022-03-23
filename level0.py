@@ -41,6 +41,8 @@ ceiling = LitObject(model="cube",
                  position=(0,6,0),
                  specularMap=load_texture("resources/levels/level 0/noreflect.png"),
                  cubemapIntensity=0)
+floor.disable()
+ceiling.disable()
 collider = Entity(collider="box")
 light = Entity(model="cube", color=color.white, position=(100,-1,100), scale=(2.2,1.2,4))
 #LitPointLight(position=Vec3(0,0,0), intensity=1, color=rgb(248, 252, 150))
