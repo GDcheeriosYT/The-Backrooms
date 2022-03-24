@@ -88,6 +88,23 @@ class Console:
       
     self.out(out_string)
   
+  def generate(self, type=None, type2=None, coordinates=None, size=20, placements=10):
+    print(type, type2, coordinates, size, placements)
+    if coordinates is not None:
+      coordinates = eval(coordinates)
+      coordinates = (coordinates[0] + self.coordinates[0], coordinates[1] + self.coordinates[1], coordinates[2] + self.coordinates[2])
+    else:
+      coordinates = self.coordinates
+    if str(type) == "0":
+      if str(type2) == "normal":
+        NormalChunk(coordinates[0], coordinates[1], coordinates[2], int(size)).place()
+      elif str(type2) == "irregular":
+        IrregularChunk(coordinates[0], coordinates[1], coordinates[2], int(size), int(placements)).place()
+      else:
+        self.out("YOU SUCK")
+    else:
+      self.out(f"attempted: {type, type2, coordinates, size, placements}, but it didn't seem to work")
+  
   
   
   
@@ -105,17 +122,15 @@ generate level part (coordinates) size placements, generate different sections o
       'spawn':self.spawn,
       'clear':self.clear,
       'list':self.list_objects,
+      'generate':self.generate,
       'help':self.command_help
     }
     
     
     args = i.split()
     try:
-      try:
-        p, params, = args[0], args[1:]
-        self.commands[p](*params)
-      except:
-        self.commands[p]()
+      p, params, = args[0], args[1:]
+      self.commands[p](*params)
     except Exception as poop:
       self.out(f"error in: {i}\n {poop}")
         
