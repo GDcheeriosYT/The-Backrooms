@@ -53,7 +53,7 @@ player_name = InputField(position=(0.58, 0.17), max_lines=1, max_width=12)
 player_r = ThinSlider(text="R", min=0, max=255, value=program_info["player"]["color"][0], position=(0.3, -0.1))
 player_g = ThinSlider(text="G", min=0, max=255, value=program_info["player"]["color"][1], position=(0.3, -0.2))
 player_b = ThinSlider(text="B", min=0, max=255, value=program_info["player"]["color"][2], position=(0.3, -0.3))
-version =  Text(text="pre-0.0.1", position=(0.75, -0.45))
+version =  Text(text="pre-0.0.2", position=(0.75, -0.45))
 def player_refresher():
   try:
     player_preview.controller.color = rgb(player_r.value, player_g.value, player_b.value)
