@@ -96,14 +96,14 @@ class SubChunk: #represents every segment in NormalChunk class
       duplicate(wall, position=(x-wall_spacing / 1.5, y, z), scale=(wall_spacing / 1.5, 8, wall_side_scale), shader=basic_lighting_shader, parent=self.structure)#left side of door
       duplicate(wall, position=(x+wall_spacing / 1.5, y, z), scale=(wall_spacing / 1.5, 8, wall_side_scale), shader=basic_lighting_shader, parent=self.structure)#right side of door
       duplicate(wall, position=(x, y+5, z), scale=(wall_spacing * 2, 2, wall_side_scale), shader=basic_lighting_shader, parent=self.structure)#top side of door
-      #duplicate(collider, position=(x-wall_spacing / 1.5, y, z), scale=(wall_spacing / 1.5, 8, wall_side_scale), shader=basic_lighting_shader, parent=self.collision_structure)
-      #duplicate(collider, position=(x+wall_spacing / 1.5, y, z), scale=(wall_spacing / 1.5, 8, wall_side_scale), shader=basic_lighting_shader, parent=self.collision_structure)      
+      duplicate(collider, position=(x-wall_spacing / 1.5, y, z), scale=(wall_spacing / 1.5, 8, wall_side_scale), shader=basic_lighting_shader, parent=self.collision_structure)
+      duplicate(collider, position=(x+wall_spacing / 1.5, y, z), scale=(wall_spacing / 1.5, 8, wall_side_scale), shader=basic_lighting_shader, parent=self.collision_structure)      
     else:
       duplicate(wall, position=(x, y, z-wall_spacing / 1.5), scale=(wall_side_scale, 8, wall_spacing / 1.5), shader=basic_lighting_shader, parent=self.structure)#left side of door
       duplicate(wall, position=(x, y, z+wall_spacing / 1.5), scale=(wall_side_scale, 8, wall_spacing / 1.5), shader=basic_lighting_shader, parent=self.structure)#right side of door
       duplicate(wall, position=(x, y+5, z), scale=(wall_side_scale, 2, wall_spacing * 2), shader=basic_lighting_shader, parent=self.structure)#top side of door
-      #duplicate(collider, position=(x, y, z-wall_spacing / 1.5), scale=(wall_side_scale, 8, wall_spacing / 1.5), shader=basic_lighting_shader, parent=self.collision_structure)
-      #duplicate(collider, position=(x, y, z+wall_spacing / 1.5), scale=(wall_side_scale, 8, wall_spacing / 1.5), shader=basic_lighting_shader, parent=self.collision_structure)
+      duplicate(collider, position=(x, y, z-wall_spacing / 1.5), scale=(wall_side_scale, 8, wall_spacing / 1.5), shader=basic_lighting_shader, parent=self.collision_structure)
+      duplicate(collider, position=(x, y, z+wall_spacing / 1.5), scale=(wall_side_scale, 8, wall_spacing / 1.5), shader=basic_lighting_shader, parent=self.collision_structure)
   
   
   
@@ -111,10 +111,10 @@ class SubChunk: #represents every segment in NormalChunk class
   def place_wall(self, x=0, y=0, z=0, sideways=False):
     if sideways == False:
       duplicate(wall, position=(x, y, z), scale=(wall_spacing * 2, 20, wall_side_scale), shader=basic_lighting_shader, parent=self.structure)
-      #duplicate(collider, position=(x, y, z), scale=(wall_spacing * 2, 20, wall_side_scale), shader=basic_lighting_shader, parent=self.collision_structure)
+      duplicate(collider, position=(x, y, z), scale=(wall_spacing * 2, 20, wall_side_scale), shader=basic_lighting_shader, parent=self.collision_structure)
     else:
       duplicate(wall, position=(x, y, z), scale=(wall_side_scale, 20, wall_spacing * 2), shader=basic_lighting_shader, parent=self.structure)
-      #duplicate(collider, position=(x, y, z), scale=(wall_side_scale, 20, wall_spacing * 2), shader=basic_lighting_shader, parent=self.collision_structure)
+      duplicate(collider, position=(x, y, z), scale=(wall_side_scale, 20, wall_spacing * 2), shader=basic_lighting_shader, parent=self.collision_structure)
     
   def place(self):
     if self.has_item == True:
