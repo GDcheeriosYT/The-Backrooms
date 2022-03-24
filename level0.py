@@ -185,7 +185,7 @@ class IrregularChunk:
     self.size = size
     self.placements = placements
   
-    def generate(self):
+    def place(self):
       for i in range(placements):
         random_up = random.randint((self.size * wall_spacing) - ((self.size * wall_spacing) * 2), (self.size * wall_spacing))
         random_side = random.randint((self.size * wall_spacing) - ((self.size * wall_spacing) * 2), (self.size * wall_spacing))
