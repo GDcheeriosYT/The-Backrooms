@@ -45,7 +45,6 @@ floor.disable()
 ceiling.disable()
 collider = Entity(collider="box")
 light = Entity(model="cube", color=color.white, position=(100,-1,100), scale=(2.2,1.2,4))
-#LitPointLight(position=Vec3(0,0,0), intensity=1, color=rgb(248, 252, 150))
 
 
 #class stuff
