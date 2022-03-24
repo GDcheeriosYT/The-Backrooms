@@ -86,7 +86,8 @@ class SubChunk: #represents every segment in NormalChunk class
   
   
   def place_pillar(self, x=0, y=0, z=0):
-    duplicate(wall, position=(x,y,z), scale=(1,10,1))
+    duplicate(wall, position=(x,y,z), scale=(1,10,1), parent=self.structure)
+    duplicate(collider, position=(x,y,z), scale=(1,10,1), parent=self.collision_structure)
   
   
   
@@ -127,20 +128,21 @@ class SubChunk: #represents every segment in NormalChunk class
       self.items = Entity(position=(self.x, self.y, self.z))
     
     if self.has_pillar == True:
-      self.place_pillar(self.x, self.y, self.z)
+      self.place_pillar(self.x + wall_spacing, self.y, self.z + wall_spacing)
     
         
     light_level = random.randint(0, 1)
     if light_level == 0:
       self.light_object = Entity(model="cube", 
                                 scale=(2.2,1.2,4),
-                                position=(self.x * 2 - wall_spacing, 5.8, self.z * 2 - wall_spacing),
+                                position=(self.x * 2 - wall_spacing, self.y+5.8, self.z * 2 - wall_spacing),
                                 texture=Texture("resources/levels/level 0/lightoff.png"))
     else:
       self.light_object = Entity(model="cube", 
                                 scale=(2.2,1.2,4),
-                                position=(self.x * 2 - wall_spacing, 5.8, self.z * 2 - wall_spacing),
+                                position=(self.x * 2 - wall_spacing, self.y+5.8, self.z * 2 - wall_spacing),
                                 texture=Texture("resources/levels/level 0/light.png"))
+      self.light = LitPointLight(position=Vec3(self.x * 2 - wall_spacing, self.y+4, self.z * 2 - wall_spacing), intensity=1, color=rgb(248, 252, 150))
       
     left_rand = random.randint(0, 2)
     if left_rand == 1:
@@ -158,6 +160,10 @@ class SubChunk: #represents every segment in NormalChunk class
     else:
       pass
     
+    #duplicate(floor, position=(self.x, self.y, self.z), scale=(wall_spacing, 0, wall_spacing))
+    #duplicate(ceiling, position=(self.x, self.y+6, self.z), scale=(wall_spacing, 0, wall_spacing))
+    
+    
     
     
 
@@ -166,13 +172,18 @@ class NormalChunk:
     self.x = x
     self.y = y
     self.z = z
+    self.size = size
     
   def place(self):
     row = 0
     collumn = 0
-    while row < self.size:
-      while collumn < self.size:
-        SubChunk(self.x + (collumn * wall_spacing), 0, self.z + (row * wall_spacing)).place()
+    while row <= self.size:
+      while collumn <= self.size:
+        print(f"generating normalchunks {row}:{collumn}")
+        SubChunk(self.x + (collumn * wall_spacing), self.y, self.z + (row * wall_spacing)).place()
+        collumn += 1
+      row += 1
+      collumn = 0
 
 
 
@@ -185,15 +196,15 @@ class IrregularChunk:
     self.size = size
     self.placements = placements
   
-    def place(self):
-      for i in range(placements):
-        random_up = random.randint((self.size * wall_spacing) - ((self.size * wall_spacing) * 2), (self.size * wall_spacing))
-        random_side = random.randint((self.size * wall_spacing) - ((self.size * wall_spacing) * 2), (self.size * wall_spacing))
-        random_scale1 = random.randint(self.size - (self.size * 2), self.size)
-        random_scale2 = random.randint(self.size - (self.size * 2), self.size)
-        duplicate(wall,
-                  position=(random_up, self.y, random_side),
-                  scale=(random_scale1, 10, random_scale2))
+  def place(self):
+    for i in range(self.placements):
+      random_up = random.randint((self.size * wall_spacing) - ((self.size * wall_spacing) * 2), (self.size * wall_spacing))
+      random_side = random.randint((self.size * wall_spacing) - ((self.size * wall_spacing) * 2), (self.size * wall_spacing))
+      random_scale1 = random.randint(self.size - (self.size * 2), self.size)
+      random_scale2 = random.randint(self.size - (self.size * 2), self.size)
+      duplicate(wall,
+                position=(random_up, self.y, random_side),
+                scale=(random_scale1, 10, random_scale2))
 
 
 
