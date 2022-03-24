@@ -15,8 +15,8 @@ light_color=Vec3(0, 0, 0.2)
 floor_color=rgb(500, 500, 500, 255)
 
 #main room
-floor = LitObject(model="cube", color=floor_color, texture=Texture('resources/levels/lobby/floor_tile.png'), collider="box", smoothness=100, position=(-30, -6, 0), tiling=(5, 5), scale=(40, 0.1, 40))
-floor = LitObject(model="cube", color=floor_color, texture=Texture('resources/levels/lobby/floor_tile.png'), collider="box", smoothness=100, position=(30, -6, 0), tiling=(5, 5), scale=(40, 0.1, 40))
+floor = LitObject(model="cube", color=floor_color, texture=Texture('resources/levels/lobby/floor_tile.png'), collider="box", smoothness=100, position=(-130, -6, 0), tiling=(50, 50), scale=(240, 0.1, 240))
+floor = LitObject(model="cube", color=floor_color, texture=Texture('resources/levels/lobby/floor_tile.png'), collider="box", smoothness=100, position=(30, -6, 0), tiling=(5, 5), scale=(40, 0.1, 20))
 floor = LitObject(model="cube", color=floor_color, texture=Texture('resources/levels/lobby/floor_tile.png'), collider="box", smoothness=100, position=(0, -6, 30), tiling=(5, 5), scale=(40, 0.1, 40))
 floor = LitObject(model="cube", color=floor_color, texture=Texture('resources/levels/lobby/floor_tile.png'), collider="box", smoothness=100, position=(0, -6, -30), tiling=(5, 5), scale=(40, 0.1, 40))
 floor = LitObject(model="cube", color=floor_color, texture=Texture('resources/levels/lobby/pool_tile_under.png'), collider="box", smoothness=100, position=(0, -12, 0), tiling=(30, 30), scale=(40, 2, 40))
