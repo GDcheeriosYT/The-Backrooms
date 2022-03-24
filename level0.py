@@ -178,9 +178,22 @@ class NormalChunk:
 
 
 class IrregularChunk:
-  def __init__(self, x, y, z, size=20):
-    None
-        
+  def __init__(self, x, y, z, size=20, placements=10):
+    self.x = x
+    self.y = y
+    self.z = z
+    self.size = size
+    self.placements = placements
+  
+    def generate(self):
+      for i in range(placements):
+        random_up = random.randint((self.size * wall_spacing) - ((self.size * wall_spacing) * 2), (self.size * wall_spacing))
+        random_side = random.randint((self.size * wall_spacing) - ((self.size * wall_spacing) * 2), (self.size * wall_spacing))
+        random_scale1 = random.randint(self.size - (self.size * 2), self.size)
+        random_scale2 = random.randint(self.size - (self.size * 2), self.size)
+        duplicate(wall,
+                  position=(random_up, self.y, random_side),
+                  scale=(random_scale1, 10, random_scale2))
 
 
 
