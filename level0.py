@@ -68,6 +68,7 @@ class SubChunk: #represents every segment in NormalChunk class
     self.light_object = LitObject(position=(x, y, z))
     self.item = LitObject(position=(x, y, z))
     self.random_value = random.randint(0, 100)
+    self.collision_structure = Entity(position=(x, y, z))
     if has_item == None:
       if self.random_value < 2:
         self.has_item = True
