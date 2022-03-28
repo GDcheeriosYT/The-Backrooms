@@ -105,9 +105,8 @@ class Player:
   def handle_chunks(self):
     current_location = (self.controller.position[0] / 2, self.controller.position[1] / 2, self.controller.position[2] / 2)
     for chunk in self.chunks:
-      distance = distance(chunk.structure, self.position_holder)
       self.position_holder.position = current_location
-      if distance > program_info["graphics"]["view distance"]:
+      if distance(chunk.structure, self.position_holder) > program_info["graphics"]["view distance"]:
         chunk.structure.disable()
         chunk.collision_structure.disable()
       else:
