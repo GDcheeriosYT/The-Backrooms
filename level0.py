@@ -135,7 +135,7 @@ class SubChunk: #represents every segment in NormalChunk class
     if self.has_item == True:
       self.item = random.randint(1, 1)
       if self.item == 1:
-        self.item = items.AlmondWater(self.x, self.y, self.z)
+        self.item = items.AlmondWater(self.x, self.y - 1, self.z)
         self.item.spawn()
       else:
         self.item = Entity(position=(self.x, self.y, self.z))
@@ -174,8 +174,8 @@ class SubChunk: #represents every segment in NormalChunk class
     else:
       pass
     
-    #duplicate(floor, position=(self.x, self.y, self.z), scale=(wall_spacing, 0, wall_spacing))
-    #duplicate(ceiling, position=(self.x, self.y+6, self.z), scale=(wall_spacing, 0, wall_spacing))
+    self.structure.combine()
+    self.structure.texture = "resources/levels/level 0/wall.png"
     
     
     
