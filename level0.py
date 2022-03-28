@@ -213,6 +213,7 @@ class IrregularChunk:
     self.z = z
     self.size = size
     self.placements = placements
+    self.pieces = []
   
   def place(self):
     for i in range(self.placements):
@@ -220,10 +221,24 @@ class IrregularChunk:
       random_side = random.randint((self.size * wall_spacing) - ((self.size * wall_spacing) * 2), (self.size * wall_spacing))
       random_scale1 = random.randint(self.size - (self.size * 2), self.size)
       random_scale2 = random.randint(self.size - (self.size * 2), self.size)
-      duplicate(wall,
-                position=(self.x + random_up, self.y, self.z + random_side),
-                scale=(random_scale1, 10, random_scale2))
-
+      piece = LitObject(model="cube",
+              texture=Texture("resources/levels/level 0/wall.png"),
+              scale=(random_scale1, 10, random_scale2),
+              collider="box",
+              position=(self.x + random_up, self.y, self.z + random_side),
+              specularMap=load_texture("resources/levels/level 0/noreflect.png"),
+              cubemapIntensity=0)
+      self.pieces.append(piece)
+  
+  def delete(self):
+    for piece in self.pieces:
+      piece.disable()
+    
+    self.pieces = []
+  
+  def get_type(self):
+    return(f"IrregularChunk at {self.x, self.y, self.z} with size of {self.size} containing {self.placements} placements")
+      
 
 
 class Chunk:
