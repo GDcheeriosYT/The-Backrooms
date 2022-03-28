@@ -157,7 +157,6 @@ class SubChunk: #represents every segment in NormalChunk class
                                 scale=(2.2,1.2,4),
                                 position=(self.x * 2 - wall_spacing, self.y+5.8, self.z * 2 - wall_spacing),
                                 texture=Texture("resources/levels/level 0/light.png"))
-      self.light = LitPointLight(position=Vec3(self.x * 2 - wall_spacing, self.y+4, self.z * 2 - wall_spacing), intensity=1, color=rgb(248, 252, 150))
       
     left_rand = random.randint(0, 2)
     if left_rand == 1:
