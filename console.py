@@ -77,6 +77,7 @@ class Console:
   def clear(self):
     for object in self.objects:
       object.delete()
+      self.player.chunks = []
     
     self.objects = []
   
