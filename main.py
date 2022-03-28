@@ -52,7 +52,7 @@ player = Player(program_info["player"]["name"], color=(program_info["player"]["c
 def check_distance():
     player.handle_chunks()
     print("checking distance")
-    invoke(check_distance, delay = 1)
+    invoke(check_distance, delay = 0.2)
 check_distance()
 player_name = InputField(position=(0.58, 0.17), max_lines=1, max_width=12)
 player_r = ThinSlider(text="R", min=0, max=255, value=program_info["player"]["color"][0], position=(0.3, -0.1))
