@@ -86,7 +86,10 @@ class SubChunk: #represents every segment in NormalChunk class
   
   def delete(self):
     self.structure.disable()
-    self.item.disable()
+    try:
+      self.item.disable()
+    except:
+      self.item.delete()
     self.light_object.disable()
     self.collision_structure.disable()
   
@@ -127,7 +130,8 @@ class SubChunk: #represents every segment in NormalChunk class
     if self.has_item == True:
       self.item = random.randint(1, 1)
       if self.item == 1:
-        self.item = items.AlmondWater(self.x, self.y, self.z).spawn()
+        self.item = items.AlmondWater(self.x, self.y, self.z)
+        self.item.spawn()
       else:
         self.item = Entity(position=(self.x, self.y, self.z))
     else:
