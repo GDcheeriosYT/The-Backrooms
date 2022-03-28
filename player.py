@@ -15,6 +15,7 @@ class Player:
     self.items = {}
     self.is_host = is_host
     self.controller = Entity()
+    self.chunks = []
   
   def change_color(self, new_color):
     self.color = new_color
@@ -96,3 +97,10 @@ class Player:
       self.immune = False
       self.health_bar.enable()
       self.hydration_bar.enable()
+  
+  def handle_chunks(self):
+    for chunk in self.chunks:
+      if distance(chunk.structure, self.controller) > 10:
+        chunk.structure.disable()
+      else:
+        chunk.structure.enable()

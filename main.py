@@ -49,6 +49,11 @@ player_preview = Player(program_info["player"]["name"], color=(program_info["pla
 player_preview.spawn(-2, -2.45, 0, preview=True)
 player_preview.set_immunity(True)
 player = Player(program_info["player"]["name"], color=(program_info["player"]["color"][0], program_info["player"]["color"][1], program_info["player"]["color"][2]))
+def check_distance():
+    player.handle_chunks()
+    print("checking distance")
+    invoke(check_distance, delay = 1)
+check_distance()
 player_name = InputField(position=(0.58, 0.17), max_lines=1, max_width=12)
 player_r = ThinSlider(text="R", min=0, max=255, value=program_info["player"]["color"][0], position=(0.3, -0.1))
 player_g = ThinSlider(text="G", min=0, max=255, value=program_info["player"]["color"][1], position=(0.3, -0.2))
@@ -186,7 +191,7 @@ def update():
 def input(key):
   if key == "`":
     if console.open == False:
-      console.appear(player.controller.position)
+      console.appear(player)
     else:
       console.disappear()
       

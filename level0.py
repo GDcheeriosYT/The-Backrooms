@@ -203,6 +203,9 @@ class NormalChunk:
       row += 1
       collumn = 0
   
+  def send_chunks(self, player):
+    player.chunks = self.chunks
+  
   def delete(self):
     for chunk in self.chunks:
       chunk.delete()

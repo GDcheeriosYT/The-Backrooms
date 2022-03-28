@@ -14,14 +14,16 @@ class Console:
     self.open = open
     self.objects = []
     self.coordinates = coordinates
+    self.player = None
   
   def out(self, i):  
     self.console_output.append(i)
     print(i)
     
-  def appear(self, player_coordinates):
+  def appear(self, player):
     self.console.enable()
-    self.coordinates = player_coordinates
+    self.coordinates = player.controller.position
+    self.player = player
     self.console_output_text = Text(text="", position=(-0.8, 0.5))
     try:
       self.input.enable()
@@ -100,6 +102,8 @@ class Console:
         thing = NormalChunk(coordinates[0], coordinates[1], coordinates[2], int(size))
         self.objects.append(thing)
         thing.place()
+        thing.send_chunks(self.player)
+        print(self.player.chunks)
       elif str(type2) == "irregular":
         thing = IrregularChunk(coordinates[0], coordinates[1], coordinates[2], int(size), int(placements))
         self.objects.append(thing)
