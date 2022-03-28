@@ -54,6 +54,7 @@ player_r = ThinSlider(text="R", min=0, max=255, value=program_info["player"]["co
 player_g = ThinSlider(text="G", min=0, max=255, value=program_info["player"]["color"][1], position=(0.3, -0.2))
 player_b = ThinSlider(text="B", min=0, max=255, value=program_info["player"]["color"][2], position=(0.3, -0.3))
 version =  Text(text="pre-0.0.1", position=(0.75, -0.45))
+hum.play()
 def player_refresher():
   try:
     player_preview.controller.color = rgb(player_r.value, player_g.value, player_b.value)
@@ -69,6 +70,7 @@ def player_refresher():
   invoke(player_refresher, delay=0.1)
 player_refresher()
 def singleplayer_instance():
+  hum.pause()
   global game_instance
   game_instance = Game()
   global player
