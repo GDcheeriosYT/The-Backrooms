@@ -2,6 +2,9 @@ from ursina import *
 from ursina.prefabs.first_person_controller import FirstPersonController
 from ursina.prefabs.health_bar import HealthBar
 from UrsinaLighting import *
+import json
+
+program_info = json.load(open("data/program_info.json"))
 
 class Player:
   def __init__(self, name="player", color=(0, 0, 0), immune=True, health=100, hydration=100, hunger=100, sanity=100, items={}, is_host=False):
@@ -16,6 +19,7 @@ class Player:
     self.is_host = is_host
     self.controller = Entity()
     self.chunks = []
+    self.position_holder = Entity(position=(0,0,0))
   
   def change_color(self, new_color):
     self.color = new_color
@@ -99,8 +103,12 @@ class Player:
       self.hydration_bar.enable()
   
   def handle_chunks(self):
+    current_location = (self.controller.position[0] / 2, self.controller.position[1] / 2, self.controller.position[2] / 2)
     for chunk in self.chunks:
-      if distance(chunk.structure, self.controller) > 10:
+      self.position_holder.position = current_location
+      if distance(chunk.structure, self.position_holder) > program_info["graphics"]["view distance"]:
         chunk.structure.disable()
+        chunk.collision_structure.disable()
       else:
         chunk.structure.enable()
+        chunk.collision_structure.disable()
