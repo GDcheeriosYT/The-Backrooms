@@ -221,7 +221,7 @@ class IrregularChunk:
       random_scale1 = random.randint(self.size - (self.size * 2), self.size)
       random_scale2 = random.randint(self.size - (self.size * 2), self.size)
       duplicate(wall,
-                position=(random_up, self.y, random_side),
+                position=(self.x + random_up, self.y, self.z + random_side),
                 scale=(random_scale1, 10, random_scale2))
 
 
