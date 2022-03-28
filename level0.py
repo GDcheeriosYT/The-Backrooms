@@ -15,7 +15,12 @@ list_of_cords={}
 
 hum = Audio("resources\levels\level 0\Backrooms sound.mp3", loop=True)
 hum.volume = 0.1
-hum.play()
+def play_audio():
+  hum.play()
+
+def pause_audio():
+  hum.pause()
+
 
 #initial map stuff
 wall = LitObject(model="cube",
