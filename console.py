@@ -97,9 +97,13 @@ class Console:
       coordinates = self.coordinates
     if str(type) == "0":
       if str(type2) == "normal":
-        NormalChunk(coordinates[0], coordinates[1], coordinates[2], int(size)).place()
+        thing = NormalChunk(coordinates[0], coordinates[1], coordinates[2], int(size))
+        self.objects.append(thing)
+        thing.place()
       elif str(type2) == "irregular":
-        IrregularChunk(coordinates[0], coordinates[1], coordinates[2], int(size), int(placements)).place()
+        thing = IrregularChunk(coordinates[0], coordinates[1], coordinates[2], int(size), int(placements))
+        self.objects.append(thing)
+        thing.place()
       else:
         self.out("YOU SUCK")
     else:

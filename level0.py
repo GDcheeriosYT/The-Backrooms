@@ -179,6 +179,7 @@ class NormalChunk:
     self.y = y
     self.z = z
     self.size = size
+    self.chunks = []
     
   def place(self):
     row = 0
@@ -186,10 +187,21 @@ class NormalChunk:
     while row <= self.size:
       while collumn <= self.size:
         print(f"generating normalchunks {row}:{collumn}")
-        SubChunk(self.x + (collumn * wall_spacing), self.y, self.z + (row * wall_spacing)).place()
+        chunk = SubChunk(self.x + (collumn * wall_spacing), self.y, self.z + (row * wall_spacing))
+        self.chunks.append(chunk)
+        chunk.place()
         collumn += 1
       row += 1
       collumn = 0
+  
+  def delete(self):
+    for chunk in self.chunks:
+      chunk.delete()
+    
+    self.chunks = []
+  
+  def get_type(self):
+    return(f"NormalChunk at {self.x, self.y, self.z} and {self.size}")
 
 
 
