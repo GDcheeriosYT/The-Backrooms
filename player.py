@@ -40,10 +40,10 @@ class Player:
       
     self.name_label = Text(self.name,
                            parent=self.controller,
-                           y=25,
+                           y=21,
                            billboard=True,
                            world_scale=10,
-                           x=-2.5,
+                           origin=(0, 0),
                            color=rgb(self.color[0],self.color[1],self.color[2]))
     
     self.health_bar = HealthBar(value=self.health,
